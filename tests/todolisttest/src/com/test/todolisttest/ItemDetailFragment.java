@@ -46,6 +46,8 @@ public class ItemDetailFragment extends Fragment {
         }
     }
 
+    TextView tvId = (TextView) getView().findViewById(R.id.textView3);
+    
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -58,4 +60,7 @@ public class ItemDetailFragment extends Fragment {
 
         return rootView;
     }
+
+	
+	
 }

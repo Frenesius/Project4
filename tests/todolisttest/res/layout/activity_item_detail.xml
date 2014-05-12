@@ -4,5 +4,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.test.todolisttest.ItemDetailActivity"
-    tools:ignore="MergeRootFrame" />
+    tools:ignore="MergeRootFrame" >
+
+    <LinearLayout
+        android:id="@+id/item_detail_linear"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical" >
+ <!-- achtergrond kleur voor lineare layout -->
+
+
+        <!-- Plaats hier dingen in de lineare layout -->
+
+        <EditText
+            android:id="@+id/editText3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="Text" >
+
+            <requestFocus />
+        </EditText>
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.03"
+            android:text="TextView" />
+        
+    </LinearLayout>
+
+</FrameLayout>
 
