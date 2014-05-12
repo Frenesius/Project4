@@ -7,5 +7,10 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="Inputname">input</string>
+    <string name="editText2"> editText2 </string>
+    <string name="checkBox2"> checkBox2 </string>
+    <string name="button2"> button2 </string>
+    
+    <color name="white">#FFFFFF</color>
 
 </resources>
