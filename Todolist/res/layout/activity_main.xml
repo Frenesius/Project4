@@ -32,8 +32,21 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="String" />
 
+        <TextView
+            android:id="@+id/dateView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date" />
+        
+        <DatePicker
+            android:id="@+id/datePicker1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+			android:calendarViewShown="false" 
+			android:spinnersShown="true"
+			/>
     </LinearLayout>
 
 </FrameLayout>

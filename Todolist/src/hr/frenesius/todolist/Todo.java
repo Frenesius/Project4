@@ -43,7 +43,7 @@ public class Todo {
 	//Methods
 
 	public void Alarm(){		//Als datum over eenkomt met datum.now(), stuur push bericht
-		Calendar cal = Calendar.getInstance();
+		//Calendar cal = Calendar.getInstance();
 		//If (cal = date){
 		//	
 		//}
