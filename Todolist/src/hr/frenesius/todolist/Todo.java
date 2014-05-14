@@ -7,17 +7,14 @@ import java.util.Calendar;
 
 public class Todo {
 	//Attributes
-	private String Text;			//Text voor de to do list
+	private String 	 Text;			//Text voor de to do list
 	private Calendar Date;				//Datum voor de to do list
-	private Boolean Checkbox;		//Checkbox voor de to do list
-	private Integer Reward;			//Reward voor de to do list
+	private Boolean  Checkbox;		//Checkbox voor de to do list
+	private Integer  Reward;			//Reward voor de to do list
 	
 	//Constructors
 	public Todo(){
-		Todo todo = new Todo();
-		
-		todo.Text = "";		
-		todo.Reward = 10;
+
 	}
 	
 	public Todo(String string){
