@@ -1,0 +1,8 @@
+// eerste instantie
+string opslaan en uitprinten in een lijst
+tijd opslaam
+
+
+knop toevoegen, wanneer klik, geef reward
+
+toon reward op scherm
