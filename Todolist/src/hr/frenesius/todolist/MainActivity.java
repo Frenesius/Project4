@@ -4,21 +4,28 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.*;
 import android.os.Build;
 
 public class MainActivity extends ActionBarActivity {
 
-	Button b1; // Button
+	Button button1; // Button
+	Button button2; // Button
+
+	private int dateday; 
+	private int datemonth;
+	private int dateyear; 
+	private String datestring;
+	private Editable text;
+	private String parsedtext;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,70 +36,104 @@ public class MainActivity extends ActionBarActivity {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
+		
 		// Buttons voor on click
-		b1 = (Button) findViewById(R.id.button1);
-		b1.setOnClickListener(abc);
+		button1 = (Button) findViewById(R.id.button1);
+		button1.setOnClickListener(button1listener);
+		
+		button2 = (Button) findViewById(R.id.button2);
+		button2.setOnClickListener(button2listener);
 
 	}
-
+	public void nextIntent(){
+		Intent intent = new Intent();
+		intent.setClass(this, ListActivity.class);
+		intent.putExtra("EXTRA_ID", "SOME DATAS");
+		startActivity(intent);
+		
+	}
+	
 	// Onclick listener
-	View.OnClickListener abc = new View.OnClickListener() {
+	View.OnClickListener button1listener = new View.OnClickListener() {
 		public void onClick(View v) {
-			manText();
-			testDate(); // TEST
+			//Pakt text van een input en viewt het
+			getTexteditText();
+			//Pakt datum van input en viewt het in een textview
+			setDateDatepicker(); 
+		}
+	};
+	
+	View.OnClickListener button2listener = new View.OnClickListener() {
+		public void onClick(View v) {
+			nextIntent();
+			
+			Toast.makeText(getApplicationContext(), "Button2 clicked",
+					   Toast.LENGTH_LONG).show();
 		}
 	};
 
-	// Intent + bundle
-	// Test
-	// Datepicker testen
-	// Datum pakken
-	public void testDate() { // On click add calendar view
-
-		DatePicker a2 = (DatePicker) findViewById(R.id.datePicker1); // Maakt
-																		// datepicker
-																		// var
-																		// aan
-		int Dateday = a2.getDayOfMonth(); // Pakt datepicker dag
-		int Datemonth = a2.getMonth(); // Pakt datepicker maand
-		int Dateyear = a2.getYear(); // Pakt datepicker jaar
-
-		String day = String.valueOf(Dateday); // Parsed dag in string
-		String month = String.valueOf(Datemonth); // Parsed maand in string
-		String year = String.valueOf(Dateyear); // Parsed jaar in string
-
-		String a = day + "-" + month + "-" + year; // Maakt er een DD-MM-YYYY
-													// van
-
-		TextView tv = (TextView) findViewById(R.id.dateView1); // Pakt textview
-																// in een
-																// variabele
-		tv.setText(a); // Zet de datum in textview
-
+	
+	public void setDateDatepicker() { // On click add calendar view
+		//Pakt datum
+		getDateDatepicker();
+		
+		//Parse date
+		parseDate();
+		
+		//Zet text in textview
+		setDateTextview();
+		
+		//Geeft een Toast terug
 		Toast.makeText(getApplicationContext(), "testDate() triggered",
 				Toast.LENGTH_LONG).show(); // Debug Datum
 	}
-
-	// Pakt text van edittext en zet in view
-	public void manText() {
-		// Try catch removed
-		Toast.makeText(getApplicationContext(), "mantext() triggered",
-				Toast.LENGTH_LONG).show(); // Debug
-
-		EditText i = (EditText) findViewById(R.id.editText1);
-		Editable text = i.getText();
-		String b = text.toString(); // Parse
-
-		TextView a = (TextView) findViewById(R.id.textView1);
-		a.setText(b);
+	
+	private void getDateDatepicker(){
+		DatePicker a2 = (DatePicker) findViewById(R.id.datePicker1); // Maakt Datepicker var aan
+		//Get date														
+		dateday = a2.getDayOfMonth(); // Pakt datepicker dag
+		datemonth = a2.getMonth(); // Pakt datepicker maand
+		dateyear = a2.getYear(); // Pakt datepicker jaar	
+	}
+	
+	private void parseDate(){
+		String day = String.valueOf(dateday); // Parsed dag in string
+		String month = String.valueOf(datemonth); // Parsed maand in string
+		String year = String.valueOf(dateyear); // Parsed jaar in string
+		
+		datestring = day + "-" + month + "-" + year; // Maakt er een DD-MM-YYYY van
 
 	}
+	
+	private void setDateTextview(){
+		TextView tv = (TextView) findViewById(R.id.dateView1); // Pakt textview in een variabele
+		tv.setText(datestring); // Zet de datum in textview
+	}
+	
+	// Pakt text van edittext en zet in view
+	public void getTexteditText() {
+		//Pakt de text uit input
+		getTextText1();
+		//Parsed Editable text in String
+		parseTextText1();
+		//Zet Parsed text in Textview
+		setTextText1();
+	}
+	private void getTextText1(){
+		EditText i = (EditText) findViewById(R.id.editText1);
+		text = i.getText();
+	}
+	private void parseTextText1(){
+		parsedtext = text.toString();
+	}
+	private void setTextText1(){
+		TextView a = (TextView) findViewById(R.id.textView1);
+		a.setText(parsedtext);
+	}
 
-	// Einde
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
