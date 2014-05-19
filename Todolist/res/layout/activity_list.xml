@@ -7,8 +7,8 @@
     tools:ignore="MergeRootFrame" >
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" >
 
         <Button
             android:id="@+id/inputbutton1"
@@ -54,14 +54,6 @@
             android:layout_toRightOf="@+id/button4"
             android:text="TextView" />
 
-        <DatePicker
-            android:id="@+id/inputdatePicker1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/button3"
-            android:calendarViewShown="false"
-            android:spinnersShown="true" />
-
         <TextView
             android:id="@+id/DatetextView"
             android:layout_width="wrap_content"
@@ -76,10 +68,19 @@
             android:id="@+id/inputeditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_below="@id/button3"
+            android:layout_below="@+id/button3"
             android:ems="10" />
+
+        <DatePicker
+            android:id="@+id/inputdatePicker1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/inputeditText"
+            android:spinnersShown="true"
+            android:calendarViewShown="false" />
+
     </RelativeLayout>
 
 </FrameLayout> 

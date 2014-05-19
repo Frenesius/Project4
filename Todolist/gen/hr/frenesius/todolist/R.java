@@ -1080,7 +1080,7 @@ containing a value of this type.
         public static final int ic_launcher=0x7f020057;
     }
     public static final class id {
-        public static final int DatetextView=0x7f050043;
+        public static final int DatetextView=0x7f050042;
         public static final int action_bar=0x7f05001c;
         public static final int action_bar_activity_content=0x7f050015;
         public static final int action_bar_container=0x7f05001b;
@@ -1120,8 +1120,8 @@ containing a value of this type.
         public static final int ifRoom=0x7f05000a;
         public static final int image=0x7f050027;
         public static final int inputbutton1=0x7f05003d;
-        public static final int inputdatePicker1=0x7f050042;
-        public static final int inputeditText=0x7f050044;
+        public static final int inputdatePicker1=0x7f050044;
+        public static final int inputeditText=0x7f050043;
         public static final int inputtextView=0x7f050041;
         public static final int item1=0x7f05004b;
         public static final int listMode=0x7f050001;
