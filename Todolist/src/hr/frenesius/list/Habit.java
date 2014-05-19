@@ -1,8 +1,13 @@
-package hr.frenesius.todolist;
+package hr.frenesius.list;
 
+
+//Imports
 import java.util.Calendar;
 
-public class Todo {
+
+
+public class Habit {
+
 	// Attributes
 	private String Text; // Text voor de to do list
 	private Calendar Date; // Datum voor de to do list
@@ -10,33 +15,33 @@ public class Todo {
 	private Integer Reward; // Reward voor de to do list
 
 	// Constructors
-	public Todo() {
+	public Habit() {
 
 	}
 
-	public Todo(String string) {
-		Todo todo = new Todo();
+	public Habit(String string) {
+		Habit Habit = new Habit();
 
-		todo.Text = string;
-		todo.Reward = 10;
+		Habit.Text = string;
+		Habit.Reward = 10;
 	}
 
-	public Todo(String string, Boolean Checkbox) {
-		Todo todo = new Todo();
+	public Habit(String string, Boolean Checkbox) {
+		Habit Habit = new Habit();
 
-		todo.Text = string;
-		todo.Checkbox = Checkbox;
+		Habit.Text = string;
+		Habit.Checkbox = Checkbox;
 
-		todo.Reward = 10;
+		Habit.Reward = 10;
 	}
 
-	public Todo(String string, Boolean Checkbox, Calendar date) {
-		Todo todo = new Todo();
+	public Habit(String string, Boolean Checkbox, Calendar date) {
+		Habit Habit = new Habit();
 
-		todo.Text = string;
-		todo.Checkbox = Checkbox;
-		todo.Date = date;
-		todo.Reward = 10;
+		Habit.Text = string;
+		Habit.Checkbox = Checkbox;
+		Habit.Date = date;
+		Habit.Reward = 10;
 	}
 
 	// Methods
