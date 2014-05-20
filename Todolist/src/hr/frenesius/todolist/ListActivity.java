@@ -1,5 +1,8 @@
 package hr.frenesius.todolist;
 
+import java.util.Calendar;
+
+import hr.frenesius.list.Habit;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -22,12 +25,13 @@ public class ListActivity extends ActionBarActivity {
 	Button button1; // Button
 
 
-	private int dateday; 
-	private int datemonth;
-	private int dateyear; 
+	private int day; 
+	private int month;
+	private int year; 
 	private String datestring;
 	private Editable text;
 	private String parsedtext;
+	Habit habit = new Habit();
 	
 	
 	@Override
@@ -56,6 +60,9 @@ public class ListActivity extends ActionBarActivity {
 				getTexteditText();
 				//Pakt datum van input en viewt het in een textview
 				setDateDatepicker(); 
+				//Koppel habit.class met fields
+				testHabit();
+			
 			}
 		};
 		
@@ -77,27 +84,63 @@ public class ListActivity extends ActionBarActivity {
 					Toast.LENGTH_LONG).show(); // Debug Datum
 		}
 		
+		
+		
+		
+		//TEST
+		private void testHabit(){
+			//Maakt object aan en vult text en datum in
+			habit.setText(parsedtext);
+			habit.setDate(year, month, day);
+		
+			//Geeft een Toast terug
+			Toast.makeText(getApplicationContext(), "testHabit() triggered",
+					Toast.LENGTH_LONG).show(); // Debug Datum
+			
+		}
+		
+		//TEST
+		
+		
+		
 		private void getDateDatepicker(){
 			DatePicker a2 = (DatePicker) findViewById(R.id.inputdatePicker1); // Maakt Datepicker var aan
 			//Get date														
-			dateday = a2.getDayOfMonth(); // Pakt datepicker dag
-			datemonth = a2.getMonth(); // Pakt datepicker maand
-			dateyear = a2.getYear(); // Pakt datepicker jaar	
+			day = a2.getDayOfMonth(); // Pakt datepicker dag
+			month = a2.getMonth(); // Pakt datepicker maand
+			year = a2.getYear(); // Pakt datepicker jaar	
 		}
 		
 		private void parseDate(){
-			String day = String.valueOf(dateday); // Parsed dag in string
-			String month = String.valueOf(datemonth); // Parsed maand in string
-			String year = String.valueOf(dateyear); // Parsed jaar in string
+			String stringday = String.valueOf(day); // Parsed dag in string
+			String stringmonth = String.valueOf(month); // Parsed maand in string
+			String stringyear = String.valueOf(year); // Parsed jaar in string
 			
-			datestring = day + "-" + month + "-" + year; // Maakt er een DD-MM-YYYY van
+			datestring = stringday + "-" + stringmonth + "-" + stringyear; // Maakt er een DD-MM-YYYY van
 
 		}
-		
+		//FIXEN
 		private void setDateTextview(){
+			String datetext = "";
+			Calendar date = habit.getDate();
+
+			
 			TextView tv = (TextView) findViewById(R.id.DatetextView); // Pakt textview in een variabele
-			tv.setText(datestring); // Zet de datum in textview
+		
+			
+				try{
+					datetext = date.toString();
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+				
+			tv.setText(datetext); // Zet de datum in textview
 		}
+		
+		
+		
+		
+		//FIXED
 		
 		// Pakt text van edittext en zet in view
 		public void getTexteditText() {
@@ -116,8 +159,11 @@ public class ListActivity extends ActionBarActivity {
 			parsedtext = text.toString();
 		}
 		private void setTextText1(){
+			String text = habit.getText();
 			TextView a = (TextView) findViewById(R.id.inputtextView);
-			a.setText(parsedtext);
+			a.setText(text);
+			
+			
 		}
 
 

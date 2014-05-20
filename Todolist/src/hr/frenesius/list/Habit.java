@@ -78,9 +78,14 @@ public class Habit {
 	public void setText(String text) {
 		Text = text;
 	}
-
-	public void setDate(Calendar date) {
-		Date = date;
+//Set date changed the constructor, 
+	public void setDate(int year, int month, int day) {
+		try{ 
+			Date.set(year, month, day);
+		}catch(Exception e){
+			e.getStackTrace();
+		}
+		
 	}
 
 	public void setCheckbox(Boolean checkbox) {
@@ -90,5 +95,7 @@ public class Habit {
 	public void setReward(Integer reward) {
 		Reward = reward;
 	}
+
+	
 
 }
