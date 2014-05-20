@@ -60,5 +60,10 @@ local.properties
 appcompat_v7/
 appcompat_v7_2/
 
+#Handmatige adds //TEST
+.project
+.cache
+.apk
+
 
 
