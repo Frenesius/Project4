@@ -6,3 +6,11 @@ tijd opslaam
 knop toevoegen, wanneer klik, geef reward
 
 toon reward op scherm
+
+//Doen
+Testhabit() wijzigen
+Textview fixen
+
+
+
+
