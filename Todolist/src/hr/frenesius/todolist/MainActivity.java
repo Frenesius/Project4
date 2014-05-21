@@ -47,7 +47,7 @@ public class MainActivity extends ActionBarActivity {
 	}
 	public void nextIntent(){
 		Intent intent = new Intent();
-		intent.setClass(this, ListActivity.class);
+		intent.setClass(this, InputHabitActivity.class);
 		intent.putExtra("EXTRA_ID", "SOME DATAS");
 		startActivity(intent);
 		

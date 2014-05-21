@@ -4,44 +4,41 @@ package hr.frenesius.list;
 //Imports
 import java.util.Calendar;
 
-
-
 public class Habit {
 
 	// Attributes
-	private String Text; // Text voor de to do list
-	private Calendar Date; // Datum voor de to do list
-	private Boolean Checkbox; // Checkbox voor de to do list
-	private Integer Reward; // Reward voor de to do list
-
+	private String text; // Text voor de to do list
+	Calendar date = Calendar.getInstance();
+	private Boolean checkbox; // Checkbox voor de to do list
+	private Integer reward; // Reward voor de to do list
+	
+	
+	
 	// Constructors
 	public Habit() {
 
 	}
 
 	public Habit(String string) {
-		Habit Habit = new Habit();
-
-		Habit.Text = string;
-		Habit.Reward = 10;
+		Habit habit = new Habit();
+		habit.text = string;
+		habit.reward = 10;
 	}
 
 	public Habit(String string, Boolean Checkbox) {
-		Habit Habit = new Habit();
-
-		Habit.Text = string;
-		Habit.Checkbox = Checkbox;
-
-		Habit.Reward = 10;
+		Habit habit = new Habit();
+		habit.text = string;
+		habit.checkbox = Checkbox;
+		habit.reward = 10;
 	}
 
 	public Habit(String string, Boolean Checkbox, Calendar date) {
-		Habit Habit = new Habit();
+		Habit habit = new Habit();
 
-		Habit.Text = string;
-		Habit.Checkbox = Checkbox;
-		Habit.Date = date;
-		Habit.Reward = 10;
+		habit.text = string;
+		habit.checkbox = Checkbox;
+		habit.date = date;
+		habit.reward = 10;
 	}
 
 	// Methods
@@ -58,44 +55,48 @@ public class Habit {
 	// Getters
 
 	public String getText() {
-		return Text;
+		return text;
 	}
 
 	public Calendar getDate() {
-		return Date;
+		return date;
 	}
 
 	public Boolean getCheckbox() {
-		return Checkbox;
+		return checkbox;
 	}
 
 	public Integer getReward() {
-		return Reward;
+		return reward;
 	}
 
 	// Setters
 
 	public void setText(String text) {
-		Text = text;
+		text = text;
 	}
+	
+	
 //Set date changed the constructor, 
 	public void setDate(int year, int month, int day) {
-		try{ 
-			Date.set(year, month, day);
-		}catch(Exception e){
-			e.getStackTrace();
-		}
+	
 		
+		
+		int lyear = year;
+			int lmonth = month;
+			int lday = day;
+			date.set(lyear, lmonth, lday);
+			
+			
+		//	Date.set(2014, Calendar.JANUARY, 1);
+			
 	}
 
 	public void setCheckbox(Boolean checkbox) {
-		Checkbox = checkbox;
+		checkbox = checkbox;
 	}
 
 	public void setReward(Integer reward) {
-		Reward = reward;
+		reward = reward;
 	}
-
-	
-
 }

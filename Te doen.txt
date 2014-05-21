@@ -8,9 +8,11 @@ knop toevoegen, wanneer klik, geef reward
 toon reward op scherm
 
 //Doen
-Testhabit() wijzigen
-Textview fixen
+Testhabit() wijzigen		*
+Textview fixen -> edittextView
 
-
-
+In plaats van een habit class, in db werken?
+Eerst alles van veiws en pcikers getten
+daarna setten in objecten
+daarna viewen
 

@@ -20,7 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Build;
 
-public class ListActivity extends ActionBarActivity {
+public class InputHabitActivity extends ActionBarActivity {
 	
 	Button button1; // Button
 
@@ -46,35 +46,65 @@ public class ListActivity extends ActionBarActivity {
 		// Buttons voor on click
 				button1 = (Button) findViewById(R.id.inputbutton1);
 				button1.setOnClickListener(button1listener);
-				
-				
-	
-	
-	
 	
 	}
 	// Onclick listener
 		View.OnClickListener button1listener = new View.OnClickListener() {
 			public void onClick(View v) {
 				//Pakt text van een input en viewt het
-				getTexteditText();
+			//	dhabitTextview();
 				//Pakt datum van input en viewt het in een textview
-				setDateDatepicker(); 
-				//Koppel habit.class met fields
-				testHabit();
-			
+			// setDateDatepicker(); 
+				getDateDatepicker();
+				getTexteditText1();
+				
+				
+				setHabitTextview();
+				
 			}
 		};
 		
-		
+		//TESTZONE
+		private Habit fillHabitObject(){
+			Habit h = new Habit();
+			h.setText(parsedtext);
+			h.setDate(year, month, day);
+			
+			return h;
+		}
+		private void getDateDatepicker(){
+			DatePicker a2 = (DatePicker) findViewById(R.id.inputdatePicker1); // Maakt Datepicker var aan
+			//Get date														
+			day = a2.getDayOfMonth(); // Pakt datepicker dag
+			month = a2.getMonth(); // Pakt datepicker maand
+			year = a2.getYear(); // Pakt datepicker jaar	
 
-		
-		public void setDateDatepicker() { // On click add calendar view
-			//Pakt datum
-			getDateDatepicker();
+		}
+		private void setDateTextview(){
+			//set date
+			TextView tv = (TextView) findViewById(R.id.DatetextView); // Pakt textview in een variabele
 			
 			//Parse date
-			parseDate();
+			Calendar a = habit.getDate();
+			
+			int ab = a.get(Calendar.DAY_OF_MONTH);
+			int ac = a.get(Calendar.MONTH);
+			int ad = a.get(Calendar.YEAR);
+			
+			String ca = String.valueOf(ab); // Parsed dag in string
+			String ba = String.valueOf(ac); // Parsed maand in string
+			String aa = String.valueOf(ad); // Parsed jaar in string
+			
+			String c = ca + "-" + ba + "-" + aa;
+		
+			//Set date	
+			tv.setText(c); // Zet de datum in textview
+		}
+		
+		
+		
+		//TESTZONE
+		public void setDateDatepicker() { // On click add calendar view
 			
 			//Zet text in textview
 			setDateTextview();
@@ -82,89 +112,21 @@ public class ListActivity extends ActionBarActivity {
 			//Geeft een Toast terug
 			Toast.makeText(getApplicationContext(), "testDate() triggered",
 					Toast.LENGTH_LONG).show(); // Debug Datum
+		
 		}
-		
-		
-		
-		
-		//TEST
-		private void testHabit(){
-			//Maakt object aan en vult text en datum in
-			habit.setText(parsedtext);
-			habit.setDate(year, month, day);
-		
-			//Geeft een Toast terug
-			Toast.makeText(getApplicationContext(), "testHabit() triggered",
-					Toast.LENGTH_LONG).show(); // Debug Datum
-			
-		}
-		
-		//TEST
-		
-		
-		
-		private void getDateDatepicker(){
-			DatePicker a2 = (DatePicker) findViewById(R.id.inputdatePicker1); // Maakt Datepicker var aan
-			//Get date														
-			day = a2.getDayOfMonth(); // Pakt datepicker dag
-			month = a2.getMonth(); // Pakt datepicker maand
-			year = a2.getYear(); // Pakt datepicker jaar	
-		}
-		
-		private void parseDate(){
-			String stringday = String.valueOf(day); // Parsed dag in string
-			String stringmonth = String.valueOf(month); // Parsed maand in string
-			String stringyear = String.valueOf(year); // Parsed jaar in string
-			
-			datestring = stringday + "-" + stringmonth + "-" + stringyear; // Maakt er een DD-MM-YYYY van
-
-		}
-		//FIXEN
-		private void setDateTextview(){
-			String datetext = "";
-			Calendar date = habit.getDate();
-
-			
-			TextView tv = (TextView) findViewById(R.id.DatetextView); // Pakt textview in een variabele
-		
-			
-				try{
-					datetext = date.toString();
-				}catch(Exception e){
-					e.printStackTrace();
-				}
 				
-			tv.setText(datetext); // Zet de datum in textview
-		}
-		
-		
-		
-		
-		//FIXED
-		
-		// Pakt text van edittext en zet in view
-		public void getTexteditText() {
-			//Pakt de text uit input
-			getTextText1();
-			//Parsed Editable text in String
-			parseTextText1();
-			//Zet Parsed text in Textview
-			setTextText1();
-		}
-		private void getTextText1(){
+		private void getTexteditText1(){
 			EditText i = (EditText) findViewById(R.id.inputeditText);
-			text = i.getText();
+			parsedtext = i.getText().toString();
 		}
-		private void parseTextText1(){
-			parsedtext = text.toString();
-		}
-		private void setTextText1(){
-			String text = habit.getText();
+		
+		
+		private void setHabitTextview(){
+			String habittext = habit.getText();
 			TextView a = (TextView) findViewById(R.id.inputtextView);
-			a.setText(text);
-			
-			
-		}
+			a.setText(habittext);	
+		}	
+		//EINDE dhabitTextview();
 
 
 	@Override
@@ -203,5 +165,10 @@ public class ListActivity extends ActionBarActivity {
 			return rootView;
 		}
 	}
+  private Habit vulHabitObject(final Integer reward) {
+	  Habit h = new Habit();
+	  h.setReward(reward);
+	return h;  
+  }
+  }
 
-}
