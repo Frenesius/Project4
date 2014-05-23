@@ -11,8 +11,8 @@ toon reward op scherm
 Testhabit() wijzigen		*
 Textview fixen -> edittextView
 
-In plaats van een habit class, in db werken?
-Eerst alles van veiws en pcikers getten
-daarna setten in objecten
-daarna viewen
+Arraylist maken met habit objecten die je elke keer kan toevoegen
+laat het zien in een lijst
 
+
+Input activity sluiten na invoer
