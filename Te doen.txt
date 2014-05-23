@@ -13,6 +13,7 @@ Textview fixen -> edittextView
 
 Arraylist maken met habit objecten die je elke keer kan toevoegen
 laat het zien in een lijst
+Parcelabel gebruiken om object terug naar mainactivity te verplaatsen
 
 
-Input activity sluiten na invoer
+
