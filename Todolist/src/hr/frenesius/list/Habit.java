@@ -1,10 +1,11 @@
 package hr.frenesius.list;
 
 
+import java.io.Serializable;
 //Imports
 import java.util.Calendar;
 
-public class Habit {
+public class Habit implements Serializable {
 
 	// Attributes
 	private String text = "test"; // Text voor de to do list

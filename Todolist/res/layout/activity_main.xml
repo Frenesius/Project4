@@ -11,51 +11,32 @@
         android:layout_height="match_parent"
         android:orientation="vertical" >
 
-        <EditText
-            android:id="@+id/editText1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10" >
-
-            <requestFocus />
-            
-        </EditText>
-
-        <Button
-            android:id="@+id/button1"
+        <TextView
+            android:id="@+id/ListTextview1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button" 
-            />
-
-        <Button
+            android:text="id ListTextview1 \n" />
+        <TextView
+            android:id="@+id/ListTextview2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="id ListTextview2 \n" />
+        <TextView
+            android:id="@+id/ListTextview3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="id ListTextview3 \n" />
+        
+       <Button
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="next activity" />
+            android:text="button2" />
 
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="String" />
-
-        <TextView
-            android:id="@+id/dateView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Date" />
-        
-        <DatePicker
-            android:id="@+id/datePicker1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
-			android:calendarViewShown="false" 
-			android:spinnersShown="true"
-			/>
-
-    </LinearLayout>
-
+   
+        </LinearLayout>
+    
+     
+    
 </FrameLayout>
 

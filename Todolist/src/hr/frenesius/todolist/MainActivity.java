@@ -19,12 +19,6 @@ public class MainActivity extends ActionBarActivity {
 	Button button1; // Button
 	Button button2; // Button
 
-	private int dateday; 
-	private int datemonth;
-	private int dateyear; 
-	private String datestring;
-	private Editable text;
-	private String parsedtext;
 	
 
 	@Override
@@ -38,9 +32,6 @@ public class MainActivity extends ActionBarActivity {
 		}
 		
 		// Buttons voor on click
-		button1 = (Button) findViewById(R.id.button1);
-		button1.setOnClickListener(button1listener);
-		
 		button2 = (Button) findViewById(R.id.button2);
 		button2.setOnClickListener(button2listener);
 
@@ -53,16 +44,18 @@ public class MainActivity extends ActionBarActivity {
 		
 	}
 	
-	// Onclick listener
-	View.OnClickListener button1listener = new View.OnClickListener() {
-		public void onClick(View v) {
-			//Pakt text van een input en viewt het
-			getTexteditText();
-			//Pakt datum van input en viewt het in een textview
-			setDateDatepicker(); 
-		}
-	};
+	//TESTZONE
 	
+	
+	
+	
+	
+	
+	
+	
+	//TESTZONE
+	
+	// Onclick listener	
 	View.OnClickListener button2listener = new View.OnClickListener() {
 		public void onClick(View v) {
 			nextIntent();
@@ -71,66 +64,7 @@ public class MainActivity extends ActionBarActivity {
 					   Toast.LENGTH_LONG).show();
 		}
 	};
-
 	
-	public void setDateDatepicker() { // On click add calendar view
-		//Pakt datum
-		getDateDatepicker();
-		
-		//Parse date
-		parseDate();
-		
-		//Zet text in textview
-		setDateTextview();
-		
-		//Geeft een Toast terug
-		Toast.makeText(getApplicationContext(), "testDate() triggered",
-				Toast.LENGTH_LONG).show(); // Debug Datum
-	}
-	
-	private void getDateDatepicker(){
-		DatePicker a2 = (DatePicker) findViewById(R.id.datePicker1); // Maakt Datepicker var aan
-		//Get date														
-		dateday = a2.getDayOfMonth(); // Pakt datepicker dag
-		datemonth = a2.getMonth(); // Pakt datepicker maand
-		dateyear = a2.getYear(); // Pakt datepicker jaar	
-	}
-	
-	private void parseDate(){
-		String day = String.valueOf(dateday); // Parsed dag in string
-		String month = String.valueOf(datemonth); // Parsed maand in string
-		String year = String.valueOf(dateyear); // Parsed jaar in string
-		
-		datestring = day + "-" + month + "-" + year; // Maakt er een DD-MM-YYYY van
-
-	}
-	
-	private void setDateTextview(){
-		TextView tv = (TextView) findViewById(R.id.dateView1); // Pakt textview in een variabele
-		tv.setText(datestring); // Zet de datum in textview
-	}
-	
-	// Pakt text van edittext en zet in view
-	public void getTexteditText() {
-		//Pakt de text uit input
-		getTextText1();
-		//Parsed Editable text in String
-		parseTextText1();
-		//Zet Parsed text in Textview
-		setTextText1();
-	}
-	private void getTextText1(){
-		EditText i = (EditText) findViewById(R.id.editText1);
-		text = i.getText();
-	}
-	private void parseTextText1(){
-		parsedtext = text.toString();
-	}
-	private void setTextText1(){
-		TextView a = (TextView) findViewById(R.id.textView1);
-		a.setText(parsedtext);
-	}
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
