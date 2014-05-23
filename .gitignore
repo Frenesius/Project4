@@ -65,5 +65,6 @@ appcompat_v7_2/
 .cache
 .apk
 
+BuildConfig.java
 
 
