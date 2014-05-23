@@ -7,7 +7,7 @@ import java.util.Calendar;
 public class Habit {
 
 	// Attributes
-	private String text; // Text voor de to do list
+	private String text = "test"; // Text voor de to do list
 	Calendar date = Calendar.getInstance();
 	private Boolean checkbox; // Checkbox voor de to do list
 	private Integer reward; // Reward voor de to do list
@@ -72,20 +72,18 @@ public class Habit {
 
 	// Setters
 
-	public void setText(String text) {
-		text = text;
+	public void setText(String text1) {
+		text = text1;
 	}
 	
 	
 //Set date changed the constructor, 
 	public void setDate(int year, int month, int day) {
 	
-		
-		
 		int lyear = year;
-			int lmonth = month;
-			int lday = day;
-			date.set(lyear, lmonth, lday);
+		int lmonth = month;
+		int lday = day;
+		date.set(lyear, lmonth, lday);
 			
 			
 		//	Date.set(2014, Calendar.JANUARY, 1);

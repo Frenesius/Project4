@@ -28,9 +28,7 @@ public class InputHabitActivity extends ActionBarActivity {
 	private int day; 
 	private int month;
 	private int year; 
-	private String datestring;
-	private Editable text;
-	private String parsedtext;
+	private String text1;
 	Habit habit = new Habit();
 	
 	
@@ -51,27 +49,23 @@ public class InputHabitActivity extends ActionBarActivity {
 	// Onclick listener
 		View.OnClickListener button1listener = new View.OnClickListener() {
 			public void onClick(View v) {
-				//Pakt text van een input en viewt het
-			//	dhabitTextview();
-				//Pakt datum van input en viewt het in een textview
-			// setDateDatepicker(); 
+				//GETS
 				getDateDatepicker();
 				getTexteditText1();
 				
+				//ASSIGN
+				fillHabitObject();
 				
+				//SET
+				setDateTextview();
 				setHabitTextview();
 				
 			}
 		};
 		
-		//TESTZONE
-		private Habit fillHabitObject(){
-			Habit h = new Habit();
-			h.setText(parsedtext);
-			h.setDate(year, month, day);
-			
-			return h;
-		}
+		
+		
+		//GETS
 		private void getDateDatepicker(){
 			DatePicker a2 = (DatePicker) findViewById(R.id.inputdatePicker1); // Maakt Datepicker var aan
 			//Get date														
@@ -80,6 +74,23 @@ public class InputHabitActivity extends ActionBarActivity {
 			year = a2.getYear(); // Pakt datepicker jaar	
 
 		}
+		private void getTexteditText1(){
+			EditText i = (EditText) findViewById(R.id.inputeditText);
+			Editable a = i.getText();
+			text1 = a.toString();
+		}
+		//EINDE GETS
+		
+		//ASSIGN
+		private Habit fillHabitObject(){
+			habit.setText(text1);
+			habit.setDate(year, month, day);
+			
+			return habit;
+		}
+		//EINDE ASSIGN
+		
+		//SETS
 		private void setDateTextview(){
 			//set date
 			TextView tv = (TextView) findViewById(R.id.DatetextView); // Pakt textview in een variabele
@@ -100,33 +111,18 @@ public class InputHabitActivity extends ActionBarActivity {
 			//Set date	
 			tv.setText(c); // Zet de datum in textview
 		}
-		
-		
-		
-		//TESTZONE
-		public void setDateDatepicker() { // On click add calendar view
-			
-			//Zet text in textview
-			setDateTextview();
-			
-			//Geeft een Toast terug
-			Toast.makeText(getApplicationContext(), "testDate() triggered",
-					Toast.LENGTH_LONG).show(); // Debug Datum
-		
-		}
-				
-		private void getTexteditText1(){
-			EditText i = (EditText) findViewById(R.id.inputeditText);
-			parsedtext = i.getText().toString();
-		}
-		
-		
+	
 		private void setHabitTextview(){
 			String habittext = habit.getText();
 			TextView a = (TextView) findViewById(R.id.inputtextView);
+			
 			a.setText(habittext);	
-		}	
-		//EINDE dhabitTextview();
+		}			
+		
+	//EINDE SETS	
+		
+		
+		
 
 
 	@Override
@@ -165,10 +161,6 @@ public class InputHabitActivity extends ActionBarActivity {
 			return rootView;
 		}
 	}
-  private Habit vulHabitObject(final Integer reward) {
-	  Habit h = new Habit();
-	  h.setReward(reward);
-	return h;  
-  }
+
   }
 
