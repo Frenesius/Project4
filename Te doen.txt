@@ -15,5 +15,6 @@ Arraylist maken met habit objecten die je elke keer kan toevoegen
 laat het zien in een lijst
 Parcelabel gebruiken om object terug naar mainactivity te verplaatsen
 
-
+Arraylist met Objecten
+Zie code met //1MAAK
 
