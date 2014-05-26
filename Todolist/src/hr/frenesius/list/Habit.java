@@ -5,7 +5,10 @@ import java.io.Serializable;
 //Imports
 import java.util.Calendar;
 
-public class Habit implements Serializable {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Habit implements Parcelable {
 
 	// Attributes
 	private String text = "test"; // Text voor de to do list
@@ -98,4 +101,32 @@ public class Habit implements Serializable {
 	public void setReward(Integer reward) {
 		reward = reward;
 	}
+	
+	//PARCELABLE
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(text);
+		//Write dingen in je parcelabel
+		
+	}
+    public static final Parcelable.Creator<Habit> CREATOR = new Parcelable.Creator<Habit>() {
+    	public Habit createFromParcel(Parcel in) {
+    		return new Habit(in);
+    	}
+
+		public Habit[] newArray(int size) {
+			return new Habit[size];
+		}
+    };
+
+	private Habit(Parcel in) {
+		this.text = in.readString();
+	}
+
 }

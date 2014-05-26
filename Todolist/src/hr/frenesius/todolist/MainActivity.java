@@ -1,5 +1,6 @@
 package hr.frenesius.todolist;
 
+import hr.frenesius.list.Habit;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -18,7 +19,7 @@ public class MainActivity extends ActionBarActivity {
 
 	Button button1; // Button
 	Button button2; // Button
-
+	public static boolean MainActivityTRIGGER = false;
 	
 
 	@Override
@@ -36,10 +37,26 @@ public class MainActivity extends ActionBarActivity {
 		button2.setOnClickListener(button2listener);
 
 	}
+	protected void onResume(){
+		super.onResume();
+		
+		if(MainActivityTRIGGER == true){
+			TextView tv = (TextView) findViewById(R.id.ListTextview1);
+			tv.setText("test \n");
+			//FIXEN
+			Habit habit = (Habit)getIntent().getExtras().getParcelable("INPUT_KEY");
+			
+			if(habit.getText() == null){
+				Toast.makeText(getApplicationContext(), "NULL",
+						   Toast.LENGTH_LONG).show();
+			}
+		}
+		
+	}
 	public void nextIntent(){
 		Intent intent = new Intent();
 		intent.setClass(this, InputHabitActivity.class);
-		intent.putExtra("EXTRA_ID", "SOME DATAS");
+		
 		startActivity(intent);
 		
 	}
