@@ -43,10 +43,11 @@ public class MainActivity extends ActionBarActivity {
 		if(MainActivityTRIGGER == true){
 			TextView tv = (TextView) findViewById(R.id.ListTextview1);
 			tv.setText("test \n");
-			//FIXEN
-			Habit habit = (Habit)getIntent().getExtras().getParcelable("INPUT_KEY");
 			
-			if(habit.getText() == null){
+			//FIXEN
+			Habit h = (Habit)getIntent().getExtras().getParcelable("INPUT_KEY");
+			
+			if(h.getText() != null){
 				Toast.makeText(getApplicationContext(), "NULL",
 						   Toast.LENGTH_LONG).show();
 			}
@@ -56,7 +57,6 @@ public class MainActivity extends ActionBarActivity {
 	public void nextIntent(){
 		Intent intent = new Intent();
 		intent.setClass(this, InputHabitActivity.class);
-		
 		startActivity(intent);
 		
 	}

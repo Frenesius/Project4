@@ -69,7 +69,10 @@ public class InputHabitActivity extends ActionBarActivity {
 		private void newBundleHabit(){
 			MainActivity.MainActivityTRIGGER = true;
 			Intent i = new Intent();
+			i.setClass(this, MainActivity.class);
 			i.putExtra("INPUT_KEY", habit);
+			
+			startActivity(i);
 			finish();
 		}
 		
