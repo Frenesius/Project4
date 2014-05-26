@@ -42,11 +42,12 @@ public class MainActivity extends ActionBarActivity {
 		
 		if(MainActivityTRIGGER == true){
 			TextView tv = (TextView) findViewById(R.id.ListTextview1);
-			tv.setText("test \n");
+			
 			
 			//FIXEN
 			Habit h = (Habit)getIntent().getExtras().getParcelable("INPUT_KEY");
-			
+			String s = h.getText();
+			tv.setText(s);
 			if(h.getText() != null){
 				Toast.makeText(getApplicationContext(), "NULL",
 						   Toast.LENGTH_LONG).show();
