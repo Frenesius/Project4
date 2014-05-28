@@ -61,16 +61,16 @@ public class InputHabitActivity extends ActionBarActivity {
 				setDateTextview();
 				setHabitTextview();
 				//TEST
-				newBundleHabit();
+				sendInputHabitActivityBundle();
 			}
 		};
-		//BUNDLE TEST
 		
-		private void newBundleHabit(){
+		
+		private void sendInputHabitActivityBundle(){
 			MainActivity.MainActivityTRIGGER = true;
 			Intent i = new Intent();
 			i.setClass(this, MainActivity.class);
-			i.putExtra("INPUT_KEY", habit);
+			i.putExtra("INPUT_HABIT", habit);
 			
 			startActivity(i);
 			finish();

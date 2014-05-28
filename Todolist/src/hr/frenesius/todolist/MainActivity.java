@@ -1,5 +1,6 @@
 package hr.frenesius.todolist;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,8 +25,7 @@ public class MainActivity extends ActionBarActivity {
 
 	Button button1; // Button
 	Button button2; // Button
-	private int a = 1;
-	public static boolean MainActivityTRIGGER = false;
+	public static boolean MainActivityTRIGGER = false; //Triggerchecker voor onResume
 	
 	List<Habit> Habitlist = new ArrayList<Habit>();
 	
@@ -50,60 +51,31 @@ public class MainActivity extends ActionBarActivity {
 		
 		//Checkt of input getriggerd is
 		if(MainActivityTRIGGER == true){
-			TextView tv = (TextView) findViewById(R.id.ListTextview1);
-			
-			//Pakt habit van InputHabitActivity class
-			Habit h = (Habit)getIntent().getExtras().getParcelable("INPUT_KEY");
-			String s = h.getText();
-			//Zet text in view
-			tv.setText(s);
-			
-			taddTextView1();
 			taddTextView();
-			//Geeft toast terug
-				if(h.getText() != null){
-					Toast.makeText(getApplicationContext(), "NULL",
-							Toast.LENGTH_LONG).show();
-					
 				}
-				
 		}
 		
-	}
-	//TEST//1MAAK
-	private void taddTextView1(){
-		//ADD OBJECT TO LIST OBJECT
+	
+	
+	private void taddTextView(){
+		//Habitlist.add voegt habits toe aan list
+		//.get(); geeft het terug
+//LOOP DIT VOOR RIJEN
+		//Pakt habit van Activity Input
 		Habit h = (Habit)getIntent().getExtras().getParcelable("INPUT_KEY");
+		//Voegt habit toe aan list
 		Habitlist.add(h);
-		
-		
-		
-	}//1MAAK
-	private void taddTextView(){		
-		
-		
-		int N = Habitlist.size(); // total number of textviews to add
-		LinearLayout ln = (LinearLayout) this.findViewById(R.id.DashboardLinearLayout);
-		final TextView[] myTextViews = new TextView[N]; // create an empty array;
-		
-		//GEBRUIKEN VOOR LATER
-		for (int i = 0; i < N; i++) {
-		    // create a new textview
-		    final TextView rowTextView = new TextView(this);
+		//Haalt habit uit list
+	
+		Habit l = Habitlist.get(0);
 
-		    // set some properties of rowTextView or something
-		    rowTextView.setText("This is row #" + i);
-
-		    // add the textview to the linearlayout
-		    ln.addView(rowTextView);
-
-		    // save a reference to the textview for later
-		    myTextViews[i] = rowTextView;
-		    
-		}
-		//GEBRUIKEN VOOR LATER
-		//1MAAK
+		TextView tv = (TextView) findViewById(R.id.ListTextview1);
+		String s = l.getText();
+		s = s + "\n";
+		tv.setText(s);
+		
 	}
+
 	//Wijzigt naar intent 
 	public void nextIntent(){
 		Intent intent = new Intent();

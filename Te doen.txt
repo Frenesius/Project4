@@ -2,19 +2,14 @@
 string opslaan en uitprinten in een lijst
 tijd opslaam
 
-
 knop toevoegen, wanneer klik, geef reward
 
 toon reward op scherm
 
 //Doen
-Testhabit() wijzigen		*
-Textview fixen -> edittextView
-
-Arraylist maken met habit objecten die je elke keer kan toevoegen
-laat het zien in een lijst
-Parcelabel gebruiken om object terug naar mainactivity te verplaatsen
-
-Arraylist met Objecten
-Zie code met //1MAAK
+Wanneer in InputHabit velden ingevuld en ok geklikt
+	Nieuwe object maken
+	Alles aan assignen
+	Doorgeven aan mainactivity
+	In ObjectList zetten
 
