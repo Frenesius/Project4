@@ -27,7 +27,7 @@ public class MainActivity extends ActionBarActivity {
 	Button button2; // Button
 	public static boolean MainActivityTRIGGER = false; //Triggerchecker voor onResume
 	
-	List<Habit> Habitlist = new ArrayList<Habit>();
+	List<Habit> PositiveHabitlist = new ArrayList<Habit>();
 	
 
 	@Override
@@ -62,12 +62,12 @@ public class MainActivity extends ActionBarActivity {
 		//.get(); geeft het terug
 //LOOP DIT VOOR RIJEN
 		//Pakt habit van Activity Input
-		Habit h = (Habit)getIntent().getExtras().getParcelable("INPUT_KEY");
+		Habit h = (Habit)getIntent().getExtras().getParcelable("INPUT_HABIT");
 		//Voegt habit toe aan list
-		Habitlist.add(h);
+		PositiveHabitlist.add(h);
 		//Haalt habit uit list
 	
-		Habit l = Habitlist.get(0);
+		Habit l = PositiveHabitlist.get(0);
 
 		TextView tv = (TextView) findViewById(R.id.ListTextview1);
 		String s = l.getText();
