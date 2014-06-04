@@ -1,33 +1,32 @@
 package hr.frenesius.todolist;
 
-import java.lang.reflect.Array;
+import hr.frenesius.list.Habit;
+
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
-import hr.frenesius.list.Habit;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
-import android.os.Build;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
-
+//PositiveHabitList.clear() als een reset knop
+	
 	Button button1; // Button
 	Button button2; // Button
 	public static boolean MainActivityTRIGGER = false; //Triggerchecker voor onResume
 	
-	List<Habit> PositiveHabitlist = new ArrayList<Habit>();
+	static List<Habit> PositiveHabitlist = new ArrayList<Habit>();
 	
 
 	@Override
@@ -52,21 +51,24 @@ public class MainActivity extends ActionBarActivity {
 		//Checkt of input getriggerd is
 		if(MainActivityTRIGGER == true){
 			taddTextView();
+			MainActivityTRIGGER = false;
 				}
 		}
 		
 	
 	
 	private void taddTextView(){
-		//Habitlist.add voegt habits toe aan list
-		//.get(); geeft het terug
-//LOOP DIT VOOR RIJEN
+		
 		//Pakt habit van Activity Input
 		Habit h = (Habit)getIntent().getExtras().getParcelable("INPUT_HABIT");
+		
+		String a = h.getText();
+		Calendar b = h.getDate();
+		
 		//Voegt habit toe aan list
-		PositiveHabitlist.add(h);
+		PositiveHabitlist.add(new Habit(a, b));
+		
 		//Haalt habit uit list
-	
 		Habit l = PositiveHabitlist.get(0);
 
 		TextView tv = (TextView) findViewById(R.id.ListTextview1);
@@ -78,10 +80,9 @@ public class MainActivity extends ActionBarActivity {
 
 	//Wijzigt naar intent 
 	public void nextIntent(){
-		Intent intent = new Intent();
-		intent.setClass(this, InputHabitActivity.class);
-		startActivity(intent);
-		
+		Intent i = new Intent();
+		i.setClass(this, InputHabitActivity.class);
+		startActivity(i);
 	}
 	
 	

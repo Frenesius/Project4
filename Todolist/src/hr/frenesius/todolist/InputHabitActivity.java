@@ -30,7 +30,7 @@ public class InputHabitActivity extends ActionBarActivity {
 	private int month;
 	private int year; 
 	private String text1;
-	Habit habit = new Habit();
+	static int InputHabitActivityCounter;
 	
 	
 	@Override
@@ -54,32 +54,15 @@ public class InputHabitActivity extends ActionBarActivity {
 				getDateDatepicker();
 				getTexteditText1();
 				
-				//ASSIGN
-				fillHabitObject();
-				
 				//SET
-				setDateTextview();
-				setHabitTextview();
-				//TEST
-				sendInputHabitActivityBundle();
+//				setDateTextview();
+//				setHabitTextview();
+				//Maak object en vul het in
+				makeObject();
 			}
 		};
 		
-		
-		private void sendInputHabitActivityBundle(){
-			MainActivity.MainActivityTRIGGER = true;
-			Intent i = new Intent();
-			i.setClass(this, MainActivity.class);
-			i.putExtra("INPUT_HABIT", habit);
-			
-			startActivity(i);
-			finish();
-		}
-		
-		
-		
-		
-		//GETS
+//GETS
 		private void getDateDatepicker(){
 			DatePicker a2 = (DatePicker) findViewById(R.id.inputdatePicker1); // Maakt Datepicker var aan
 			//Get date														
@@ -93,24 +76,31 @@ public class InputHabitActivity extends ActionBarActivity {
 			Editable a = i.getText();
 			text1 = a.toString();
 		}
-		//EINDE GETS
+//EINDE GETS
 		
-		//ASSIGN
-		private Habit fillHabitObject(){
-			habit.setText(text1);
-			habit.setDate(year, month, day);
+//Nieuwe object creatie
+		private void makeObject(){
 			
-			return habit;
+			Habit h = new Habit(text1);
+			h.setDate(year, month, day);
+			MainActivity.MainActivityTRIGGER = true;
+			
+			Intent i = new Intent();
+			i.setClass(this, MainActivity.class);
+			i.putExtra("INPUT_HABIT", h);
+				
+			startActivity(i);
+			finish();
+			
 		}
-		//EINDE ASSIGN
 		
-		//SETS
+/**		//SETS
 		private void setDateTextview(){
 			//set date
 			TextView tv = (TextView) findViewById(R.id.DatetextView); // Pakt textview in een variabele
 			
 			//Parse date
-			Calendar a = habit.getDate();
+			Calendar a = h.getDate();
 			
 			int ab = a.get(Calendar.DAY_OF_MONTH);
 			int ac = a.get(Calendar.MONTH);
@@ -135,7 +125,7 @@ public class InputHabitActivity extends ActionBarActivity {
 		
 	//EINDE SETS	
 		
-		
+**/	
 		
 
 

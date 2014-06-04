@@ -23,26 +23,30 @@ public class Habit implements Parcelable {
 
 	}
 
+	
 	public Habit(String string) {
-		Habit habit = new Habit();
-		habit.text = string;
-		habit.reward = 10;
+		this.text = string;
+		this.reward = 10;
 	}
 
 	public Habit(String string, Boolean Checkbox) {
-		Habit habit = new Habit();
-		habit.text = string;
-		habit.checkbox = Checkbox;
-		habit.reward = 10;
+		this.text = string;
+		this.checkbox = Checkbox;
+		this.reward = 10;
+	}
+	
+	
+	public Habit(String string, Calendar date) {
+		this.text = string;
+		this.reward = 10;
+		this.date = date;
 	}
 
 	public Habit(String string, Boolean Checkbox, Calendar date) {
-		Habit habit = new Habit();
-
-		habit.text = string;
-		habit.checkbox = Checkbox;
-		habit.date = date;
-		habit.reward = 10;
+		this.text = string;
+		this.checkbox = Checkbox;
+		this.date = date;
+		this.reward = 10;
 	}
 
 	// Methods
