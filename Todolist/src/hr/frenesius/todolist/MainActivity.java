@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -16,14 +18,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
 //PositiveHabitList.clear() als een reset knop
-	
+	 
 	Button button1; // Button
 	Button button2; // Button
+	LinearLayout ln;
 	public static boolean MainActivityTRIGGER = false; //Triggerchecker voor onResume
 	
 	static List<Habit> PositiveHabitlist = new ArrayList<Habit>();
@@ -33,16 +37,13 @@ public class MainActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
-		
 		// Buttons voor on click
 		button2 = (Button) findViewById(R.id.button2);
 		button2.setOnClickListener(button2listener);
-
 	}
 	
 	protected void onResume(){
@@ -50,32 +51,50 @@ public class MainActivity extends ActionBarActivity {
 		
 		//Checkt of input getriggerd is
 		if(MainActivityTRIGGER == true){
-			taddTextView();
+			processObject();
 			MainActivityTRIGGER = false;
 				}
+			
+			try{
+				addHabitToDashboard();
+			}catch(Exception e){
+			
+			}
 		}
 		
-	
-	
-	private void taddTextView(){
+	private void addHabitToDashboard(){
+		//Variabelen
+		int length = PositiveHabitlist.size();
+		ln = (LinearLayout) this.findViewById(R.id.DashboardLinearLayout);
+		ln.setOrientation(LinearLayout.VERTICAL); 
 		
+		//Ontvang object
+		final int N = length; // total number of textviews to add
+		final TextView[] habitViews = new TextView[N]; // create an empty array;
+		
+		//Loop om arraylist van objecten 
+			for (int i = 0; i < N; i++) {
+				Habit habit = PositiveHabitlist.get(i);
+				String s = habit.getText() + "\n";
+				
+				// create a new textview
+				final TextView rowTextView = new TextView(this);
+
+				// set some properties of rowTextView or something
+				rowTextView.setText("Habit " + s);
+
+				// add the textview to the linearlayout
+				ln.addView(rowTextView);
+
+				// save a reference to the textview for later
+				habitViews[i] = rowTextView;
+			}
+	}
+	
+	private void processObject(){
 		//Pakt habit van Activity Input
 		Habit h = (Habit)getIntent().getExtras().getParcelable("INPUT_HABIT");
-		
-		String a = h.getText();
-		Calendar b = h.getDate();
-		
-		//Voegt habit toe aan list
-		PositiveHabitlist.add(new Habit(a, b));
-		
-		//Haalt habit uit list
-		Habit l = PositiveHabitlist.get(0);
-
-		TextView tv = (TextView) findViewById(R.id.ListTextview1);
-		String s = l.getText();
-		s = s + "\n";
-		tv.setText(s);
-		
+		PositiveHabitlist.add(h);		
 	}
 
 	//Wijzigt naar intent 
@@ -83,6 +102,7 @@ public class MainActivity extends ActionBarActivity {
 		Intent i = new Intent();
 		i.setClass(this, InputHabitActivity.class);
 		startActivity(i);
+		
 	}
 	
 	

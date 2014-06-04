@@ -7,9 +7,6 @@ knop toevoegen, wanneer klik, geef reward
 toon reward op scherm
 
 //Doen
-Wanneer in InputHabit velden ingevuld en ok geklikt
-	Nieuwe object maken
-	Alles aan assignen
-	Doorgeven aan mainactivity
-	In ObjectList zetten
+Textview object list maken
+samen loopen met object list en setten
 

@@ -91,7 +91,7 @@ public class InputHabitActivity extends ActionBarActivity {
 				
 			startActivity(i);
 			finish();
-			
+		//	MainActivity.class;
 		}
 		
 /**		//SETS
