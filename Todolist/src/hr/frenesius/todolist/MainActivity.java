@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
@@ -29,6 +30,7 @@ public class MainActivity extends ActionBarActivity {
 	Button button2; // Button
 	LinearLayout ln;
 	public static boolean MainActivityTRIGGER = false; //Triggerchecker voor onResume
+	public static Activity MainActivityACTIVITY;
 	
 	static List<Habit> PositiveHabitlist = new ArrayList<Habit>();
 	
@@ -44,6 +46,7 @@ public class MainActivity extends ActionBarActivity {
 		// Buttons voor on click
 		button2 = (Button) findViewById(R.id.button2);
 		button2.setOnClickListener(button2listener);
+		MainActivityACTIVITY = this;
 	}
 	
 	protected void onResume(){

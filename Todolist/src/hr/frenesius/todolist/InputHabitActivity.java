@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -32,7 +33,6 @@ public class InputHabitActivity extends ActionBarActivity {
 	private String text1;
 	static int InputHabitActivityCounter;
 	
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -54,9 +54,6 @@ public class InputHabitActivity extends ActionBarActivity {
 				getDateDatepicker();
 				getTexteditText1();
 				
-				//SET
-//				setDateTextview();
-//				setHabitTextview();
 				//Maak object en vul het in
 				makeObject();
 			}
@@ -88,9 +85,10 @@ public class InputHabitActivity extends ActionBarActivity {
 			Intent i = new Intent();
 			i.setClass(this, MainActivity.class);
 			i.putExtra("INPUT_HABIT", h);
-				
-			startActivity(i);
+			//End Main activity wanneer iets ingevuld
+			MainActivity.MainActivityACTIVITY.finish();
 			finish();
+			startActivityForResult(i,1);
 		//	MainActivity.class;
 		}
 		
