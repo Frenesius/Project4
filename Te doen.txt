@@ -7,6 +7,22 @@ knop toevoegen, wanneer klik, geef reward
 toon reward op scherm
 
 //Doen
-Textview object list maken
-samen loopen met object list en setten
+Na eerste opstart -> nieuwe activity met inputs
+Mergen layout mainactivity
+Table row -> aanmaken en erin zetten
+
+//Reward systeem maken
+	button die punten toekent
+	
+//Database maken
+	ERD -> mysql
+		Speler
+			Punten
+		Habits
+		Rewards -> webserver?
+			
+			
+		
+
+
 
