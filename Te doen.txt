@@ -1,16 +1,16 @@
 // eerste instantie
-string opslaan en uitprinten in een lijst
-tijd opslaam
 
 knop toevoegen, wanneer klik, geef reward
 
 toon reward op scherm
 
-//Doen
+###Doen
 Na eerste opstart -> nieuwe activity met inputs
-Mergen layout mainactivity
-Table row -> aanmaken en erin zetten
 
+//Dashboard maken
+	Nieuwe activity
+		input vragen, verwerken, opslaan DB 
+	statisch laten zien op dashboard
 //Reward systeem maken
 	button die punten toekent
 	
@@ -22,7 +22,13 @@ Table row -> aanmaken en erin zetten
 		Rewards -> webserver?
 			
 			
-		
+###Done 
+//Before versie 0.1.3 Geen dones
+//Update dones
 
+Mergen layout mainactivity
+Table row -> aanmaken en erin zetten
 
+String opslaan en uitprinten in een lijst
+Tijd opslaan
 
