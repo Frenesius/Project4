@@ -11,7 +11,8 @@ import android.os.Parcelable;
 public class Habit implements Parcelable {
 
 	// Attributes
-	private String text = "test"; // Text voor de to do list
+	private String title;
+	private String description; // Text voor de to do list
 	Calendar date = Calendar.getInstance();
 	private Boolean checkbox; // Checkbox voor de to do list
 	private Integer reward; // Reward voor de to do list
@@ -23,31 +24,23 @@ public class Habit implements Parcelable {
 
 	}
 
-	
-	public Habit(String string) {
-		this.text = string;
-		this.reward = 10;
-	}
 
-	public Habit(String string, Boolean Checkbox) {
-		this.text = string;
-		this.checkbox = Checkbox;
+
+	public Habit(String title, String description) {
+		this.description = description;
+		this.title = title;
 		this.reward = 10;
 	}
 	
 	
-	public Habit(String string, Calendar date) {
-		this.text = string;
+	public Habit(String title, String description, Calendar date) {
+		this.title = title;
+		this.description = description;
 		this.reward = 10;
 		this.date = date;
 	}
 
-	public Habit(String string, Boolean Checkbox, Calendar date) {
-		this.text = string;
-		this.checkbox = Checkbox;
-		this.date = date;
-		this.reward = 10;
-	}
+
 
 	// Methods
 
@@ -62,8 +55,11 @@ public class Habit implements Parcelable {
 
 	// Getters
 
-	public String getText() {
-		return text;
+	public String getTitle() {
+		return title;
+	}
+	public String getDescription() {
+		return description;
 	}
 
 	public Calendar getDate() {
@@ -79,9 +75,12 @@ public class Habit implements Parcelable {
 	}
 
 	// Setters
-
-	public void setText(String text1) {
-		text = text1;
+	public void setTitle(String title1) {
+		title = title1;
+	}
+	
+	public void setDescription(String description1) {
+		description = description1;
 	}
 	
 	
@@ -115,7 +114,8 @@ public class Habit implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeString(text);
+		dest.writeString(title);
+		dest.writeString(description);
 		//Write dingen in je parcelabel
 		
 	}
@@ -130,7 +130,8 @@ public class Habit implements Parcelable {
     };
 
 	private Habit(Parcel in) {
-		this.text = in.readString();
+		this.title = in.readString();
+		this.description = in.readString();
 	}
 
 }

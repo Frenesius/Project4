@@ -2,10 +2,11 @@ package hr.frenesius.todolist;
 
 import hr.frenesius.list.Habit;
 
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
+import android.widget.TableRow.LayoutParams;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +21,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -71,27 +74,38 @@ public class MainActivity extends ActionBarActivity {
 		ln = (LinearLayout) this.findViewById(R.id.DashboardLinearLayout);
 		ln.setOrientation(LinearLayout.VERTICAL); 
 		
-		//Ontvang object
+		//Workaround voor probleem
 		final int N = length; // total number of textviews to add
-		final TextView[] habitViews = new TextView[N]; // create an empty array;
 		
-		//Loop om arraylist van objecten 
+
+		 int habitcounter = 1;
 			for (int i = 0; i < N; i++) {
+				//Local vars
+				TableLayout ll = (TableLayout) findViewById(R.id.GoodHabitsMain);
+				TextView tv = new TextView(this);
 				Habit habit = PositiveHabitlist.get(i);
-				String s = habit.getText() + "\n";
 				
-				// create a new textview
-				final TextView rowTextView = new TextView(this);
-
-				// set some properties of rowTextView or something
-				rowTextView.setText("Habit " + s);
-
-				// add the textview to the linearlayout
-				ln.addView(rowTextView);
-
-				// save a reference to the textview for later
-				habitViews[i] = rowTextView;
-			}
+				//Table layout
+				LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+				lp.leftMargin = 10;
+				lp.rightMargin = 15;
+				
+				ll.setLayoutParams(lp);
+				
+				//Get strings
+				String habitnumber = "Habit Number: " + String.valueOf(habitcounter);
+				String Title = habit.getTitle();
+				String description = habit.getDescription();
+				
+				//Set text for the row
+				tv.setText(habitnumber+ "\n" + Title + " \n" + description + "\n --------------------");
+		
+				//Add row in Tableview
+				ll.addView(tv);	
+				habitcounter++;
+//ADD EEN STREEP HIERONDER
+				
+}
 	}
 	
 	private void processObject(){

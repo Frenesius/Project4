@@ -30,7 +30,8 @@ public class InputHabitActivity extends ActionBarActivity {
 	private int day; 
 	private int month;
 	private int year; 
-	private String text1;
+	private String title1;
+	private String description1;
 	static int InputHabitActivityCounter;
 	
 	@Override
@@ -52,7 +53,8 @@ public class InputHabitActivity extends ActionBarActivity {
 			public void onClick(View v) {
 				//GETS
 				getDateDatepicker();
-				getTexteditText1();
+				getTexttitleText1();
+				getTextdescriptionText1();
 				
 				//Maak object en vul het in
 				makeObject();
@@ -68,17 +70,26 @@ public class InputHabitActivity extends ActionBarActivity {
 			year = a2.getYear(); // Pakt datepicker jaar	
 
 		}
-		private void getTexteditText1(){
-			EditText i = (EditText) findViewById(R.id.inputeditText);
+		private void getTexttitleText1(){
+			EditText i = (EditText) findViewById(R.id.titleText1);
 			Editable a = i.getText();
-			text1 = a.toString();
+			title1 = a.toString();
+			
+			
+			
+		}
+		private void getTextdescriptionText1(){
+			
+			EditText i = (EditText) findViewById(R.id.descriptionText1);
+			Editable a = i.getText();
+			description1 = a.toString();
 		}
 //EINDE GETS
 		
 //Nieuwe object creatie
 		private void makeObject(){
 			
-			Habit h = new Habit(text1);
+			Habit h = new Habit(title1, description1);
 			h.setDate(year, month, day);
 			MainActivity.MainActivityTRIGGER = true;
 			
@@ -89,7 +100,7 @@ public class InputHabitActivity extends ActionBarActivity {
 			MainActivity.MainActivityACTIVITY.finish();
 			finish();
 			startActivityForResult(i,1);
-		//	MainActivity.class;
+	
 		}
 		
 		
