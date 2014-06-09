@@ -3,23 +3,30 @@ package hr.frenesius.todolist;
 import hr.frenesius.list.Habit;
 
 
+
+
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
 import android.widget.TableRow.LayoutParams;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -29,27 +36,53 @@ import android.widget.Toast;
 public class MainActivity extends ActionBarActivity {
 //PositiveHabitList.clear() als een reset knop
 	 
-	Button button1; // Button
-	Button button2; // Button
-	LinearLayout ln;
-	public static boolean MainActivityTRIGGER = false; //Triggerchecker voor onResume
-	public static Activity MainActivityACTIVITY;
+	Button button1; 									// Button
+	Button button2; 									// Button
+	LinearLayout ln;									//Lineare Layout
+	public static boolean MainActivityTRIGGER = false; 	//Triggerchecker voor onResume
+	public static Activity MainActivityACTIVITY;		//Gebruikt in InputHabitActivity.class om MainActivity te finish()
+	static List<Habit> PositiveHabitlist 
+	= new ArrayList<Habit>();							//List met alle Habit objecten
 	
-	static List<Habit> PositiveHabitlist = new ArrayList<Habit>();
+	//Shared preferences settings 
+	final static String PREFS_NAME = "Happits";
+	SharedPreferences SHAREDPREFS;
+	public static boolean SATRIGGER = false;
 	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		firstLaunch();		//UNCOMMENT WHEN RELEASING
+		
+
+		
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
+		
 		// Buttons voor on click
 		button2 = (Button) findViewById(R.id.button2);
 		button2.setOnClickListener(button2listener);
 		MainActivityACTIVITY = this;
+	}
+
+	
+	private void firstLaunch(){					//Checks if app is launched for first time
+		SHAREDPREFS = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+		if (SHAREDPREFS.getBoolean("first_run", true)) {
+		    intentStartupActiviy();
+		    // record the fact that the app has been started at least once
+		    SHAREDPREFS.edit().putBoolean("first_run", false).commit(); 
+		}
+	}
+	private void intentStartupActiviy(){
+		Intent i = new Intent();
+		i.setClass(this, StartupActivity.class);
+		startActivity(i);	
 	}
 	
 	protected void onResume(){
@@ -60,14 +93,27 @@ public class MainActivity extends ActionBarActivity {
 			processObject();
 			MainActivityTRIGGER = false;
 				}
-			
-			try{
-				addHabitToDashboard();
-			}catch(Exception e){
-			
-			}
-		}
 		
+		try{
+			addHabitToDashboard();
+		}catch(Exception e){
+			}
+		getUserName();
+		}
+	
+	private void processObject(){
+		//Pakt habit van Activity Input
+		Habit h = (Habit)getIntent().getExtras().getParcelable("INPUT_HABIT");
+		PositiveHabitlist.add(h);		
+	}
+	
+	private void getUserName(){
+		SHAREDPREFS = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+		String name = SHAREDPREFS.getString("Name", "Hai");
+		TextView i = (TextView) findViewById(R.id.MAtextView1);
+		i.setText("Welkom " + name);
+	
+	}
 	private void addHabitToDashboard(){
 		//Variabelen
 		int length = PositiveHabitlist.size();
@@ -103,24 +149,13 @@ public class MainActivity extends ActionBarActivity {
 				//Add row in Tableview
 				ll.addView(tv);	
 				habitcounter++;
-//ADD EEN STREEP HIERONDER
+//ADD EEN STREEP VIEW HIERONDER 
 				
 }
 	}
 	
-	private void processObject(){
-		//Pakt habit van Activity Input
-		Habit h = (Habit)getIntent().getExtras().getParcelable("INPUT_HABIT");
-		PositiveHabitlist.add(h);		
-	}
 
-	//Wijzigt naar intent 
-	public void nextIntent(){
-		Intent i = new Intent();
-		i.setClass(this, InputHabitActivity.class);
-		startActivity(i);
-		
-	}
+
 	
 	
 	// Onclick listener	
@@ -133,6 +168,13 @@ public class MainActivity extends ActionBarActivity {
 		}
 	};
 	
+	//Opent InputHabitActivity Activity 
+	public void nextIntent(){
+		Intent i = new Intent();
+		i.setClass(this, InputHabitActivity.class);
+		startActivity(i);
+		
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

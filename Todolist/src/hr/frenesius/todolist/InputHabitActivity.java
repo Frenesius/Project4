@@ -33,6 +33,7 @@ public class InputHabitActivity extends ActionBarActivity {
 	private String title1;
 	private String description1;
 	static int InputHabitActivityCounter;
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

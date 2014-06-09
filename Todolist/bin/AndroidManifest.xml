@@ -14,7 +14,8 @@
         android:allowBackup="true"
         android:icon="@drawable/applogo"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" android:logo="@drawable/applogo">
+        android:logo="@drawable/applogo"
+        android:theme="@style/AppTheme" >
 
         <!-- Activity info -->
 
@@ -23,17 +24,21 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
         <activity
             android:name="hr.frenesius.todolist.InputHabitActivity"
             android:label="@string/title_activity_list" >
-            	<action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
         </activity>
-        
+        <activity
+            android:name="hr.frenesius.todolist.StartupActivity"
+            android:label="@string/title_activity_startup" >
+        </activity>
     </application>
 
 </manifest>

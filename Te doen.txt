@@ -8,9 +8,11 @@ toon reward op scherm
 Na eerste opstart -> nieuwe activity met inputs
 
 //Dashboard maken
-	Nieuwe activity
-		input vragen, verwerken, opslaan DB 
-	statisch laten zien op dashboard
+
+		input vragen, -  
+		verwerken,  - 
+		opslaan DB $##
+	
 //Reward systeem maken
 	button die punten toekent
 	
@@ -32,3 +34,7 @@ Table row -> aanmaken en erin zetten
 String opslaan en uitprinten in een lijst
 Tijd opslaan
 
+
+//Dashboard maken
+	Nieuwe activity -
+	statisch laten zien op dashboard
