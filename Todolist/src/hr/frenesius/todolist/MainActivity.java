@@ -1,6 +1,11 @@
 package hr.frenesius.todolist;
 
+import hr.frenesius.data.FDatabaseHelper;
 import hr.frenesius.list.Habit;
+
+
+
+
 
 
 
@@ -15,6 +20,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -43,13 +50,13 @@ public class MainActivity extends ActionBarActivity {
 	public static Activity MainActivityACTIVITY;		//Gebruikt in InputHabitActivity.class om MainActivity te finish()
 	static List<Habit> PositiveHabitlist 
 	= new ArrayList<Habit>();							//List met alle Habit objecten
-	
+	int habitcounter = 1;
 	//Shared preferences settings 
 	final static String PREFS_NAME = "Happits";
 	SharedPreferences SHAREDPREFS;
 	public static boolean SATRIGGER = false;
-	
 
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		firstLaunch();		//UNCOMMENT WHEN RELEASING
@@ -68,8 +75,12 @@ public class MainActivity extends ActionBarActivity {
 		button2 = (Button) findViewById(R.id.button2);
 		button2.setOnClickListener(button2listener);
 		MainActivityACTIVITY = this;
+		
+	
+		
 	}
 
+	
 	
 	private void firstLaunch(){					//Checks if app is launched for first time
 		SHAREDPREFS = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
@@ -99,6 +110,7 @@ public class MainActivity extends ActionBarActivity {
 		}catch(Exception e){
 			}
 		getUserName();
+		setHabitCounter();
 		}
 	
 	private void processObject(){
@@ -106,14 +118,32 @@ public class MainActivity extends ActionBarActivity {
 		Habit h = (Habit)getIntent().getExtras().getParcelable("INPUT_HABIT");
 		PositiveHabitlist.add(h);		
 	}
-	
+	//DASHBOARD RELATED
 	private void getUserName(){
 		SHAREDPREFS = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 		String name = SHAREDPREFS.getString("Name", "Hai");
 		TextView i = (TextView) findViewById(R.id.MAtextView1);
 		i.setText("Welkom " + name);
-	
 	}
+	private void setHabitCounter(){
+		ln = (LinearLayout) this.findViewById(R.id.DashboardLinearLayout);
+		ln.setOrientation(LinearLayout.VERTICAL); 
+		
+		TableLayout ll = (TableLayout) findViewById(R.id.DashboardMain);
+		TextView tv = new TextView(this);
+		//Table layout
+		LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+		lp.leftMargin = 10;
+		lp.rightMargin = 15;
+		lp.bottomMargin = 10;
+		ll.setLayoutParams(lp);
+		//Set counter 
+		int hCounter = habitcounter -1;
+		tv.setText("Aantal Habits:" + hCounter);
+		ll.addView(tv);	
+	}
+	
+	
 	private void addHabitToDashboard(){
 		//Variabelen
 		int length = PositiveHabitlist.size();
@@ -123,8 +153,6 @@ public class MainActivity extends ActionBarActivity {
 		//Workaround voor probleem
 		final int N = length; // total number of textviews to add
 		
-
-		 int habitcounter = 1;
 			for (int i = 0; i < N; i++) {
 				//Local vars
 				TableLayout ll = (TableLayout) findViewById(R.id.GoodHabitsMain);
@@ -135,6 +163,7 @@ public class MainActivity extends ActionBarActivity {
 				LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 				lp.leftMargin = 10;
 				lp.rightMargin = 15;
+				lp.bottomMargin = 10;
 				
 				ll.setLayoutParams(lp);
 				

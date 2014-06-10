@@ -1,8 +1,11 @@
 package hr.frenesius.data;
 
+import hr.frenesius.list.Message;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import android.widget.Toast;
 
 public class FDatabaseHelper extends SQLiteOpenHelper {
 	//GENERAL DATABASE VARIABLES
@@ -13,10 +16,21 @@ public class FDatabaseHelper extends SQLiteOpenHelper {
 	private static final String SPELER = "";
 	
 	//TABLE2
-	private static final String HABIT = "";
+	private static final String HABIT = "Habit";
+	private static final String ID = "_id";
+	private static final String TITLE = "title";
+	private static final String DESCRIPTION = "description";
+	private static final String DATE = "date";
+	private static final String REWARD = "reward";
 	
 	//QUERY's
-	private static final String CREATETABLE1 = "";
+	private static final String CREATETABLE_HABIT = "CREATE TABLE " + HABIT 	+" (" + 
+														ID 				+" INT PKEY AUTOINCREMENT NOT NULL," 	 +
+														TITLE			+" VARCHAR(45) NOT NULL," 	 +
+														DESCRIPTION		+" VARCHAR(255) NOT NULL,"	 +
+														DATE			+" DATETIME,"	 +
+														REWARD			+" INT NOT NULL DEFAULT '10'"		 +
+																		");" ;
 	
 	
 	//MAAK ERD 
@@ -28,13 +42,18 @@ public class FDatabaseHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL(CREATETABLE1);
+		db.execSQL(CREATETABLE_HABIT);
+		
 		
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// TODO Auto-generated method stub
+	    Log.w(FDatabaseHelper.class.getName(),
+	            "Upgrading database from version " + oldVersion + " to "
+	                + newVersion + ", which will destroy all old data");
+	        db.execSQL("DROP TABLE IF EXISTS " + HABIT);
+	        onCreate(db);
 		
 	}
 }

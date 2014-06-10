@@ -28,17 +28,13 @@ public class StartupActivity extends Activity {
 		MainActivity.MainActivityACTIVITY.finish();	
 		b1 = (Button) findViewById(R.id.SAbutton1);
 		b1.setOnClickListener(b1listener);
-		
-		
 	}
 	
 	View.OnClickListener b1listener = new View.OnClickListener() {
 		public void onClick(View v) {
 			getTextSAeditText1();
 			processInput();
-			
-			
-			Toast.makeText(getApplicationContext(), "Button2 clicked",
+			Toast.makeText(getApplicationContext(), "Welkom " + name,
 					   Toast.LENGTH_LONG).show();
 			finishActivity();
 		}
