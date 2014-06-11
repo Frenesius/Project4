@@ -114,7 +114,7 @@ public class MainActivity extends ActionBarActivity {
 	//DASHBOARD RELATED
 	private void getUserName(){
 		SHAREDPREFS = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-		TextView i = (TextView) findViewById(R.id.MAtextView1);
+		TextView i = (TextView) findViewById(R.id.YourName);
 		name1 = SHAREDPREFS.getString("Name", "Hai");
 		
 		i.setText("Welkom " + user.getName());
@@ -149,29 +149,67 @@ public class MainActivity extends ActionBarActivity {
 		
 			for (int i = 0; i < N; i++) {
 				//Local vars
-				TableLayout ll = (TableLayout) findViewById(R.id.GoodHabitsMain);
-				TextView tv = new TextView(this);
-				Habit habit = PositiveHabitlist.get(i);
+				TableLayout ll = (TableLayout) findViewById(R.id.GoodHabitsMain); //
+				TextView tv = new TextView(this); //
+				Habit habit = PositiveHabitlist.get(i); //
 				
 				//Table layout
-				LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-				lp.leftMargin = 10;
-				lp.rightMargin = 15;
-				lp.bottomMargin = 10;
+				LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT); //
+				lp.leftMargin = 10; //
+				lp.rightMargin = 15; //
+				lp.bottomMargin = 10; //
 				
-				ll.setLayoutParams(lp);
+				ll.setLayoutParams(lp); //
 				
 				//Get strings
-				String habitnumber = "Habit Number: " + String.valueOf(habitcounter);
-				String Title = habit.getTitle();
-				String description = habit.getDescription();
+				String habitnumber = "Habit Number: " + String.valueOf(habitcounter); //
+				String Title = habit.getTitle(); //
+				String description = habit.getDescription(); //
 				
 				//Set text for the row
-				tv.setText(habitnumber+ "\n" + Title + " \n" + description + "\n --------------------");
+				tv.setText(habitnumber+ "\n" + Title + " \n" + description + "\n --------------------"); //
 		
+				
+				TableRow tr = new TableRow(this);
+				
+				///TEST
+				LayoutParams lptr = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+				LayoutParams lpb1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+				LayoutParams lpb2 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+				LayoutParams lptv = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+				
+				lptr.weight = 8;
+				
+				lptv.weight = 6;
+				lpb1.weight = 1;
+				lpb2.weight = 1;
+				
+				
+				//Buttons
+				Button b1 = new Button(this);
+				Button b2 = new Button(this);
+				b1.setBackgroundResource(R.drawable.button_good);
+				b2.setBackgroundResource(R.drawable.button_bad);
+				
+				b1.setLayoutParams(lpb1);
+				b1.setLayoutParams(lpb2);
+				tv.setLayoutParams(lptv);
+				
+				tr.setLayoutParams(lptr);
+				
+				
+				
+				TableRow r = (TableRow) findViewById(R.id.tableRow75);
+				ll.removeView(r);
+				
+				
+				tr.addView(tv);
+				tr.addView(b1);
+				tr.addView(b2);
 				//Add row in Tableview
-				ll.addView(tv);	
-				habitcounter++;
+				ll.addView(tr);	 //
+				habitcounter++; //
+				
 //ADD EEN STREEP VIEW HIERONDER 
 				
 }

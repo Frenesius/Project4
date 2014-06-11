@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="hr.frenesius.todolist.MainActivity"
-    tools:ignore="MergeRootFrame" 
-    >
+    tools:ignore="MergeRootFrame" >
+
     <!-- Main  -->
     <!-- Scroll view voor de Main -->
      <ScrollView
@@ -19,15 +19,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical" >
 	<!-- Dashboard -->	
-        <TextView
-            android:id="@+id/ListTextview2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/ListTextview3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        
 <!-- Dashboard Main Table  -->
 
         <TableLayout
@@ -37,46 +29,79 @@
             android:layout_gravity="center_vertical"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/borderlayout" >
+
 >
 <!-- Dashbaord Main -->
             <TableRow
                 android:id="@+id/tableRow5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
+                
+              <TextView      
+                   	android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                   	android:text="Dashboard"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />  
+                
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+               <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+               <TextView      
+                   android:id="@+id/YourName"
+                   	android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                   	android:text="YourName"
+                    
+                    android:textStyle="italic" /> 
+                 
             </TableRow>
 
             <TableRow
                 android:id="@+id/tableRow6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
-
-                <QuickContactBadge
-                    android:id="@+id/quickContactBadge1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/MAtextView1"
-                    android:layout_width="wrap_content"
+               <TextView      
+                   android:id="@+id/YourScore"
+                   	android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
-
+                   	android:text="YourScore"
+                    
+                    android:textStyle="italic" /> 
             </TableRow>
-        </TableLayout>ab
+
+        </TableLayout>
 <!-- Einde Dashboard -->
         
         <!--  Begin van Good Habits Main Tabel -->
+
         <TableLayout
             android:id="@+id/GoodHabitsMain"
             android:layout_width="fill_parent"
-            android:layout_height="214dp"
+            android:layout_height="100dp"
             android:layout_gravity="center_vertical"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/borderlayout" >
+
 <!--  Begin  van text Good Habits -->
             <TableRow
                 android:id="@+id/tableRow1"
@@ -107,28 +132,37 @@
                     android:background="@android:color/darker_gray" />
 
             </TableRow>
+<TableRow
+        android:id="@+id/tableRow75"
+        android:layout_width="wrap_content"
+        android:weightSum="8"
+        android:layout_height="wrap_content" >
 
+        <TextView
+            android:id="@+id/textView75"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:text="Add hier je Habits!" />
+    </TableRow>
             
         </TableLayout>
 <!--  Einde Tabel Good Habits  -->
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/custom_button" />
+        
 
  <!--  Begin Bad Habits Tabel -->
+
        <TableLayout
            android:id="@+id/BadhabitsMain"
            android:layout_width="fill_parent"
-           android:layout_height="214dp"
+           android:layout_height="100dp"
            android:layout_gravity="center_vertical"
-           android:layout_marginBottom="20dp"
+           android:layout_marginBottom="10dp"
            android:layout_marginLeft="10dp"
-           android:layout_marginRight="15dp"
+           android:layout_marginRight="10dp"
            android:layout_marginTop="10dp"
            android:background="@drawable/borderlayout" >
+
 <!--  Begin Text Bad habits  -->
             <TableRow
                 android:id="@+id/tableRow10"
@@ -177,9 +211,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </TableRow>
+            
         </TableLayout>
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/custom_button" />
 <!--  Einde Tabel Bad Habbits -->
     </LinearLayout>
+    
     </ScrollView>
     
 

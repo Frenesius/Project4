@@ -6,96 +6,112 @@
     tools:context="hr.frenesius.todolist.ListActivity"
     tools:ignore="MergeRootFrame" >
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent" >
+  <!-- Maakt layout scrollable -->  
+  <ScrollView
+                android:id="@+id/scrollView2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+ <!-- Input tabel habit -->      
+<TableLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/inputbutton1"
-            style="?android:attr/buttonStyleSmall"
+        <TableRow
+            android:id="@+id/tableRow1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="klik" />
-
-        <Button
-            android:id="@+id/button3"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/inputbutton1"
-            android:text="Button3" />
-
-        <Button
-            android:id="@+id/button4"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/button3"
-            android:layout_alignBottom="@+id/button3"
-            android:layout_toRightOf="@+id/button3"
-            android:text="Button4" />
-
-        <Button
-            android:id="@+id/button2"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/button3"
-            android:layout_toRightOf="@+id/button3"
-            android:text="Button2" />
-
-        <TextView
-            android:id="@+id/inputtextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/button4"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/button4"
-            android:text="TextView" />
-
-        <TextView
-            android:id="@+id/DatetextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/button4"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/button4"
-            android:layout_toRightOf="@+id/button4"
-            android:text="TEST" />
-
-        <DatePicker
-            android:id="@+id/inputdatePicker1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/descriptionText1"
-            android:calendarViewShown="false"
-            android:spinnersShown="true" />
-
-        <EditText
-            android:id="@+id/titleText1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/button3"
-            android:ems="10"
-            android:hint="Title" />
-
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/borderlayout" >
+            
+            
+            <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+<!-- Input veld voor Habit titel -->
+                <EditText
+                    android:id="@+id/titleText1"
+                    android:layout_width="275dp"
+                    android:layout_height="fill_parent"
+                    android:hint="Title" />
+<!-- Input veld voor Habit omschrijving -->
         <EditText
             android:id="@+id/descriptionText1"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/titleText1"
+            android:layout_weight="2"
+            android:hint="Description"
+           
+/>
+
+       </LinearLayout>
+</TableRow>
+   <!-- tabel voor datum selectie -->
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/borderlayout" >
+<!-- datum selectie widget -->
+            <DatePicker
+                android:id="@+id/inputdatePicker1"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:calendarViewShown="false"
+                android:spinnersShown="true" />
+
+        </TableRow>
+ <!-- tabel voor tijd selectie -->
+        <TableRow
+            android:id="@+id/tableRow4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/titleText1"
-            android:ems="10"
-            android:hint="Description" >
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/borderlayout" >
+ <!-- tijd selectie widget -->
+            <TimePicker
+                android:id="@+id/timePicker1"
+                android:layout_width="70dp"
+                android:layout_height="100dp" />
 
-            <requestFocus />
-        </EditText>
+</TableRow>
+<LinearLayout>
+<!--  tabel rij voor button CREATE -->
+     <TableRow
+         android:id="@+id/tableRow3"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginLeft="10dp"
+         android:layout_marginRight="10dp"
+         android:layout_marginTop="5dp" >
+<!-- CREATE Button -->
+            <Button
+                android:id="@+id/inputbutton1"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:text="CREATE"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/button_click" />
+        </TableRow>
+        
+</LinearLayout>
 
-    </RelativeLayout>
 
+             
+    </TableLayout>
+  </ScrollView>  
 </FrameLayout> 
 
 
