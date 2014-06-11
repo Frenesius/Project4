@@ -2,14 +2,7 @@ package hr.frenesius.todolist;
 
 import hr.frenesius.data.FDatabaseHelper;
 import hr.frenesius.list.Habit;
-
-
-
-
-
-
-
-
+import hr.frenesius.list.User;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -55,15 +48,13 @@ public class MainActivity extends ActionBarActivity {
 	final static String PREFS_NAME = "Happits";
 	SharedPreferences SHAREDPREFS;
 	public static boolean SATRIGGER = false;
-
+	String name1;
+	static User user = new User();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		firstLaunch();		//UNCOMMENT WHEN RELEASING
-		
-
-		
-		
+		setUser();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		if (savedInstanceState == null) {
@@ -74,12 +65,14 @@ public class MainActivity extends ActionBarActivity {
 		// Buttons voor on click
 		button2 = (Button) findViewById(R.id.button2);
 		button2.setOnClickListener(button2listener);
-		MainActivityACTIVITY = this;
-		
-	
-		
+		MainActivityACTIVITY = this;	
 	}
-
+	private void setUser(){
+		SHAREDPREFS = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+		name1 = SHAREDPREFS.getString("Name", "Hai");
+		user.setName(name1);
+		String a = "";
+	}
 	
 	
 	private void firstLaunch(){					//Checks if app is launched for first time
@@ -121,10 +114,11 @@ public class MainActivity extends ActionBarActivity {
 	//DASHBOARD RELATED
 	private void getUserName(){
 		SHAREDPREFS = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-		String name = SHAREDPREFS.getString("Name", "Hai");
 		TextView i = (TextView) findViewById(R.id.MAtextView1);
-		i.setText("Welkom " + name);
-	}
+		name1 = SHAREDPREFS.getString("Name", "Hai");
+		
+		i.setText("Welkom " + user.getName());
+		}
 	private void setHabitCounter(){
 		ln = (LinearLayout) this.findViewById(R.id.DashboardLinearLayout);
 		ln.setOrientation(LinearLayout.VERTICAL); 

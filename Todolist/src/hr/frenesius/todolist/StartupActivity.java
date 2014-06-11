@@ -1,5 +1,10 @@
 package hr.frenesius.todolist;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import android.app.Activity;
 import hr.frenesius.todolist.MainActivity;
 import android.content.Context;
@@ -20,15 +25,16 @@ public class StartupActivity extends Activity {
 	Button b1;
 	String name;
 	SharedPreferences SHAREDPREFS;
+	Calendar SAdate = Calendar.getInstance();
 	
-	@Override
+	@Override 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_startup);
 		MainActivity.MainActivityACTIVITY.finish();	
 		b1 = (Button) findViewById(R.id.SAbutton1);
 		b1.setOnClickListener(b1listener);
-	}
+	} 
 	
 	View.OnClickListener b1listener = new View.OnClickListener() {
 		public void onClick(View v) {
@@ -60,8 +66,8 @@ public class StartupActivity extends Activity {
 		Editor a  = SHAREDPREFS.edit();
 		a.putString("Name", name);
 		a.commit();
-	}
-	
-	
-	
+		
+		Calendar cal = Calendar.getInstance();
+		MainActivity.user.setfirstLogin(cal);	
+	}	
 }
