@@ -106,6 +106,43 @@ public class MainActivity extends ActionBarActivity {
 		setHabitCounter();
 		}
 	
+	private void DATABASETEST(){
+		//Om dit te gebruiken moet je het in mainactivity zetten onder:
+		//if(MainActivityTRIGGER == true)  processObject(); onder regel 97
+		//Ook eerst een habit toevoegen, daarna pas kan dit uitgevoerd worden
+		Habit h = PositiveHabitlist.get(0);
+		String title = h.getTitle();				//title is de string voor title die je in databse moet zetten
+		String description = h.getDescription();	//description is een string die je in databse moet zetten
+		int reward = h.getReward();					//Ook in database maar let op integer!
+		
+		
+		//Probeer eerst de Calendar object date in database te zetten, 
+		//Mocht dat niet lukken, heb ik string gemaakt dateString
+		Calendar date = h.getDate();				//pakt calender object, maar dit is neit in string formaat
+			int ab = date.get(Calendar.DAY_OF_MONTH);	//pakt dag in int
+			int ac = date.get(Calendar.MONTH);			//Pakt maand in int
+			int ad = date.get(Calendar.YEAR);			//Pakt jaar in int
+		
+			String ca = String.valueOf(ab); // Parsed dag in string
+			String ba = String.valueOf(ac); // Parsed maand in string
+			String aa = String.valueOf(ad); // Parsed jaar in string
+		
+		String dateString = ca + "-" + ba + "-" + aa;	//dd-mm-yyyy
+		//
+		//voeg codes die je gaat verwijderen toe in snippet(als het grote code is en niet een int)
+		//Voer hier onder je Query's toe
+		//V
+		
+		
+		
+		
+		//^
+		Toast.makeText(getApplicationContext(), "exec DATABASETEST()", Toast.LENGTH_LONG).show();
+	}
+	
+	
+	
+	
 	private void processObject(){
 		//Pakt habit van Activity Input
 		Habit h = (Habit)getIntent().getExtras().getParcelable("INPUT_HABIT");
@@ -125,12 +162,14 @@ public class MainActivity extends ActionBarActivity {
 		
 		TableLayout ll = (TableLayout) findViewById(R.id.DashboardMain);
 		TextView tv = new TextView(this);
+		
 		//Table layout
 		LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 		lp.leftMargin = 10;
 		lp.rightMargin = 15;
 		lp.bottomMargin = 10;
 		ll.setLayoutParams(lp);
+		
 		//Set counter 
 		int hCounter = habitcounter -1;
 		tv.setText("Aantal Habits:" + hCounter);
@@ -148,18 +187,9 @@ public class MainActivity extends ActionBarActivity {
 		final int N = length; // total number of textviews to add
 		
 			for (int i = 0; i < N; i++) {
-				//Local vars
-				TableLayout ll = (TableLayout) findViewById(R.id.GoodHabitsMain); //
+				TableRow tr = new TableRow(this);
 				TextView tv = new TextView(this); //
 				Habit habit = PositiveHabitlist.get(i); //
-				
-				//Table layout
-				LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT); //
-				lp.leftMargin = 10; //
-				lp.rightMargin = 15; //
-				lp.bottomMargin = 10; //
-				
-				ll.setLayoutParams(lp); //
 				
 				//Get strings
 				String habitnumber = "Habit Number: " + String.valueOf(habitcounter); //
@@ -168,47 +198,43 @@ public class MainActivity extends ActionBarActivity {
 				
 				//Set text for the row
 				tv.setText(habitnumber+ "\n" + Title + " \n" + description + "\n --------------------"); //
-		
 				
-				TableRow tr = new TableRow(this);
-				
-				///TEST
+				//layouts
+				TableLayout ll = (TableLayout) findViewById(R.id.GoodHabitsMain); //
+				LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT); //
 				LayoutParams lptr = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 				LayoutParams lpb1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-				LayoutParams lpb2 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 				LayoutParams lptv = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-				
-				lptr.weight = 8;
-				
+				//Params
+				lptr.weight = 8;				
 				lptv.weight = 6;
 				lpb1.weight = 1;
-				lpb2.weight = 1;
-				
+				lp.leftMargin = 10; 
+				lp.rightMargin = 15; 
+				lp.bottomMargin = 10; 
 				
 				//Buttons
 				Button b1 = new Button(this);
 				Button b2 = new Button(this);
+				
 				b1.setBackgroundResource(R.drawable.button_good);
 				b2.setBackgroundResource(R.drawable.button_bad);
 				
 				b1.setLayoutParams(lpb1);
-				b1.setLayoutParams(lpb2);
+				b2.setLayoutParams(lpb1);
 				tv.setLayoutParams(lptv);
-				
 				tr.setLayoutParams(lptr);
-				
-				
+				ll.setLayoutParams(lp); 
 				
 				TableRow r = (TableRow) findViewById(R.id.tableRow75);
 				ll.removeView(r);
-				
 				
 				tr.addView(tv);
 				tr.addView(b1);
 				tr.addView(b2);
 				//Add row in Tableview
-				ll.addView(tr);	 //
-				habitcounter++; //
+				ll.addView(tr);	 
+				habitcounter++; 
 				
 //ADD EEN STREEP VIEW HIERONDER 
 				
