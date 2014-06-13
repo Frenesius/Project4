@@ -1,7 +1,7 @@
 package hr.frenesius.list;
 
 
-import java.io.Serializable;
+
 //Imports
 import java.util.Calendar;
 
@@ -14,8 +14,7 @@ public class Habit implements Parcelable {
 	private String title;
 	private String description; // Text voor de to do list
 	Calendar date = Calendar.getInstance();
-	private Boolean checkbox; // Checkbox voor de to do list
-	private Integer reward; // Reward voor de to do list
+	private int reward = 10; // Reward voor de to do list
 	
 	
 	
@@ -66,10 +65,6 @@ public class Habit implements Parcelable {
 		return date;
 	}
 
-	public Boolean getCheckbox() {
-		return checkbox;
-	}
-
 	public Integer getReward() {
 		return reward;
 	}
@@ -97,12 +92,10 @@ public class Habit implements Parcelable {
 			
 	}
 
-	public void setCheckbox(Boolean checkbox) {
-		checkbox = checkbox;
-	}
 
-	public void setReward(Integer reward) {
-		reward = reward;
+
+	public void setReward(int reward1) {
+		reward = reward1;
 	}
 	
 	//PARCELABLE

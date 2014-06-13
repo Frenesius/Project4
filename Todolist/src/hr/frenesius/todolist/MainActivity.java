@@ -50,6 +50,7 @@ public class MainActivity extends ActionBarActivity {
 	public static boolean SATRIGGER = false;
 	String name1;
 	static User user = new User();
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +66,9 @@ public class MainActivity extends ActionBarActivity {
 		// Buttons voor on click
 		button2 = (Button) findViewById(R.id.button2);
 		button2.setOnClickListener(button2listener);
-		MainActivityACTIVITY = this;	
+		MainActivityACTIVITY = this;
+		
+
 	}
 	private void setUser(){
 		SHAREDPREFS = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
@@ -104,41 +107,13 @@ public class MainActivity extends ActionBarActivity {
 			}
 		getUserName();
 		setHabitCounter();
-		}
-	
-	private void DATABASETEST(){
-		//Om dit te gebruiken moet je het in mainactivity zetten onder:
-		//if(MainActivityTRIGGER == true)  processObject(); onder regel 97
-		//Ook eerst een habit toevoegen, daarna pas kan dit uitgevoerd worden
-		Habit h = PositiveHabitlist.get(0);
-		String title = h.getTitle();				//title is de string voor title die je in databse moet zetten
-		String description = h.getDescription();	//description is een string die je in databse moet zetten
-		int reward = h.getReward();					//Ook in database maar let op integer!
 		
 		
-		//Probeer eerst de Calendar object date in database te zetten, 
-		//Mocht dat niet lukken, heb ik string gemaakt dateString
-		Calendar date = h.getDate();				//pakt calender object, maar dit is neit in string formaat
-			int ab = date.get(Calendar.DAY_OF_MONTH);	//pakt dag in int
-			int ac = date.get(Calendar.MONTH);			//Pakt maand in int
-			int ad = date.get(Calendar.YEAR);			//Pakt jaar in int
-		
-			String ca = String.valueOf(ab); // Parsed dag in string
-			String ba = String.valueOf(ac); // Parsed maand in string
-			String aa = String.valueOf(ad); // Parsed jaar in string
-		
-		String dateString = ca + "-" + ba + "-" + aa;	//dd-mm-yyyy
-		//
-		//voeg codes die je gaat verwijderen toe in snippet(als het grote code is en niet een int)
-		//Voer hier onder je Query's toe
-		//V
-		
-		
-		
-		
-		//^
-		Toast.makeText(getApplicationContext(), "exec DATABASETEST()", Toast.LENGTH_LONG).show();
+
 	}
+	
+	
+
 	
 	
 	
@@ -146,7 +121,9 @@ public class MainActivity extends ActionBarActivity {
 	private void processObject(){
 		//Pakt habit van Activity Input
 		Habit h = (Habit)getIntent().getExtras().getParcelable("INPUT_HABIT");
-		PositiveHabitlist.add(h);		
+		PositiveHabitlist.add(h);
+		
+		user.setAantalHabits(PositiveHabitlist.size());
 	}
 	//DASHBOARD RELATED
 	private void getUserName(){
@@ -217,6 +194,8 @@ public class MainActivity extends ActionBarActivity {
 				Button b1 = new Button(this);
 				Button b2 = new Button(this);
 				
+				
+				
 				b1.setBackgroundResource(R.drawable.button_good);
 				b2.setBackgroundResource(R.drawable.button_bad);
 				
@@ -236,11 +215,51 @@ public class MainActivity extends ActionBarActivity {
 				ll.addView(tr);	 
 				habitcounter++; 
 				
+				
+				
+				b1.setOnClickListener(habitB1);
+				
+				b2.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						int h = habitcounter -1;
+						
+						for(int a = 0; a > h; a++){
+						Habit habit = PositiveHabitlist.get(h);
+						user.setRewardpoint(habit.getReward());
+						
+						
+						int reward = user.getRewardpoint();
+						Toast.makeText(getApplicationContext(), "reward: " + reward,
+								   Toast.LENGTH_LONG).show();
+						}
+					}});
+				
 //ADD EEN STREEP VIEW HIERONDER 
 				
 }
 	}
-	
+	View.OnClickListener habitB1 = new View.OnClickListener() {
+		public void onClick(View v) {
+			int length = PositiveHabitlist.size();
+			final int N = length; // total number of textviews to add
+			for (int i = 0; i < N; i++) {
+				
+			Habit habit = PositiveHabitlist.get(i);
+			user.addRewardPoint(habit.getReward());
+			updateScore();
+			Toast.makeText(getApplicationContext(), "reward: " + user.getRewardpoint(),
+					   Toast.LENGTH_LONG).show();
+			}
+			
+		}};
+		
+		View.OnClickListener habitB2 = new View.OnClickListener() {
+			public void onClick(View v) {
+				
+				Toast.makeText(getApplicationContext(), "habitB2",
+						   Toast.LENGTH_LONG).show();
+				
+			}};	
 
 
 	
@@ -249,14 +268,16 @@ public class MainActivity extends ActionBarActivity {
 	View.OnClickListener button2listener = new View.OnClickListener() {
 		public void onClick(View v) {
 			nextIntent();
-			
-			Toast.makeText(getApplicationContext(), "Button2 clicked",
-					   Toast.LENGTH_LONG).show();
 		}
 	};
+	private void updateScore(){
+		TextView tv = (TextView) findViewById(R.id.YourScore);
+		tv.setText("Your score is: " + user.getRewardpoint());
+		
+	} 
 	
 	//Opent InputHabitActivity Activity 
-	public void nextIntent(){
+	private void nextIntent(){
 		Intent i = new Intent();
 		i.setClass(this, InputHabitActivity.class);
 		startActivity(i);

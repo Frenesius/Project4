@@ -77,13 +77,14 @@
                 android:id="@+id/tableRow6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
-               <TextView      
+
+               <TextView
                    android:id="@+id/YourScore"
-                   	android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                   	android:text="YourScore"
-                    
-                    android:textStyle="italic" /> 
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Your score is: 0"
+                   android:textStyle="italic" />
+ 
             </TableRow>
 
         </TableLayout>

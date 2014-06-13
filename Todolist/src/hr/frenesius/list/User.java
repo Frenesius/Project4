@@ -11,6 +11,13 @@ public class User {
 	private int aantalHabits;
 	private Calendar firstLogin;
 	
+	public void addRewardPoint(int reward){
+		rewardPoint += reward;
+	}
+	
+	
+	
+	
 	//Setters
 	public void setfirstLogin(Calendar firstLogin){
 		this.firstLogin = firstLogin;

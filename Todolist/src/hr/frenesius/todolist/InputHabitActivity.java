@@ -91,6 +91,7 @@ public class InputHabitActivity extends ActionBarActivity {
 		private void makeObject(){
 			
 			Habit h = new Habit(title1, description1);
+			h.setReward(10);
 			h.setDate(year, month, day);
 			MainActivity.MainActivityTRIGGER = true;
 			
