@@ -1,10 +1,16 @@
 package snippet;
 
 import hr.frenesius.list.Habit;
+import hr.frenesius.todolist.R;
 
 import java.util.Calendar;
 
+import android.widget.DatePicker;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.TableRow.LayoutParams;
 
 public class Snippet {
 	/**		//SETS
@@ -84,20 +90,82 @@ public class Snippet {
 	
 	
 	
+	Datepicker
+	
+	
+			private void getDateDatepicker(){
+			
+			DatePicker a2 = (DatePicker) findViewById(R.id.inputdatePicker1); // Maakt Datepicker var aan
+			//Get date														
+			day = a2.getDayOfMonth(); // Pakt datepicker dag
+			month = a2.getMonth(); // Pakt datepicker maand
+			year = a2.getYear(); // Pakt datepicker jaar	
+
+		}
 	
 	
 	
 	
 	
-	
-**/	
 
 	
 	
+	private void setHabitCounter(){
+		ln = (LinearLayout) this.findViewById(R.id.DashboardLinearLayout);
+		ln.setOrientation(LinearLayout.VERTICAL); 
+		
+		TableLayout ll = (TableLayout) findViewById(R.id.DashboardMain);
+		TextView tv = new TextView(this);
+		
+		//Table layout
+		LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+		lp.leftMargin = 10;
+		lp.rightMargin = 15;
+		lp.bottomMargin = 10;
+		ll.setLayoutParams(lp);
+		
+		//Set counter 
+		int hCounter = habitcounter -1;
+		tv.setText("Aantal Habits:" + hCounter);
+		ll.addView(tv);	
+	}
 	
 	
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	**/
 	
 }

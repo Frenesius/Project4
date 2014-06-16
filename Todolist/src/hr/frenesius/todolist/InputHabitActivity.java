@@ -25,15 +25,10 @@ import android.os.Build;
 public class InputHabitActivity extends ActionBarActivity {
 	
 	Button button1; // Button
-
-
-	private int day; 
-	private int month;
-	private int year; 
 	private String title1;
 	private String description1;
 	static int InputHabitActivityCounter;
-
+	public static String goodHabitParcelable = "INPUT_GOODHABIT";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +44,11 @@ public class InputHabitActivity extends ActionBarActivity {
 				button1.setOnClickListener(button1listener);
 	
 	}
+
 	// Onclick listener
 		View.OnClickListener button1listener = new View.OnClickListener() {
 			public void onClick(View v) {
 				//GETS
-				getDateDatepicker();
 				getTexttitleText1();
 				getTextdescriptionText1();
 				
@@ -63,14 +58,7 @@ public class InputHabitActivity extends ActionBarActivity {
 		};
 		
 //GETS
-		private void getDateDatepicker(){
-			DatePicker a2 = (DatePicker) findViewById(R.id.inputdatePicker1); // Maakt Datepicker var aan
-			//Get date														
-			day = a2.getDayOfMonth(); // Pakt datepicker dag
-			month = a2.getMonth(); // Pakt datepicker maand
-			year = a2.getYear(); // Pakt datepicker jaar	
 
-		}
 		private void getTexttitleText1(){
 			EditText i = (EditText) findViewById(R.id.titleText1);
 			Editable a = i.getText();
@@ -92,12 +80,12 @@ public class InputHabitActivity extends ActionBarActivity {
 			
 			Habit h = new Habit(title1, description1);
 			h.setReward(10);
-			h.setDate(year, month, day);
-			MainActivity.MainActivityTRIGGER = true;
+			
+			MainActivity.goodHabitTRIGGER = true;
 			
 			Intent i = new Intent();
 			i.setClass(this, MainActivity.class);
-			i.putExtra("INPUT_HABIT", h);
+			i.putExtra(goodHabitParcelable, h);
 			//End Main activity wanneer iets ingevuld
 			MainActivity.MainActivityACTIVITY.finish();
 			finish();

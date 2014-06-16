@@ -2,6 +2,7 @@ package hr.frenesius.todolist;
 
 import hr.frenesius.data.FDatabaseHelper;
 import hr.frenesius.list.Habit;
+import hr.frenesius.list.Message;
 import hr.frenesius.list.User;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.List;
 
 import android.widget.TableRow.LayoutParams;
 import android.app.Activity;
+import android.content.ClipData.Item;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,6 +27,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -36,20 +39,23 @@ import android.widget.Toast;
 public class MainActivity extends ActionBarActivity {
 //PositiveHabitList.clear() als een reset knop
 	 
-	Button button1; 									// Button
-	Button button2; 									// Button
 	LinearLayout ln;									//Lineare Layout
-	public static boolean MainActivityTRIGGER = false; 	//Triggerchecker voor onResume
+	public static boolean goodHabitTRIGGER = false; 
+	public static boolean badHabitTRIGGER = false; //Triggerchecker voor onResume
 	public static Activity MainActivityACTIVITY;		//Gebruikt in InputHabitActivity.class om MainActivity te finish()
-	static List<Habit> PositiveHabitlist 
+	
+	static List<Habit> goodHabitlist 
 	= new ArrayList<Habit>();							//List met alle Habit objecten
+	static List<Habit> badHabitlist 
+	= new ArrayList<Habit>();							//List met alle Habit objecten
+	
 	int habitcounter = 1;
 	//Shared preferences settings 
 	final static String PREFS_NAME = "Happits";
 	SharedPreferences SHAREDPREFS;
 	public static boolean SATRIGGER = false;
 	String name1;
-	static User user = new User();
+	public static User user = new User();
 
 	
 	@Override
@@ -64,17 +70,15 @@ public class MainActivity extends ActionBarActivity {
 		}
 		
 		// Buttons voor on click
-		button2 = (Button) findViewById(R.id.button2);
-		button2.setOnClickListener(button2listener);
+	
 		MainActivityACTIVITY = this;
 		
-
 	}
+
 	private void setUser(){
 		SHAREDPREFS = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 		name1 = SHAREDPREFS.getString("Name", "Hai");
 		user.setName(name1);
-		String a = "";
 	}
 	
 	
@@ -91,40 +95,56 @@ public class MainActivity extends ActionBarActivity {
 		i.setClass(this, StartupActivity.class);
 		startActivity(i);	
 	}
+	private void nextIntentBadHabit(){
+		Intent i = new Intent();
+		i.setClass(this, InputBadHabitActivity.class);
+		startActivity(i);	
+	}
 	
 	protected void onResume(){
 		super.onResume();
 		
 		//Checkt of input getriggerd is
-		if(MainActivityTRIGGER == true){
-			processObject();
-			MainActivityTRIGGER = false;
+		if(goodHabitTRIGGER == true){
+			processGoodHabit();
+			goodHabitTRIGGER = false;
+				}
+		if(badHabitTRIGGER == true){
+			processBadHabit();
+			badHabitTRIGGER = false;
 				}
 		
 		try{
-			addHabitToDashboard();
+			addGoodHabitToDashboard();			//VOEG HIER OOK DE BAD HABIT PROCESS AN TOE
+			addBadHabitToDashboard();
 		}catch(Exception e){
 			}
 		getUserName();
-		setHabitCounter();
-		
-		
-
 	}
 	
 	
 
+ 
 	
 	
-	
-	
-	private void processObject(){
+	private void processGoodHabit(){
 		//Pakt habit van Activity Input
-		Habit h = (Habit)getIntent().getExtras().getParcelable("INPUT_HABIT");
-		PositiveHabitlist.add(h);
+		Habit h = (Habit)getIntent().getExtras().getParcelable(InputHabitActivity.goodHabitParcelable);
+		goodHabitlist.add(h);
+		setUserAantalHabits();
 		
-		user.setAantalHabits(PositiveHabitlist.size());
 	}
+	private void processBadHabit(){
+		//Pakt habit van Activity Input
+		Habit h = (Habit)getIntent().getExtras().getParcelable(InputBadHabitActivity.badHabitParcelable);
+		badHabitlist.add(h);
+		setUserAantalHabits();
+		
+	}
+	
+	
+	
+	
 	//DASHBOARD RELATED
 	private void getUserName(){
 		SHAREDPREFS = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
@@ -133,30 +153,16 @@ public class MainActivity extends ActionBarActivity {
 		
 		i.setText("Welkom " + user.getName());
 		}
-	private void setHabitCounter(){
-		ln = (LinearLayout) this.findViewById(R.id.DashboardLinearLayout);
-		ln.setOrientation(LinearLayout.VERTICAL); 
-		
-		TableLayout ll = (TableLayout) findViewById(R.id.DashboardMain);
-		TextView tv = new TextView(this);
-		
-		//Table layout
-		LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-		lp.leftMargin = 10;
-		lp.rightMargin = 15;
-		lp.bottomMargin = 10;
-		ll.setLayoutParams(lp);
-		
-		//Set counter 
-		int hCounter = habitcounter -1;
-		tv.setText("Aantal Habits:" + hCounter);
-		ll.addView(tv);	
+	
+	private void setUserAantalHabits(){
+		int aantalHabits = goodHabitlist.size() + badHabitlist.size();
+		user.setAantalHabits(aantalHabits);
 	}
 	
 	
-	private void addHabitToDashboard(){
+	private void addGoodHabitToDashboard(){
 		//Variabelen
-		int length = PositiveHabitlist.size();
+		int length = goodHabitlist.size();
 		ln = (LinearLayout) this.findViewById(R.id.DashboardLinearLayout);
 		ln.setOrientation(LinearLayout.VERTICAL); 
 		
@@ -166,15 +172,14 @@ public class MainActivity extends ActionBarActivity {
 			for (int i = 0; i < N; i++) {
 				TableRow tr = new TableRow(this);
 				TextView tv = new TextView(this); //
-				Habit habit = PositiveHabitlist.get(i); //
+				Habit habit = goodHabitlist.get(i); //
 				
 				//Get strings
-				String habitnumber = "Habit Number: " + String.valueOf(habitcounter); //
 				String Title = habit.getTitle(); //
 				String description = habit.getDescription(); //
 				
 				//Set text for the row
-				tv.setText(habitnumber+ "\n" + Title + " \n" + description + "\n --------------------"); //
+				tv.setText(Title + " \n" + description + "\n --------------------"); //
 				
 				//layouts
 				TableLayout ll = (TableLayout) findViewById(R.id.GoodHabitsMain); //
@@ -184,33 +189,28 @@ public class MainActivity extends ActionBarActivity {
 				LayoutParams lptv = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 				//Params
 				lptr.weight = 8;				
-				lptv.weight = 6;
+				lptv.weight = 7;
 				lpb1.weight = 1;
 				lp.leftMargin = 10; 
 				lp.rightMargin = 15; 
 				lp.bottomMargin = 10; 
 				
+				//Delete row
+				TableRow r = (TableRow) findViewById(R.id.tableRow75);
+				ll.removeView(r);
 				//Buttons
 				Button b1 = new Button(this);
-				Button b2 = new Button(this);
-				
-				
-				
 				b1.setBackgroundResource(R.drawable.button_good);
-				b2.setBackgroundResource(R.drawable.button_bad);
 				
 				b1.setLayoutParams(lpb1);
-				b2.setLayoutParams(lpb1);
 				tv.setLayoutParams(lptv);
 				tr.setLayoutParams(lptr);
 				ll.setLayoutParams(lp); 
 				
-				TableRow r = (TableRow) findViewById(R.id.tableRow75);
-				ll.removeView(r);
+				
 				
 				tr.addView(tv);
 				tr.addView(b1);
-				tr.addView(b2);
 				//Add row in Tableview
 				ll.addView(tr);	 
 				habitcounter++; 
@@ -219,7 +219,7 @@ public class MainActivity extends ActionBarActivity {
 				
 				b1.setOnClickListener(habitB1);
 				
-				b2.setOnClickListener(new View.OnClickListener() {
+			/**	b2.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						int h = habitcounter -1;
 						
@@ -232,32 +232,107 @@ public class MainActivity extends ActionBarActivity {
 						Toast.makeText(getApplicationContext(), "reward: " + reward,
 								   Toast.LENGTH_LONG).show();
 						}
-					}});
+					}}); **/
 				
 //ADD EEN STREEP VIEW HIERONDER 
 				
-}
+} 
 	}
+	private void addBadHabitToDashboard(){
+		//Variabelen
+				int length = badHabitlist.size();
+				ln = (LinearLayout) this.findViewById(R.id.DashboardLinearLayout);
+				ln.setOrientation(LinearLayout.VERTICAL); 
+				
+				//Workaround voor probleem
+				final int N = length; // total number of textviews to add
+				
+					for (int i = 0; i < N; i++) {
+						TableRow tr = new TableRow(this);
+						TextView tv = new TextView(this); //
+						Habit habit = badHabitlist.get(i); //
+						
+						//Get strings
+						String habitnumber = "Habit Number: " + String.valueOf(habitcounter); //
+						String Title = habit.getTitle(); //
+						String description = habit.getDescription(); //
+						
+						//Set text for the row
+						tv.setText(Title + " \n" + description + "\n --------------------"); //
+						
+						
+						
+						
+						//layouts
+						TableLayout ll = (TableLayout) findViewById(R.id.BadhabitsMain); //
+						LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT); //
+						LayoutParams lptr = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+						LayoutParams lpb2 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+						LayoutParams lptv = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+						//Params
+						lptr.weight = 8;				
+						lptv.weight = 7;
+						lpb2.weight = 1;
+						lp.leftMargin = 10; 
+						lp.rightMargin = 15; 
+						lp.bottomMargin = 10; 
+						
+						
+						
+						//Buttons
+						Button b2 = new Button(this);
+						
+						b2.setBackgroundResource(R.drawable.button_bad);
+						
+						b2.setLayoutParams(lpb2);
+						tv.setLayoutParams(lptv);
+						tr.setLayoutParams(lptr);
+						ll.setLayoutParams(lp); 
+						
+						
+						tr.addView(tv);
+						tr.addView(b2);
+						
+						//Add row in Tableview
+						ll.addView(tr);	 
+						habitcounter++; 
+						
+						b2.setOnClickListener(habitB2);
+						
+					
+					}
+	}
+	
 	View.OnClickListener habitB1 = new View.OnClickListener() {
 		public void onClick(View v) {
-			int length = PositiveHabitlist.size();
+			int length = goodHabitlist.size();
 			final int N = length; // total number of textviews to add
 			for (int i = 0; i < N; i++) {
 				
-			Habit habit = PositiveHabitlist.get(i);
-			user.addRewardPoint(habit.getReward());
-			updateScore();
-			Toast.makeText(getApplicationContext(), "reward: " + user.getRewardpoint(),
+				Habit habit = goodHabitlist.get(i);
+				user.addRewardPoint(habit.getReward());
+				updateScore();
+				Toast.makeText(getApplicationContext(), "reward: " + user.getRewardpoint(),
 					   Toast.LENGTH_LONG).show();
 			}
-			
 		}};
 		
 		View.OnClickListener habitB2 = new View.OnClickListener() {
 			public void onClick(View v) {
+				int length = goodHabitlist.size();
+				final int N = length; // total number of textviews to add
 				
-				Toast.makeText(getApplicationContext(), "habitB2",
+				for (int i = 0; i < N; i++) {
+					
+					Habit habit = goodHabitlist.get(i);
+					int negativeReward = 0 - habit.getReward();
+				
+					user.addRewardPoint(negativeReward);
+				
+					updateScore();
+					Toast.makeText(getApplicationContext(), "aww, goodluck next time  ",
 						   Toast.LENGTH_LONG).show();
+				}
 				
 			}};	
 
@@ -265,15 +340,11 @@ public class MainActivity extends ActionBarActivity {
 	
 	
 	// Onclick listener	
-	View.OnClickListener button2listener = new View.OnClickListener() {
-		public void onClick(View v) {
-			nextIntent();
-		}
-	};
+
 	private void updateScore(){
 		TextView tv = (TextView) findViewById(R.id.YourScore);
 		tv.setText("Your score is: " + user.getRewardpoint());
-		
+	
 	} 
 	
 	//Opent InputHabitActivity Activity 
@@ -288,6 +359,7 @@ public class MainActivity extends ActionBarActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
+		
 		return true;
 	}
 
@@ -299,6 +371,19 @@ public class MainActivity extends ActionBarActivity {
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
+		}
+		
+		if (id == R.id.GoodHabitAction) {
+			Message.message(getApplicationContext(), "Loading...");
+			nextIntent();
+			return true;
+		}
+		
+		if (id == R.id.badHabitAction) {
+			Message.message(getApplicationContext(), "Loading...");
+			nextIntentBadHabit();
+			return true;
+			
 		}
 		return super.onOptionsItemSelected(item);
 	}

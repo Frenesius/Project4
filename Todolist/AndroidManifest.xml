@@ -39,6 +39,10 @@
             android:name="hr.frenesius.todolist.StartupActivity"
             android:label="@string/title_activity_startup" >
         </activity>
+        <activity
+            android:name="hr.frenesius.todolist.InputBadHabitActivity"
+            android:label="@string/title_activity_input_bad_habit" >
+        </activity>
     </application>
 
 </manifest>
