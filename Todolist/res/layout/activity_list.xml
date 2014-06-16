@@ -29,9 +29,9 @@
             
             
             <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        		android:layout_width="match_parent"
+      		 	android:layout_height="wrap_content"
+     		   	android:orientation="vertical" >
 <!-- Input veld voor Habit titel -->
                 <EditText
                     android:id="@+id/titleText1"
@@ -39,28 +39,26 @@
                     android:layout_height="fill_parent"
                     android:hint="Title" />
 <!-- Input veld voor Habit omschrijving -->
-        <EditText
-            android:id="@+id/descriptionText1"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_below="@+id/titleText1"
-            android:layout_weight="2"
-            android:hint="Description"
-           
-/>
+        		<EditText
+            		android:id="@+id/descriptionText1"
+            		android:layout_width="fill_parent"
+            		android:layout_height="fill_parent"
+            		android:layout_below="@+id/titleText1"
+           		 	android:layout_weight="2"
+            		android:hint="Description" />
 
-       </LinearLayout>
-</TableRow>
+       	</LinearLayout>
+	</TableRow>
    <!-- tabel voor datum selectie -->
-        <TableRow
-            android:id="@+id/tableRow2"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/borderlayout" >
+    <TableRow
+        android:id="@+id/tableRow2"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/borderlayout" >
 <!-- datum selectie widget -->
             <DatePicker
                 android:id="@+id/inputdatePicker1"
@@ -69,33 +67,33 @@
                 android:calendarViewShown="false"
                 android:spinnersShown="true" />
 
-        </TableRow>
+    </TableRow>
  <!-- tabel voor tijd selectie -->
-        <TableRow
-            android:id="@+id/tableRow4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/borderlayout" >
+    <TableRow
+    	android:id="@+id/tableRow4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/borderlayout" >
  <!-- tijd selectie widget -->
-            <TimePicker
-                android:id="@+id/timePicker1"
-                android:layout_width="70dp"
-                android:layout_height="100dp" />
+        <TimePicker
+            android:id="@+id/timePicker1"
+            android:layout_width="70dp"
+            android:layout_height="100dp" />
 
-</TableRow>
-<LinearLayout>
+	</TableRow>
+	<LinearLayout>
 <!--  tabel rij voor button CREATE -->
-     <TableRow
-         android:id="@+id/tableRow3"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_marginLeft="10dp"
-         android:layout_marginRight="10dp"
-         android:layout_marginTop="5dp" >
+   		  <TableRow
+        	 android:id="@+id/tableRow3"
+        	 android:layout_width="wrap_content"
+        	 android:layout_height="wrap_content"
+         	 android:layout_marginLeft="10dp"
+        	 android:layout_marginRight="10dp"
+         	 android:layout_marginTop="5dp" >
 <!-- CREATE Button -->
             <Button
                 android:id="@+id/inputbutton1"
@@ -106,12 +104,12 @@
                 android:background="@drawable/button_click" />
         </TableRow>
         
-</LinearLayout>
+	</LinearLayout>
 
 
              
-    </TableLayout>
-  </ScrollView>  
+</TableLayout>
+</ScrollView>  
 </FrameLayout> 
 
 

@@ -1,35 +1,31 @@
 package hr.frenesius.todolist;
 
-import hr.frenesius.data.FDatabaseHelper;
+
 import hr.frenesius.list.Habit;
 import hr.frenesius.list.Message;
 import hr.frenesius.list.User;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
-import android.widget.TableRow.LayoutParams;
 import android.app.Activity;
-import android.content.ClipData.Item;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.graphics.Canvas;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
+
+import android.widget.TableRow.LayoutParams;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -40,10 +36,14 @@ public class MainActivity extends ActionBarActivity {
 //PositiveHabitList.clear() als een reset knop
 	 
 	LinearLayout ln;									//Lineare Layout
-	public static boolean goodHabitTRIGGER = false; 
-	public static boolean badHabitTRIGGER = false; //Triggerchecker voor onResume
+	public static boolean SATRIGGER = false;
+	public static boolean goodHabitTRIGGER = false; 	//Triggerchecker voor onResume
+	public static boolean badHabitTRIGGER = false; 	//Triggerchecker voor onResume
+	public static User user = new User();				//Een user met zijn eigen attributen
 	public static Activity MainActivityACTIVITY;		//Gebruikt in InputHabitActivity.class om MainActivity te finish()
+	final static String PREFS_NAME = "Happits";
 	
+	//Habit lists
 	static List<Habit> goodHabitlist 
 	= new ArrayList<Habit>();							//List met alle Habit objecten
 	static List<Habit> badHabitlist 
@@ -51,54 +51,24 @@ public class MainActivity extends ActionBarActivity {
 	
 	int habitcounter = 1;
 	//Shared preferences settings 
-	final static String PREFS_NAME = "Happits";
 	SharedPreferences SHAREDPREFS;
-	public static boolean SATRIGGER = false;
 	String name1;
-	public static User user = new User();
+	
 
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		firstLaunch();		//UNCOMMENT WHEN RELEASING
-		setUser();
+		firstLaunch();		//Checks if game is launched for first time
+		setUser();			//Sets user's name
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
-		
-		// Buttons voor on click
-	
 		MainActivityACTIVITY = this;
-		
-	}
-
-	private void setUser(){
-		SHAREDPREFS = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-		name1 = SHAREDPREFS.getString("Name", "Hai");
-		user.setName(name1);
-	}
-	
-	
-	private void firstLaunch(){					//Checks if app is launched for first time
-		SHAREDPREFS = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-		if (SHAREDPREFS.getBoolean("first_run", true)) {
-		    intentStartupActiviy();
-		    // record the fact that the app has been started at least once
-		    SHAREDPREFS.edit().putBoolean("first_run", false).commit(); 
-		}
-	}
-	private void intentStartupActiviy(){
-		Intent i = new Intent();
-		i.setClass(this, StartupActivity.class);
-		startActivity(i);	
-	}
-	private void nextIntentBadHabit(){
-		Intent i = new Intent();
-		i.setClass(this, InputBadHabitActivity.class);
-		startActivity(i);	
 	}
 	
 	protected void onResume(){
@@ -121,31 +91,44 @@ public class MainActivity extends ActionBarActivity {
 			}
 		getUserName();
 	}
-	
-	
-
- 
-	
-	
-	private void processGoodHabit(){
-		//Pakt habit van Activity Input
-		Habit h = (Habit)getIntent().getExtras().getParcelable(InputHabitActivity.goodHabitParcelable);
-		goodHabitlist.add(h);
-		setUserAantalHabits();
 		
+//START	
+//MISC
+//	
+	private void firstLaunch(){					//Checks if app is launched for first time
+		SHAREDPREFS = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+		if (SHAREDPREFS.getBoolean("first_run", true)) {
+		    intentStartupActiviy();
+		    // record the fact that the app has been started at least once
+		    SHAREDPREFS.edit().putBoolean("first_run", false).commit(); 
+		}
 	}
-	private void processBadHabit(){
-		//Pakt habit van Activity Input
-		Habit h = (Habit)getIntent().getExtras().getParcelable(InputBadHabitActivity.badHabitParcelable);
-		badHabitlist.add(h);
-		setUserAantalHabits();
-		
+	private void intentStartupActiviy(){
+		Intent i = new Intent();
+		i.setClass(this, StartupActivity.class);
+		startActivity(i);	
 	}
+	private void nextIntentBadHabit(){
+		Intent i = new Intent();
+		i.setClass(this, InputBadHabitActivity.class);
+		startActivity(i);	
+	}
+	private void nextIntent(){
+		Intent i = new Intent();
+		i.setClass(this, InputHabitActivity.class);
+		startActivity(i);
+	}
+	private void updateScore(){
+		TextView tv = (TextView) findViewById(R.id.YourScore);
+		tv.setText("Your score is: " + user.getRewardpoint());
+	} 
+//EINDE	
+//MISC
+//		
 	
-	
-	
-	
-	//DASHBOARD RELATED
+//START	
+//DASHBOARD RELATED
+//	
 	private void getUserName(){
 		SHAREDPREFS = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 		TextView i = (TextView) findViewById(R.id.YourName);
@@ -159,6 +142,33 @@ public class MainActivity extends ActionBarActivity {
 		user.setAantalHabits(aantalHabits);
 	}
 	
+	private void setUser(){
+		SHAREDPREFS = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+		name1 = SHAREDPREFS.getString("Name", "Hai");
+		user.setName(name1);
+	}
+//EINDE	
+//DASHBOARD RELATED
+//		
+	
+
+	
+//START
+//HABIT RELATED
+//
+	private void processGoodHabit(){
+		//Pakt habit van Activity Input
+		Habit h = (Habit)getIntent().getExtras().getParcelable(InputHabitActivity.goodHabitParcelable);
+		goodHabitlist.add(h);
+		setUserAantalHabits();	
+	}
+	private void processBadHabit(){
+		//Pakt habit van Activity Input
+		Habit h = (Habit)getIntent().getExtras().getParcelable(InputBadHabitActivity.badHabitParcelable);
+		badHabitlist.add(h);
+		setUserAantalHabits();
+		
+	}
 	
 	private void addGoodHabitToDashboard(){
 		//Variabelen
@@ -207,35 +217,15 @@ public class MainActivity extends ActionBarActivity {
 				tr.setLayoutParams(lptr);
 				ll.setLayoutParams(lp); 
 				
-				
-				
 				tr.addView(tv);
 				tr.addView(b1);
 				//Add row in Tableview
 				ll.addView(tr);	 
 				habitcounter++; 
 				
-				
-				
 				b1.setOnClickListener(habitB1);
-				
-			/**	b2.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						int h = habitcounter -1;
 						
-						for(int a = 0; a > h; a++){
-						Habit habit = PositiveHabitlist.get(h);
-						user.setRewardpoint(habit.getReward());
-						
-						
-						int reward = user.getRewardpoint();
-						Toast.makeText(getApplicationContext(), "reward: " + reward,
-								   Toast.LENGTH_LONG).show();
-						}
-					}}); **/
-				
-//ADD EEN STREEP VIEW HIERONDER 
-				
+//ADD EEN STREEP VIEW HIERONDER 				
 } 
 	}
 	private void addBadHabitToDashboard(){
@@ -260,9 +250,6 @@ public class MainActivity extends ActionBarActivity {
 						//Set text for the row
 						tv.setText(Title + " \n" + description + "\n --------------------"); //
 						
-						
-						
-						
 						//layouts
 						TableLayout ll = (TableLayout) findViewById(R.id.BadhabitsMain); //
 						LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT); //
@@ -277,8 +264,6 @@ public class MainActivity extends ActionBarActivity {
 						lp.rightMargin = 15; 
 						lp.bottomMargin = 10; 
 						
-						
-						
 						//Buttons
 						Button b2 = new Button(this);
 						
@@ -288,8 +273,7 @@ public class MainActivity extends ActionBarActivity {
 						tv.setLayoutParams(lptv);
 						tr.setLayoutParams(lptr);
 						ll.setLayoutParams(lp); 
-						
-						
+					
 						tr.addView(tv);
 						tr.addView(b2);
 						
@@ -298,10 +282,15 @@ public class MainActivity extends ActionBarActivity {
 						habitcounter++; 
 						
 						b2.setOnClickListener(habitB2);
-						
-					
 					}
 	}
+//EINDE	
+//HABIT RELATED
+//	
+	
+//START	
+//ONCLICK LISTENERS
+//
 	
 	View.OnClickListener habitB1 = new View.OnClickListener() {
 		public void onClick(View v) {
@@ -315,45 +304,36 @@ public class MainActivity extends ActionBarActivity {
 				Toast.makeText(getApplicationContext(), "reward: " + user.getRewardpoint(),
 					   Toast.LENGTH_LONG).show();
 			}
-		}};
+		}
+	};
 		
-		View.OnClickListener habitB2 = new View.OnClickListener() {
-			public void onClick(View v) {
-				int length = goodHabitlist.size();
-				final int N = length; // total number of textviews to add
+	View.OnClickListener habitB2 = new View.OnClickListener() {
+		public void onClick(View v) {
+			int length = goodHabitlist.size();
+			final int N = length; // total number of textviews to add
+			
+			for (int i = 0; i < N; i++) {
 				
-				for (int i = 0; i < N; i++) {
-					
-					Habit habit = goodHabitlist.get(i);
-					int negativeReward = 0 - habit.getReward();
+				Habit habit = goodHabitlist.get(i);
+				int negativeReward = 0 - habit.getReward();
+				user.addRewardPoint(negativeReward);
+				updateScore();
 				
-					user.addRewardPoint(negativeReward);
-				
-					updateScore();
-					Toast.makeText(getApplicationContext(), "aww, goodluck next time  ",
-						   Toast.LENGTH_LONG).show();
-				}
-				
-			}};	
+				Toast.makeText(getApplicationContext(), "aww, goodluck next time  ",
+					   Toast.LENGTH_LONG).show();
+			}
+		}
+	};	
+//EINDE
+//ONCLICK LISTENERS
+//
+
+	
+	
 
 
-	
-	
-	// Onclick listener	
 
-	private void updateScore(){
-		TextView tv = (TextView) findViewById(R.id.YourScore);
-		tv.setText("Your score is: " + user.getRewardpoint());
-	
-	} 
-	
-	//Opent InputHabitActivity Activity 
-	private void nextIntent(){
-		Intent i = new Intent();
-		i.setClass(this, InputHabitActivity.class);
-		startActivity(i);
-		
-	}
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
