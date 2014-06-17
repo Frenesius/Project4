@@ -1,6 +1,7 @@
 package hr.frenesius.todolist;
 
 
+import hr.frenesius.data.DbHelper;
 import hr.frenesius.list.Habit;
 import hr.frenesius.list.Message;
 import hr.frenesius.list.User;
@@ -9,21 +10,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
-
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
-
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.TableRow.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -53,8 +52,9 @@ public class MainActivity extends ActionBarActivity {
 	//Shared preferences settings 
 	SharedPreferences SHAREDPREFS;
 	String name1;
+	DbHelper helper;
+	SQLiteDatabase db;
 	
-
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +69,10 @@ public class MainActivity extends ActionBarActivity {
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 		MainActivityACTIVITY = this;
+		//VOORBEELD
+		helper = new DbHelper(this);
+		SQLiteDatabase db = helper.getWritableDatabase();
+
 	}
 	
 	protected void onResume(){
@@ -77,10 +81,12 @@ public class MainActivity extends ActionBarActivity {
 		//Checkt of input getriggerd is
 		if(goodHabitTRIGGER == true){
 			processGoodHabit();
+			DATABASETEST();
 			goodHabitTRIGGER = false;
 				}
 		if(badHabitTRIGGER == true){
 			processBadHabit();
+			
 			badHabitTRIGGER = false;
 				}
 		
@@ -91,6 +97,49 @@ public class MainActivity extends ActionBarActivity {
 			}
 		getUserName();
 	}
+	
+	
+	private void DATABASETEST(){
+		//Om dit te gebruiken moet je het in mainactivity zetten onder:
+		//if(MainActivityTRIGGER == true)  processObject(); onder regel 97
+		//Ook eerst een habit toevoegen, daarna pas kan dit uitgevoerd worden
+		Habit h = goodHabitlist.get(0);
+		
+		String KEY_TITLE = "title";
+		String KEY_DESCRIPTION = "description" ;
+		String KEY_REWARD = "reward";
+		
+		String title = h.getTitle();				//title is de string voor title die je in databse moet zetten
+		String description = h.getDescription();	//description is een string die je in databse moet zetten
+		int reward = h.getReward();					//Ook in database maar let op integer!
+		
+		String path = "/data/data/hr.frenesius.todolist/databases/Happit.db";
+		//Probeer eerst de Calendar object date in database te zetten, 
+		//Mocht dat niet lukken, heb ik string gemaakt dateString
+
+		//
+		//voeg codes die je gaat verwijderen toe in snippet(als het grote code is en niet een int)
+		//Voer hier onder je Query's toe
+		//V
+		helper = new DbHelper(this);
+		
+		ContentValues contentValues = new ContentValues();
+		
+		contentValues.put(KEY_TITLE, title);
+		contentValues.put(KEY_DESCRIPTION, description);
+		contentValues.put(KEY_REWARD, reward);
+		long a = db.insert("Table", null,contentValues );
+		if (a == -1){
+			Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
+		}else{
+			Toast.makeText(getApplicationContext(), "Congratz", Toast.LENGTH_LONG).show();	
+		}
+		
+		
+		//^
+		
+	}
+	
 		
 //START	
 //MISC
