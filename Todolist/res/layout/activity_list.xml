@@ -5,7 +5,14 @@
     android:layout_height="match_parent"
     tools:context="hr.frenesius.todolist.ListActivity"
     tools:ignore="MergeRootFrame" >
-
+<ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:alpha="0.15"
+        android:src="@drawable/applogo" />
   <!-- Maakt layout scrollable -->  
   <ScrollView
                 android:id="@+id/scrollView2"
@@ -17,6 +24,16 @@
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
+    <TextView
+        android:id="@+id/textList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:textStyle="italic"
+        android:text="@string/enter_list" />
+
         <TableRow
             android:id="@+id/tableRow1"
             android:layout_width="wrap_content"
@@ -24,14 +41,16 @@
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/borderlayout" >
+            android:layout_marginTop="40dp"
+            
+            android:background="@drawable/borderlayout" 
+            >
             
             
             <LinearLayout
-        		android:layout_width="match_parent"
-      		 	android:layout_height="wrap_content"
-     		   	android:orientation="vertical" >
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 <!-- Input veld voor Habit titel -->
                 <EditText
                     android:id="@+id/titleText1"
@@ -39,61 +58,29 @@
                     android:layout_height="fill_parent"
                     android:hint="Title" />
 <!-- Input veld voor Habit omschrijving -->
-        		<EditText
-            		android:id="@+id/descriptionText1"
-            		android:layout_width="fill_parent"
-            		android:layout_height="fill_parent"
-            		android:layout_below="@+id/titleText1"
-           		 	android:layout_weight="2"
-            		android:hint="Description" />
+        <EditText
+            android:id="@+id/descriptionText1"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/titleText1"
+            android:layout_weight="2"
+            android:hint="Description \n \n \n"
+           
+/>
 
-       	</LinearLayout>
-	</TableRow>
+       </LinearLayout>
+</TableRow>
    <!-- tabel voor datum selectie -->
-    <TableRow
-        android:id="@+id/tableRow2"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/borderlayout" >
-<!-- datum selectie widget -->
-            <DatePicker
-                android:id="@+id/inputdatePicker1"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:calendarViewShown="false"
-                android:spinnersShown="true" />
-
-    </TableRow>
  <!-- tabel voor tijd selectie -->
-    <TableRow
-    	android:id="@+id/tableRow4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/borderlayout" >
- <!-- tijd selectie widget -->
-        <TimePicker
-            android:id="@+id/timePicker1"
-            android:layout_width="70dp"
-            android:layout_height="100dp" />
-
-	</TableRow>
-	<LinearLayout>
+<LinearLayout>
 <!--  tabel rij voor button CREATE -->
-   		  <TableRow
-        	 android:id="@+id/tableRow3"
-        	 android:layout_width="wrap_content"
-        	 android:layout_height="wrap_content"
-         	 android:layout_marginLeft="10dp"
-        	 android:layout_marginRight="10dp"
-         	 android:layout_marginTop="5dp" >
+     <TableRow
+         android:id="@+id/tableRow3"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginLeft="10dp"
+         android:layout_marginRight="10dp"
+         android:layout_marginTop="5dp" >
 <!-- CREATE Button -->
             <Button
                 android:id="@+id/inputbutton1"
@@ -104,12 +91,11 @@
                 android:background="@drawable/button_click" />
         </TableRow>
         
-	</LinearLayout>
+</LinearLayout>
 
 
              
-</TableLayout>
-</ScrollView>  
+    </TableLayout>
+  </ScrollView>  
 </FrameLayout> 
-
 

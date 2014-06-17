@@ -118,6 +118,11 @@ public class MainActivity extends ActionBarActivity {
 		i.setClass(this, InputHabitActivity.class);
 		startActivity(i);
 	}
+	private void intentRewardActivity(){
+		Intent i = new Intent();
+		i.setClass(this, RewardActivity.class);
+		startActivity(i);
+	}
 	private void updateScore(){
 		TextView tv = (TextView) findViewById(R.id.YourScore);
 		tv.setText("Your score is: " + user.getRewardpoint());
@@ -146,6 +151,7 @@ public class MainActivity extends ActionBarActivity {
 		SHAREDPREFS = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 		name1 = SHAREDPREFS.getString("Name", "Hai");
 		user.setName(name1);
+		
 	}
 //EINDE	
 //DASHBOARD RELATED
@@ -362,6 +368,13 @@ public class MainActivity extends ActionBarActivity {
 		if (id == R.id.badHabitAction) {
 			Message.message(getApplicationContext(), "Loading...");
 			nextIntentBadHabit();
+			return true;
+			
+		}
+		if (id == R.id.reward_activity) {
+			Message.message(getApplicationContext(), "Loading...");
+			intentRewardActivity();
+			
 			return true;
 			
 		}

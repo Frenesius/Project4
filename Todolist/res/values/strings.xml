@@ -8,5 +8,7 @@
     <string name="title_activity_startup">StartupActivity</string>
     <string name="create_input">CREATE</string>
     <string name="title_activity_input_bad_habit">InputBadHabitActivity</string>
-
-</resources>
+    <string name="title_activity_reward">RewardActivity</string>
+	<string name="welkom_start">Welcome</string>
+	<string name="enter_list">Fill in to add your habit.</string>
+</resources> 

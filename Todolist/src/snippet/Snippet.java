@@ -62,16 +62,7 @@ public class Snippet {
 		
 		//Probeer eerst de Calendar object date in database te zetten, 
 		//Mocht dat niet lukken, heb ik string gemaakt dateString
-		Calendar date = h.getDate();				//pakt calender object, maar dit is neit in string formaat
-			int ab = date.get(Calendar.DAY_OF_MONTH);	//pakt dag in int
-			int ac = date.get(Calendar.MONTH);			//Pakt maand in int
-			int ad = date.get(Calendar.YEAR);			//Pakt jaar in int
-		
-			String ca = String.valueOf(ab); // Parsed dag in string
-			String ba = String.valueOf(ac); // Parsed maand in string
-			String aa = String.valueOf(ad); // Parsed jaar in string
-		
-		String dateString = ca + "-" + ba + "-" + aa;	//dd-mm-yyyy
+
 		//
 		//voeg codes die je gaat verwijderen toe in snippet(als het grote code is en niet een int)
 		//Voer hier onder je Query's toe

@@ -1,11 +1,20 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
+    
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="hr.frenesius.todolist.MainActivity"
     tools:ignore="MergeRootFrame" >
-
+    <!-- achterground afbeelding -->
+<ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:alpha="0.15"
+        android:src="@drawable/applogo" />
     <!-- Main  -->
     <!-- Scroll view voor de Main -->
      <ScrollView
@@ -13,11 +22,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 	<!-- Lineare Layout Main -->
+
         <LinearLayout
-        android:id="@+id/DashboardLinearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
+            android:id="@+id/DashboardLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical" >
+
 	<!-- Dashboard -->	
         
 <!-- Dashboard Main Table  -->
@@ -204,7 +216,7 @@
             <TableRow
                 android:id="@+id/tableRow13"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="wrap_content" 
                 android:layout_marginTop="5dp" >
 
                 <TextView
@@ -214,6 +226,7 @@
             </TableRow>
             
         </TableLayout>
+       
 <!--  Einde Tabel Bad Habbits -->
     </LinearLayout>
     
@@ -224,4 +237,3 @@
 
    
 </FrameLayout>
-
