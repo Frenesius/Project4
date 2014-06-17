@@ -11,8 +11,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:alpha="0.15"
-        android:src="@drawable/applogo" />
+        android:alpha="0.15" 
+     android:src="@drawable/applogo" />
+       
   <!-- Maakt layout scrollable -->  
   <ScrollView
                 android:id="@+id/scrollView2"
