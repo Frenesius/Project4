@@ -3,14 +3,6 @@ package hr.frenesius.todolist;
 import hr.frenesius.data.FDatabaseHelper;
 import hr.frenesius.list.Habit;
 
-
-
-
-
-
-
-
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -39,6 +31,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import android.database.sqlite.SQLiteOpenHelper;
 
 public class MainActivity extends ActionBarActivity {
 //PositiveHabitList.clear() als een reset knop
@@ -55,7 +50,8 @@ public class MainActivity extends ActionBarActivity {
 	final static String PREFS_NAME = "Happits";
 	SharedPreferences SHAREDPREFS;
 	public static boolean SATRIGGER = false;
-
+		
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +71,7 @@ public class MainActivity extends ActionBarActivity {
 		button2 = (Button) findViewById(R.id.button2);
 		button2.setOnClickListener(button2listener);
 		MainActivityACTIVITY = this;
-		
-	
-		
+
 	}
 
 	
@@ -99,9 +93,14 @@ public class MainActivity extends ActionBarActivity {
 	protected void onResume(){
 		super.onResume();
 		
+		
+		
+		
 		//Checkt of input getriggerd is
 		if(MainActivityTRIGGER == true){
 			processObject();
+			DATABASETEST();
+
 			MainActivityTRIGGER = false;
 				}
 		
@@ -112,6 +111,44 @@ public class MainActivity extends ActionBarActivity {
 		getUserName();
 		setHabitCounter();
 		}
+	
+	private void DATABASETEST(){
+		//Om dit te gebruiken moet je het in mainactivity zetten onder:
+		//if(MainActivityTRIGGER == true)  processObject(); onder regel 97
+		//Ook eerst een habit toevoegen, daarna pas kan dit uitgevoerd worden
+		Habit h = PositiveHabitlist.get(0);
+		String title = h.getTitle();				//title is de string voor title die je in databse moet zetten
+		String description = h.getDescription();	//description is een string die je in databse moet zetten
+		int reward = h.getReward();					//Ook in database maar let op integer!
+		
+		
+		//Probeer eerst de Calendar object date in database te zetten, 
+		//Mocht dat niet lukken, heb ik string gemaakt dateString
+
+		//
+		//voeg codes die je gaat verwijderen toe in snippet(als het grote code is en niet een int)
+		//Voer hier onder je Query's toe
+		//V
+		
+		Databasecreate entry = new Databasecreate(MainActivity.this);
+        entry.open();
+        entry.createEntry(title, description, reward);
+        entry.close();
+        
+        
+        
+       // SQLiteDatabase db;
+        //db = openOrCreateDatabase(
+         //       "Habbitdb.db"
+          //      , SQLiteDatabase.CREATE_IF_NECESSARY
+           //     , null
+            //    );
+
+		
+		
+		//^
+		Toast.makeText(getApplicationContext(), "exec DATABASETEST()", Toast.LENGTH_LONG).show();
+	}
 	
 	private void processObject(){
 		//Pakt habit van Activity Input
