@@ -1,6 +1,3 @@
-Gamefied todolist
+Android app
+a gamefied habit list
 
-
-TO DO LIST
-- Reward system
-- 
