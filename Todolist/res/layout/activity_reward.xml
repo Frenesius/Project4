@@ -93,7 +93,7 @@
         </RelativeLayout>
 
         <TableRow
-            android:id="@+id/tableRow99"
+            android:id="@+id/tableReward"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/relativeLayout1"

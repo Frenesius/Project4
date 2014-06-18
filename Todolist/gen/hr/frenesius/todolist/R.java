@@ -1180,6 +1180,7 @@ containing a value of this type.
         public static final int split_action_bar=0x7f05001e;
         public static final int submit_area=0x7f050039;
         public static final int tabMode=0x7f050002;
+        public static final int tableReward=0x7f050059;
         public static final int tableRow1=0x7f050040;
         public static final int tableRow10=0x7f050052;
         public static final int tableRow11=0x7f050054;
@@ -1191,7 +1192,6 @@ containing a value of this type.
         public static final int tableRow5=0x7f050048;
         public static final int tableRow6=0x7f05004b;
         public static final int tableRow75=0x7f05004f;
-        public static final int tableRow99=0x7f050059;
         public static final int textList=0x7f05003f;
         public static final int textView75=0x7f050050;
         public static final int textView99=0x7f05005a;

@@ -335,6 +335,7 @@ int id showTitle 0x7f050006
 int id split_action_bar 0x7f05001e
 int id submit_area 0x7f050039
 int id tabMode 0x7f050002
+int id tableReward 0x7f050059
 int id tableRow1 0x7f050040
 int id tableRow10 0x7f050052
 int id tableRow11 0x7f050054
@@ -346,7 +347,6 @@ int id tableRow4 0x7f050049
 int id tableRow5 0x7f050048
 int id tableRow6 0x7f05004b
 int id tableRow75 0x7f05004f
-int id tableRow99 0x7f050059
 int id textList 0x7f05003f
 int id textView75 0x7f050050
 int id textView99 0x7f05005a

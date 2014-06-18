@@ -53,7 +53,6 @@ public class RewardActivity extends ActionBarActivity {
 		tv.setText("Hallo " + userName);
 	}
 	private void setUserPoints(){
-		
 		int score = user.getRewardpoint();
 		TextView tv = (TextView) findViewById(R.id.YourScore);
 		tv.setText("Your score is: " + score);
@@ -85,8 +84,6 @@ public class RewardActivity extends ActionBarActivity {
 	}
 	
 	private void updateTableBuy(){
-	//	TableLayout tl = (TableLayout) findViewById(R.id.tableReward);
-		
 		Button b = (Button) findViewById(R.id.buyButton);
 		Button s = (Button) findViewById(R.id.sellButton);
 		b.setText("You have already bought this item");

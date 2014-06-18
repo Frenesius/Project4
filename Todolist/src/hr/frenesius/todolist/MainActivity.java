@@ -1,6 +1,7 @@
 package hr.frenesius.todolist;
 
 
+import hr.frenesius.data.DbDatabaseCreate;
 import hr.frenesius.data.DbHelper;
 import hr.frenesius.list.Habit;
 import hr.frenesius.list.Message;
@@ -14,6 +15,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -81,11 +83,12 @@ public class MainActivity extends ActionBarActivity {
 		//Checkt of input getriggerd is
 		if(goodHabitTRIGGER == true){
 			processGoodHabit();
-			
+			DATABASETEST();
 			goodHabitTRIGGER = false;
 				}
 		if(badHabitTRIGGER == true){
 			processBadHabit();
+			DATABASESELECT();
 			
 			badHabitTRIGGER = false;
 				}
@@ -104,10 +107,6 @@ public class MainActivity extends ActionBarActivity {
 		//if(MainActivityTRIGGER == true)  processObject(); onder regel 97
 		//Ook eerst een habit toevoegen, daarna pas kan dit uitgevoerd worden
 		Habit h = goodHabitlist.get(0);
-		String KEY_ID = "_id";
-		String KEY_TITLE = "title";
-		String KEY_DESCRIPTION = "description" ;
-		String KEY_REWARD = "reward";
 		
 		String title = h.getTitle();				//title is de string voor title die je in databse moet zetten
 		String description = h.getDescription();	//description is een string die je in databse moet zetten
@@ -121,23 +120,19 @@ public class MainActivity extends ActionBarActivity {
 		//Voer hier onder je Query's toe
 		//V
 		helper = new DbHelper(this);
+		DbDatabaseCreate entry = new DbDatabaseCreate(MainActivity.this);
+        entry.open();
+        entry.createEntry(title, description, reward);
+			Toast.makeText(getApplicationContext(), "CreateEntry", Toast.LENGTH_LONG).show();
+		entry.close();
+	}
+	private void DATABASESELECT(){
+		String selectQuery = "SELECT * FROM habit";
+		Cursor cursor = db.rawQuery(selectQuery, null);
+		cursor.move(0);
+		String a = cursor.getString(0);
 		
-		
-		ContentValues contentValues = new ContentValues();
-		contentValues.put(KEY_TITLE, title);
-		contentValues.put(KEY_TITLE, title);
-		contentValues.put(KEY_DESCRIPTION, description);
-		contentValues.put(KEY_REWARD, reward);
-		long a = db.insert("Table", null,contentValues );
-		if (a == -1){
-			Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
-		}else{
-			Toast.makeText(getApplicationContext(), "Congratz", Toast.LENGTH_LONG).show();	
-		}
-		
-		
-		//^
-		
+		Toast.makeText(getApplicationContext(), a, 1).show();
 	}
 	
 		
