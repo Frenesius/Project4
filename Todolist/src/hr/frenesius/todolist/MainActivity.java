@@ -81,7 +81,7 @@ public class MainActivity extends ActionBarActivity {
 		//Checkt of input getriggerd is
 		if(goodHabitTRIGGER == true){
 			processGoodHabit();
-			DATABASETEST();
+			
 			goodHabitTRIGGER = false;
 				}
 		if(badHabitTRIGGER == true){
@@ -104,7 +104,7 @@ public class MainActivity extends ActionBarActivity {
 		//if(MainActivityTRIGGER == true)  processObject(); onder regel 97
 		//Ook eerst een habit toevoegen, daarna pas kan dit uitgevoerd worden
 		Habit h = goodHabitlist.get(0);
-		
+		String KEY_ID = "_id";
 		String KEY_TITLE = "title";
 		String KEY_DESCRIPTION = "description" ;
 		String KEY_REWARD = "reward";
@@ -113,7 +113,6 @@ public class MainActivity extends ActionBarActivity {
 		String description = h.getDescription();	//description is een string die je in databse moet zetten
 		int reward = h.getReward();					//Ook in database maar let op integer!
 		
-		String path = "/data/data/hr.frenesius.todolist/databases/Happit.db";
 		//Probeer eerst de Calendar object date in database te zetten, 
 		//Mocht dat niet lukken, heb ik string gemaakt dateString
 
@@ -123,8 +122,9 @@ public class MainActivity extends ActionBarActivity {
 		//V
 		helper = new DbHelper(this);
 		
-		ContentValues contentValues = new ContentValues();
 		
+		ContentValues contentValues = new ContentValues();
+		contentValues.put(KEY_TITLE, title);
 		contentValues.put(KEY_TITLE, title);
 		contentValues.put(KEY_DESCRIPTION, description);
 		contentValues.put(KEY_REWARD, reward);
