@@ -57,7 +57,7 @@ public class MainActivity extends ActionBarActivity {
 	DbHelper helper;
 	SQLiteDatabase db;
 	DbDatabaseCreate entry;
-	
+	Cursor cursor;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +66,7 @@ public class MainActivity extends ActionBarActivity {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		DATABASESELECT();
+		
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
@@ -77,19 +77,22 @@ public class MainActivity extends ActionBarActivity {
 		SQLiteDatabase db = helper.getWritableDatabase();
 		//Checkt of input getriggerd is
 		processObject();
+		addHabitsToDashboard();
 		
-		try{
-			addGoodHabitToDashboard();			//VOEG HIER OOK DE BAD HABIT PROCESS AN TOE
-			addBadHabitToDashboard();
-		}catch(Exception e){
-			}
-		
+		DATABASESELECT();
 	}
 	
 	
 	protected void onResume(){
 		super.onResume();
 		
+	}
+	private void addHabitsToDashboard(){
+		try{
+			addGoodHabitToDashboard();			//VOEG HIER OOK DE BAD HABIT PROCESS AN TOE
+			addBadHabitToDashboard();
+		}catch(Exception e){
+			}
 	}
 	
 	private void processObject(){
@@ -133,12 +136,27 @@ public class MainActivity extends ActionBarActivity {
 	private void DATABASESELECT(){
 		entry = new DbDatabaseCreate(MainActivity.this);
 		entry.open();
-		String selectQuery = "SELECT "+ DbHelper.KEY_TITLE +" FROM habit";
-		Cursor cursor;
-		cursor = db.rawQuery(selectQuery, null);
-		cursor.move(0);
-		String a = cursor.getString(cursor.getColumnIndex(DbHelper.KEY_TITLE));
-		Message.message(getApplicationContext(), a);
+		SQLiteDatabase db = helper.getWritableDatabase();
+		
+		String selectQuery = "SELECT "+ DbHelper.KEY_TITLE +" FROM " + DbHelper.DATABASE_TABLE +";";
+		String selection[] = {DbHelper.KEY_TITLE};
+		
+		String a = "";
+		
+		
+		try {
+			cursor = db.rawQuery("select title from habit", null);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			
+			Toast.makeText(getApplicationContext(), e1.toString(), 1).show();
+			
+		}
+		//HAALT GEGEVENS OP VAN DB
+		//ALLEEN VERWERKT/ LAAT HET NIET ZIEN
+		//DATABASETEST() WERKT, ROND HET AF
+		//MAAK OOK DATABASETEST() VOOR STARTUPSCREEN
 		entry.close();
 	}
 	
