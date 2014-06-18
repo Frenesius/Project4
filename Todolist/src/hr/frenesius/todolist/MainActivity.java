@@ -56,6 +56,7 @@ public class MainActivity extends ActionBarActivity {
 	String name1;
 	DbHelper helper;
 	SQLiteDatabase db;
+	DbDatabaseCreate entry;
 	
 	
 	@Override
@@ -65,7 +66,7 @@ public class MainActivity extends ActionBarActivity {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+		DATABASESELECT();
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
@@ -74,34 +75,36 @@ public class MainActivity extends ActionBarActivity {
 		//VOORBEELD
 		helper = new DbHelper(this);
 		SQLiteDatabase db = helper.getWritableDatabase();
-
-	}
-	
-	protected void onResume(){
-		super.onResume();
-		
 		//Checkt of input getriggerd is
-		if(goodHabitTRIGGER == true){
-			processGoodHabit();
-			DATABASETEST();
-			goodHabitTRIGGER = false;
-				}
-		if(badHabitTRIGGER == true){
-			processBadHabit();
-			DATABASESELECT();
-			
-			badHabitTRIGGER = false;
-				}
+		processObject();
 		
 		try{
 			addGoodHabitToDashboard();			//VOEG HIER OOK DE BAD HABIT PROCESS AN TOE
 			addBadHabitToDashboard();
 		}catch(Exception e){
 			}
-		getUserName();
+		
 	}
 	
 	
+	protected void onResume(){
+		super.onResume();
+		
+	}
+	
+	private void processObject(){
+		if(goodHabitTRIGGER == true){
+			processGoodHabit();
+			
+			goodHabitTRIGGER = false;
+		}
+		if(badHabitTRIGGER == true){
+			processBadHabit();
+			badHabitTRIGGER = false;
+		}
+	}
+	
+	//Database test -> downlaod SQLiteManager plugin eclipse
 	private void DATABASETEST(){
 		//Om dit te gebruiken moet je het in mainactivity zetten onder:
 		//if(MainActivityTRIGGER == true)  processObject(); onder regel 97
@@ -119,20 +122,24 @@ public class MainActivity extends ActionBarActivity {
 		//voeg codes die je gaat verwijderen toe in snippet(als het grote code is en niet een int)
 		//Voer hier onder je Query's toe
 		//V
+		entry = new DbDatabaseCreate(MainActivity.this);
 		helper = new DbHelper(this);
-		DbDatabaseCreate entry = new DbDatabaseCreate(MainActivity.this);
-        entry.open();
+		entry.open();
         entry.createEntry(title, description, reward);
 			Toast.makeText(getApplicationContext(), "CreateEntry", Toast.LENGTH_LONG).show();
 		entry.close();
 	}
+	
 	private void DATABASESELECT(){
-		String selectQuery = "SELECT * FROM habit";
-		Cursor cursor = db.rawQuery(selectQuery, null);
+		entry = new DbDatabaseCreate(MainActivity.this);
+		entry.open();
+		String selectQuery = "SELECT "+ DbHelper.KEY_TITLE +" FROM habit";
+		Cursor cursor;
+		cursor = db.rawQuery(selectQuery, null);
 		cursor.move(0);
-		String a = cursor.getString(0);
-		
-		Toast.makeText(getApplicationContext(), a, 1).show();
+		String a = cursor.getString(cursor.getColumnIndex(DbHelper.KEY_TITLE));
+		Message.message(getApplicationContext(), a);
+		entry.close();
 	}
 	
 		
@@ -351,8 +358,7 @@ public class MainActivity extends ActionBarActivity {
 				Habit habit = goodHabitlist.get(i);
 				user.addRewardPoint(habit.getReward());
 				updateScore();
-				Toast.makeText(getApplicationContext(), "reward: " + user.getRewardpoint(),
-					   Toast.LENGTH_LONG).show();
+				
 			}
 		}
 	};
@@ -369,8 +375,6 @@ public class MainActivity extends ActionBarActivity {
 				user.addRewardPoint(negativeReward);
 				updateScore();
 				
-				Toast.makeText(getApplicationContext(), "aww, goodluck next time  ",
-					   Toast.LENGTH_LONG).show();
 			}
 		}
 	};	

@@ -95,6 +95,7 @@ public class RewardActivity extends ActionBarActivity {
 	
 	private void sellReward(){
 		r1.sellReward();
+		setUserPoints();
 		if(r1.isRewardBought() == false){
 			updateTableSell();
 		}
