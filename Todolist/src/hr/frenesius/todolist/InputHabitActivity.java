@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -32,6 +33,10 @@ public class InputHabitActivity extends ActionBarActivity {
 	private String description1;
 	private int reward1;
 	static int InputHabitActivityCounter;
+	
+	final static String PREFS_NAME = "Happits";
+	SharedPreferences SHAREDPREFS;
+	
 
 	DbHelper helper;
 	SQLiteDatabase db;

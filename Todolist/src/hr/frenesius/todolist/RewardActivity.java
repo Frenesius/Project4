@@ -7,6 +7,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,6 +30,10 @@ public class RewardActivity extends ActionBarActivity {
 	User user = MainActivity.user;
 	String userName;
 	static Reward r1 = new Reward(100);
+	public static String USER_POINTS = "UserPoints";
+	final static String PREFS_NAME = "Happits";
+	SharedPreferences SHAREDPREFS;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +60,11 @@ public class RewardActivity extends ActionBarActivity {
 	}
 	private void setUserPoints(){
 		int score = user.getRewardpoint();
+		SHAREDPREFS = getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
+		
+		Editor a  = SHAREDPREFS.edit();
+		a.putInt(USER_POINTS, score);
+		a.commit();
 		TextView tv = (TextView) findViewById(R.id.YourScore);
 		tv.setText("Your score is: " + score);
 	}

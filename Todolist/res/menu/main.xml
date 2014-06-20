@@ -19,6 +19,12 @@
             <item android:id="@+id/badHabitAction"
                   android:title="Bad Habits"
                    />
+                <item
+        android:id="@+id/reward_activity"
+        android:orderInCategory="100"
+        android:title="Rewards!"
+        yourapp:showAsAction="never" 
+        android:menuCategory="container"/>
         </menu>
         </item>
         
@@ -30,12 +36,7 @@
         android:title="@string/action_settings"
         yourapp:showAsAction="never" 
         android:menuCategory="container"/>
-    <item
-        android:id="@+id/reward_activity"
-        android:orderInCategory="100"
-        android:title="Reward_Activity"
-        yourapp:showAsAction="never" 
-        android:menuCategory="container"/>
+
     
     <item android:id="@+id/ResetAction"
         android:orderInCategory="100"

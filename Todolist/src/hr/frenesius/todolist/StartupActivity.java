@@ -13,6 +13,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.text.Editable;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,19 +35,31 @@ public class StartupActivity extends Activity {
 		MainActivity.MainActivityACTIVITY.finish();	
 		b1 = (Button) findViewById(R.id.SAbutton1);
 		b1.setOnClickListener(b1listener);
+		MainActivity.MainActivityACTIVITY.finish();
 	} 
 	
 	View.OnClickListener b1listener = new View.OnClickListener() {
 		public void onClick(View v) {
-			getTextSAeditText1();
-			processInput();
-			Toast.makeText(getApplicationContext(), "Welkom " + name,
-					   Toast.LENGTH_LONG).show();
-			finishActivity();
+			saActivityTrigger();
 		}
 	};
+	public boolean dispatchKeyEvent(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+			saActivityTrigger();
+		        
+		        return true;
+		    }
+		    return super.dispatchKeyEvent(e);
+		};
 	
-	
+	private void saActivityTrigger(){
+		getTextSAeditText1();
+		processInput();
+		Toast.makeText(getApplicationContext(), "Welkom " + name,
+				   Toast.LENGTH_LONG).show();
+		finishActivity();
+		
+	}
 	private void finishActivity(){
 		Intent i = new Intent();
 		i.setClass(this, MainActivity.class);

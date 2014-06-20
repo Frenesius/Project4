@@ -15,6 +15,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -58,6 +59,8 @@ public class MainActivity extends ActionBarActivity {
 	DbHelper helper;
 	SQLiteDatabase db;
 	DbDatabaseCreate entry;
+	
+	public static String USER_POINTS = "UserPoints";
 	Cursor cursor;
 	LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT); //
 	LayoutParams lptr = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
@@ -95,6 +98,7 @@ public class MainActivity extends ActionBarActivity {
 	
 	protected void onResume(){
 		super.onResume();
+		setScore();
 		
 	}
 	private void addHabitsToDashboard(){
@@ -104,6 +108,8 @@ public class MainActivity extends ActionBarActivity {
 		}catch(Exception e){
 			}
 	}
+	
+
 	
 
 	
@@ -210,9 +216,24 @@ public class MainActivity extends ActionBarActivity {
 		startActivity(i);
 	}
 	private void updateScore(){
+		SHAREDPREFS = getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
+		
+		Editor a  = SHAREDPREFS.edit();
+		a.putInt(USER_POINTS, user.getRewardpoint());
+		a.commit();
+		
 		TextView tv = (TextView) findViewById(R.id.YourScore);
 		tv.setText("Your score is: " + user.getRewardpoint());
 	} 
+	private void setScore(){
+		SHAREDPREFS = getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
+		
+		user.setRewardpoint(SHAREDPREFS.getInt(USER_POINTS, 1));
+		
+		
+		TextView tv = (TextView) findViewById(R.id.YourScore);
+		tv.setText("Your score is: " + user.getRewardpoint());
+	}
 //EINDE	
 //MISC
 //		
@@ -385,6 +406,8 @@ public class MainActivity extends ActionBarActivity {
 			}
 		}
 	};	
+	
+
 //EINDE
 //ONCLICK LISTENERS
 //
