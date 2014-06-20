@@ -2,6 +2,8 @@ package hr.frenesius.todolist;
 
 import java.util.Calendar;
 
+import hr.frenesius.data.DbDatabaseCreate;
+import hr.frenesius.data.DbHelper;
 import hr.frenesius.list.Habit;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
@@ -9,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.app.Activity;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,8 +30,12 @@ public class InputHabitActivity extends ActionBarActivity {
 	Button button1; // Button
 	private String title1;
 	private String description1;
+	private int reward1;
 	static int InputHabitActivityCounter;
 	public static String goodHabitParcelable = "INPUT_GOODHABIT";
+	DbHelper helper;
+	SQLiteDatabase db;
+	DbDatabaseCreate entry;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +61,7 @@ public class InputHabitActivity extends ActionBarActivity {
 				
 				//Maak object en vul het in
 				makeObject();
+				
 			}
 		};
 		
@@ -80,22 +88,38 @@ public class InputHabitActivity extends ActionBarActivity {
 			
 			Habit h = new Habit(title1, description1);
 			h.setReward(10);
-			
+			reward1 = h.getReward();
 			MainActivity.goodHabitTRIGGER = true;
 			
 			Intent i = new Intent();
 			i.setClass(this, MainActivity.class);
 			i.putExtra(goodHabitParcelable, h);
 			//End Main activity wanneer iets ingevuld
+			
+			placeInDatabase();
+			
 			MainActivity.MainActivityACTIVITY.finish();
 			finish();
 			startActivityForResult(i,1);
-	
 		}
-		
+		private void placeInDatabase(){
+			String title = title1;				//title is de string voor title die je in databse moet zetten
+			String description = description1;	//description is een string die je in databse moet zetten
+			int reward = reward1;	
+			//Ook in database maar let op integer!
+			
+			entry = new DbDatabaseCreate(InputHabitActivity.this);
+			helper = new DbHelper(this);
+			entry.open();
+			
+	        entry.createEntryGoodHabit(title, description, reward);
+				Toast.makeText(getApplicationContext(), "CreateEntry", Toast.LENGTH_LONG).show();
+			entry.close();
+		}
+
 		
 
-
+		
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 

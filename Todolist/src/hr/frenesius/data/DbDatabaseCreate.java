@@ -24,21 +24,21 @@ SQLiteDatabase ourDatabase;
 	public DbDatabaseCreate open(){
 		ourHelper = new DbHelper(ourContext);
 		ourDatabase = ourHelper.getWritableDatabase();
-		Toast.makeText(ourContext, "open()", Toast.LENGTH_LONG).show();
+		Toast.makeText(ourContext, "open()", 1).show();
 		return this;
 	}
 	public void close(){
 		ourHelper.close();
-		Toast.makeText(ourContext, "Close()", Toast.LENGTH_LONG).show();
+		Toast.makeText(ourContext, "Close()", 1).show();
 	}
 	 
-	public long createEntry(String title, String description, int reward) {
+	public long createEntryGoodHabit(String title, String description, int reward) {
 	
 		ContentValues cv = new ContentValues();
 	    cv.put(DbHelper.KEY_TITLE, title);
 	    cv.put(DbHelper.KEY_DESCRIPTION, description);
 	    cv.put(DbHelper.KEY_REWARD, reward);
-	    return ourDatabase.insert(DbHelper.DATABASE_TABLE, null, cv);
+	    return ourDatabase.insert(DbHelper.GOODHABIT_TABLE, null, cv);
 	    
 	}	       
 }

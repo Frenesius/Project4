@@ -17,6 +17,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -79,7 +80,7 @@ public class MainActivity extends ActionBarActivity {
 		processObject();
 		addHabitsToDashboard();
 		
-		DATABASESELECT();
+		DatabaseSelectGoodHabits();
 	}
 	
 	
@@ -107,45 +108,37 @@ public class MainActivity extends ActionBarActivity {
 		}
 	}
 	
-	//Database test -> downlaod SQLiteManager plugin eclipse
-	private void DATABASETEST(){
-		//Om dit te gebruiken moet je het in mainactivity zetten onder:
-		//if(MainActivityTRIGGER == true)  processObject(); onder regel 97
-		//Ook eerst een habit toevoegen, daarna pas kan dit uitgevoerd worden
-		Habit h = goodHabitlist.get(0);
-		
-		String title = h.getTitle();				//title is de string voor title die je in databse moet zetten
-		String description = h.getDescription();	//description is een string die je in databse moet zetten
-		int reward = h.getReward();					//Ook in database maar let op integer!
-		
-		//Probeer eerst de Calendar object date in database te zetten, 
-		//Mocht dat niet lukken, heb ik string gemaakt dateString
 
-		//
-		//voeg codes die je gaat verwijderen toe in snippet(als het grote code is en niet een int)
-		//Voer hier onder je Query's toe
-		//V
-		entry = new DbDatabaseCreate(MainActivity.this);
-		helper = new DbHelper(this);
-		entry.open();
-        entry.createEntry(title, description, reward);
-			Toast.makeText(getApplicationContext(), "CreateEntry", Toast.LENGTH_LONG).show();
-		entry.close();
-	}
 	
-	private void DATABASESELECT(){
+	
+	private void DatabaseSelectGoodHabits(){
 		entry = new DbDatabaseCreate(MainActivity.this);
 		entry.open();
 		SQLiteDatabase db = helper.getWritableDatabase();
 		
-		String selectQuery = "SELECT "+ DbHelper.KEY_TITLE +" FROM " + DbHelper.DATABASE_TABLE +";";
-		String selection[] = {DbHelper.KEY_TITLE};
-		
-		String a = "";
+		String selectQuery = "SELECT "+DbHelper.KEY_ID+", "+DbHelper.KEY_TITLE+", "+DbHelper.KEY_DESCRIPTION+", "+DbHelper.KEY_REWARD+" FROM "+DbHelper.GOODHABIT_TABLE+";";
+
 		
 		
 		try {
-			cursor = db.rawQuery("select title from habit", null);
+			cursor = db.rawQuery(selectQuery, null);
+			int gh = cursor.getCount();
+			cursor.move(0);
+			while (cursor.moveToNext()) {
+				int dbId = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_ID));
+				String dbTitle = cursor.getString(cursor.getColumnIndex(DbHelper.KEY_TITLE));
+				String dbDescription = cursor.getString(cursor.getColumnIndex(DbHelper.KEY_DESCRIPTION));
+				int dbReward = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_REWARD));
+				Habit h  = new Habit();
+				h.setTitle(dbTitle);
+				h.setDescription(dbDescription);
+				h.setReward(dbReward);
+				
+				
+			}
+		
+			
+			
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -153,10 +146,8 @@ public class MainActivity extends ActionBarActivity {
 			Toast.makeText(getApplicationContext(), e1.toString(), 1).show();
 			
 		}
-		//HAALT GEGEVENS OP VAN DB
-		//ALLEEN VERWERKT/ LAAT HET NIET ZIEN
-		//DATABASETEST() WERKT, ROND HET AF
-		//MAAK OOK DATABASETEST() VOOR STARTUPSCREEN
+		
+		cursor.close();
 		entry.close();
 	}
 	
@@ -318,16 +309,16 @@ public class MainActivity extends ActionBarActivity {
 						Habit habit = badHabitlist.get(i); //
 						
 						//Get strings
-						String habitnumber = "Habit Number: " + String.valueOf(habitcounter); //
-						String Title = habit.getTitle(); //
-						String description = habit.getDescription(); //
+						
+						String Title = habit.getTitle(); 
+						String description = habit.getDescription(); 
 						
 						//Set text for the row
-						tv.setText(Title + " \n" + description + "\n --------------------"); //
+						tv.setText(Title + " \n" + description + "\n --------------------"); 
 						
 						//layouts
-						TableLayout ll = (TableLayout) findViewById(R.id.BadhabitsMain); //
-						LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT); //
+						TableLayout ll = (TableLayout) findViewById(R.id.BadhabitsMain); 
+						LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT); 
 						LayoutParams lptr = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 						LayoutParams lpb2 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 						LayoutParams lptv = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
