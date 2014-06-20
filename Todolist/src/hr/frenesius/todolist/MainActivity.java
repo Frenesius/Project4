@@ -59,13 +59,17 @@ public class MainActivity extends ActionBarActivity {
 	SQLiteDatabase db;
 	DbDatabaseCreate entry;
 	Cursor cursor;
+	LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT); //
+	LayoutParams lptr = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+	LayoutParams lpb1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+	LayoutParams lptv = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+	//Params
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		firstLaunch();		//Checks if game is launched for first time
 		
-		//setUser();			//Sets user's name
-		//getUserName();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
@@ -73,6 +77,7 @@ public class MainActivity extends ActionBarActivity {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
+		getUserName();
 		MainActivityACTIVITY = this;
 		
 		helper = new DbHelper(this);
@@ -219,19 +224,13 @@ public class MainActivity extends ActionBarActivity {
 		SHAREDPREFS = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 		TextView i = (TextView) findViewById(R.id.YourName);
 		name1 = SHAREDPREFS.getString("Name", "Hai");
+		
 		user.setName(name1);
+		
 		i.setText("Welkom " + user.getName());
 		}
 	
 
-	
-	private void setUser(){
-		SHAREDPREFS = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-		name1 = SHAREDPREFS.getString("Name", null);
-		
-		user.setName(name1);
-		
-	}
 //EINDE	
 //DASHBOARD RELATED
 //		
@@ -241,6 +240,7 @@ public class MainActivity extends ActionBarActivity {
 //START
 //HABIT RELATED
 //
+	
 
 	
 	private void addGoodHabitToDashboard(){
@@ -266,11 +266,6 @@ public class MainActivity extends ActionBarActivity {
 				
 				//layouts
 				TableLayout ll = (TableLayout) findViewById(R.id.GoodHabitsMain); //
-				LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT); //
-				LayoutParams lptr = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-				LayoutParams lpb1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-				LayoutParams lptv = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-				//Params
 				lptr.weight = 8;				
 				lptv.weight = 7;
 				lpb1.weight = 1;
@@ -316,7 +311,6 @@ public class MainActivity extends ActionBarActivity {
 						Habit habit = badHabitlist.get(i); //
 						
 						//Get strings
-						
 						String Title = habit.getTitle(); 
 						String description = habit.getDescription(); 
 						
@@ -325,14 +319,11 @@ public class MainActivity extends ActionBarActivity {
 						
 						//layouts
 						TableLayout ll = (TableLayout) findViewById(R.id.BadhabitsMain); 
-						LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT); 
-						LayoutParams lptr = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-						LayoutParams lpb2 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-						LayoutParams lptv = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+
 						//Params
 						lptr.weight = 8;				
 						lptv.weight = 7;
-						lpb2.weight = 1;
+						lpb1.weight = 0;
 						lp.leftMargin = 10; 
 						lp.rightMargin = 15; 
 						lp.bottomMargin = 10; 
@@ -342,7 +333,7 @@ public class MainActivity extends ActionBarActivity {
 						
 						b2.setBackgroundResource(R.drawable.button_bad);
 						
-						b2.setLayoutParams(lpb2);
+						b2.setLayoutParams(lpb1);
 						tv.setLayoutParams(lptv);
 						tr.setLayoutParams(lptr);
 						ll.setLayoutParams(lp); 

@@ -167,14 +167,14 @@
 
        <TableLayout
            android:id="@+id/BadhabitsMain"
-           android:layout_width="fill_parent"
-           android:layout_height="100dp"
-           android:layout_gravity="center_vertical"
-           android:layout_marginBottom="10dp"
-           android:layout_marginLeft="10dp"
-           android:layout_marginRight="10dp"
-           android:layout_marginTop="10dp"
-           android:background="@drawable/borderlayout" >
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/borderlayout">
 
 <!--  Begin Text Bad habits  -->
             <TableRow
@@ -187,7 +187,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:shadowColor="#000000"
-                    android:text="Bad Habbits"
+                    android:text="Bad Habits"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="#CF383F"
                     android:textSize="16dp"
@@ -203,27 +203,8 @@
 
             </TableRow>
 
-            <TableRow
-                android:id="@+id/tableRow12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-            </TableRow>
-<View
-                    android:layout_width="wrap_content"
-                    android:layout_height="1dp"
-                    android:background="@android:color/darker_gray" />
 
-            <TableRow
-                android:id="@+id/tableRow13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" 
-                android:layout_marginTop="5dp" >
-
-                <TextView
-                    android:id="@+id/ListTextview14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </TableRow>
+      
             
         </TableLayout>
        
