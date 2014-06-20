@@ -15,18 +15,23 @@ import android.widget.Toast;
 	
 public class DbHelper extends SQLiteOpenHelper{
 
-		
+	//DATABASE
+	public static final String DATABASE_NAME = "Happit.db";
+	public static final int DATABASE_VERSION = 2;
+	
+	//TABLES
+	public static final String GOODHABIT_TABLE = "goodhabit";
+	public static final String BADHABIT_TABLE = "badhabit";
+	
+	//ATTRIBUTES
 	public static final String KEY_ID = "_id";
-
-		
 	public static final String KEY_TITLE = "title";
 	public static final String KEY_DESCRIPTION = "description" ;
 	public static final String KEY_REWARD = "reward";
 		
-	public static final String DATABASE_NAME = "Happit.db";
-	public static final int DATABASE_VERSION = 1;
-	//Tables
-	public static final String GOODHABIT_TABLE = "habit";
+
+
+	
 	
 	
 	public  Context context1;
@@ -38,21 +43,25 @@ public class DbHelper extends SQLiteOpenHelper{
 									KEY_DESCRIPTION+" VARCHAR(255) NOT NULL,"+
 									KEY_REWARD +" INTEGER NOT NULL);";
 									
+	private String CREATEBADHABITTABLE = "CREATE TABLE "+BADHABIT_TABLE+"("+
+									KEY_ID+" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"+
+									KEY_TITLE+" VARCHAR(255) NOT NULL,"+
+									KEY_DESCRIPTION+" VARCHAR(255) NOT NULL,"+
+									KEY_REWARD +" INTEGER NOT NULL);";
 									
 		
 	public DbHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		this.context1 = context;
-		
-		Toast.makeText(context1, "DbHelper()", 1).show();
 	}
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		try {
 		db.execSQL(CREATEGOODHABITTABLE);
+		db.execSQL(CREATEBADHABITTABLE);
 		
-		Toast.makeText(context1, "onCreate()", 1).show();
+		
 		}catch(SQLException e){
 			Message.message(context1, "onCreate" + e);
 		}
@@ -65,6 +74,8 @@ public class DbHelper extends SQLiteOpenHelper{
 		// TODO Auto-generated method stub
 		try {
 			db.execSQL("DROP TABLE IF EXISTS "+GOODHABIT_TABLE+";");
+			db.execSQL("DROP TABLE IF EXISTS "+BADHABIT_TABLE+";");
+			
 			onCreate(db);
 			Toast.makeText(context1, "onUpgrade()", 1).show();
 		} catch (SQLException e) {

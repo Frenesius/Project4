@@ -24,12 +24,12 @@ SQLiteDatabase ourDatabase;
 	public DbDatabaseCreate open(){
 		ourHelper = new DbHelper(ourContext);
 		ourDatabase = ourHelper.getWritableDatabase();
-		Toast.makeText(ourContext, "open()", 1).show();
+	
 		return this;
 	}
 	public void close(){
 		ourHelper.close();
-		Toast.makeText(ourContext, "Close()", 1).show();
+	
 	}
 	 
 	public long createEntryGoodHabit(String title, String description, int reward) {
@@ -40,7 +40,17 @@ SQLiteDatabase ourDatabase;
 	    cv.put(DbHelper.KEY_REWARD, reward);
 	    return ourDatabase.insert(DbHelper.GOODHABIT_TABLE, null, cv);
 	    
-	}	       
+	}	 
+	//AANPASSEN
+	public long createEntryBadHabit(String title, String description, int reward) {
+		
+		ContentValues cv = new ContentValues();
+	    cv.put(DbHelper.KEY_TITLE, title);
+	    cv.put(DbHelper.KEY_DESCRIPTION, description);
+	    cv.put(DbHelper.KEY_REWARD, reward);
+	    return ourDatabase.insert(DbHelper.BADHABIT_TABLE, null, cv);
+	    
+	}
 }
 
 

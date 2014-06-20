@@ -63,8 +63,9 @@ public class MainActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		firstLaunch();		//Checks if game is launched for first time
-		setUser();			//Sets user's name
 		
+		//setUser();			//Sets user's name
+		//getUserName();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
@@ -73,14 +74,17 @@ public class MainActivity extends ActionBarActivity {
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 		MainActivityACTIVITY = this;
-		//VOORBEELD
+		
 		helper = new DbHelper(this);
 		SQLiteDatabase db = helper.getWritableDatabase();
-		//Checkt of input getriggerd is
-		processObject();
+		
+		DatabaseSelectGoodHabit();
+		DatabaseSelectBadHabit();
+		
+		//processObject();
 		addHabitsToDashboard();
 		
-		DatabaseSelectGoodHabits();
+		
 	}
 	
 	
@@ -96,36 +100,54 @@ public class MainActivity extends ActionBarActivity {
 			}
 	}
 	
-	private void processObject(){
-		if(goodHabitTRIGGER == true){
-			processGoodHabit();
-			
-			goodHabitTRIGGER = false;
-		}
-		if(badHabitTRIGGER == true){
-			processBadHabit();
-			badHabitTRIGGER = false;
-		}
-	}
-	
 
 	
+	private void DatabaseSelectBadHabit(){
+		badHabitlist.clear();
+		entry = new DbDatabaseCreate(MainActivity.this);
+		entry.open();
+		SQLiteDatabase db = helper.getWritableDatabase();
+
+		try {
+			String selectQuery = "SELECT "+DbHelper.KEY_ID+", "+DbHelper.KEY_TITLE+", "+DbHelper.KEY_DESCRIPTION+", "+DbHelper.KEY_REWARD+" FROM "+DbHelper.BADHABIT_TABLE+";";
+			cursor = db.rawQuery(selectQuery, null);
+			cursor.move(0);
+			while (cursor.moveToNext()) {
+				int dbId = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_ID)) -1;
+				String dbTitle = cursor.getString(cursor.getColumnIndex(DbHelper.KEY_TITLE));
+				String dbDescription = cursor.getString(cursor.getColumnIndex(DbHelper.KEY_DESCRIPTION));
+				int dbReward = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_REWARD));
+				
+				Habit h  = new Habit();
+				h.setTitle(dbTitle);
+				h.setDescription(dbDescription);
+				h.setReward(dbReward);
+				badHabitlist.add(dbId, h);
+			}
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			Toast.makeText(getApplicationContext(), e1.toString(), 1).show();
+		}
+		cursor.close();
+		entry.close();
+	}
 	
-	private void DatabaseSelectGoodHabits(){
+	
+	
+	private void DatabaseSelectGoodHabit(){
+		goodHabitlist.clear();
 		entry = new DbDatabaseCreate(MainActivity.this);
 		entry.open();
 		SQLiteDatabase db = helper.getWritableDatabase();
 		
 		String selectQuery = "SELECT "+DbHelper.KEY_ID+", "+DbHelper.KEY_TITLE+", "+DbHelper.KEY_DESCRIPTION+", "+DbHelper.KEY_REWARD+" FROM "+DbHelper.GOODHABIT_TABLE+";";
-
-		
-		
-		try {
+			try {
 			cursor = db.rawQuery(selectQuery, null);
-			int gh = cursor.getCount();
+		
 			cursor.move(0);
 			while (cursor.moveToNext()) {
-				int dbId = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_ID));
+				int dbId = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_ID)) -1;
 				String dbTitle = cursor.getString(cursor.getColumnIndex(DbHelper.KEY_TITLE));
 				String dbDescription = cursor.getString(cursor.getColumnIndex(DbHelper.KEY_DESCRIPTION));
 				int dbReward = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_REWARD));
@@ -133,8 +155,7 @@ public class MainActivity extends ActionBarActivity {
 				h.setTitle(dbTitle);
 				h.setDescription(dbDescription);
 				h.setReward(dbReward);
-				
-				
+				goodHabitlist.add(dbId, h);
 			}
 		
 			
@@ -198,18 +219,16 @@ public class MainActivity extends ActionBarActivity {
 		SHAREDPREFS = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 		TextView i = (TextView) findViewById(R.id.YourName);
 		name1 = SHAREDPREFS.getString("Name", "Hai");
-		
+		user.setName(name1);
 		i.setText("Welkom " + user.getName());
 		}
 	
-	private void setUserAantalHabits(){
-		int aantalHabits = goodHabitlist.size() + badHabitlist.size();
-		user.setAantalHabits(aantalHabits);
-	}
+
 	
 	private void setUser(){
 		SHAREDPREFS = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-		name1 = SHAREDPREFS.getString("Name", "Hai");
+		name1 = SHAREDPREFS.getString("Name", null);
+		
 		user.setName(name1);
 		
 	}
@@ -222,19 +241,7 @@ public class MainActivity extends ActionBarActivity {
 //START
 //HABIT RELATED
 //
-	private void processGoodHabit(){
-		//Pakt habit van Activity Input
-		Habit h = (Habit)getIntent().getExtras().getParcelable(InputHabitActivity.goodHabitParcelable);
-		goodHabitlist.add(h);
-		setUserAantalHabits();	
-	}
-	private void processBadHabit(){
-		//Pakt habit van Activity Input
-		Habit h = (Habit)getIntent().getExtras().getParcelable(InputBadHabitActivity.badHabitParcelable);
-		badHabitlist.add(h);
-		setUserAantalHabits();
-		
-	}
+
 	
 	private void addGoodHabitToDashboard(){
 		//Variabelen

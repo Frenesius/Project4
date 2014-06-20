@@ -32,7 +32,7 @@ public class InputHabitActivity extends ActionBarActivity {
 	private String description1;
 	private int reward1;
 	static int InputHabitActivityCounter;
-	public static String goodHabitParcelable = "INPUT_GOODHABIT";
+
 	DbHelper helper;
 	SQLiteDatabase db;
 	DbDatabaseCreate entry;
@@ -93,7 +93,7 @@ public class InputHabitActivity extends ActionBarActivity {
 			
 			Intent i = new Intent();
 			i.setClass(this, MainActivity.class);
-			i.putExtra(goodHabitParcelable, h);
+			
 			//End Main activity wanneer iets ingevuld
 			
 			placeInDatabase();

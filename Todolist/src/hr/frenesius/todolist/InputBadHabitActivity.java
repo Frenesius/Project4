@@ -1,11 +1,14 @@
 package hr.frenesius.todolist;
 
+import hr.frenesius.data.DbDatabaseCreate;
+import hr.frenesius.data.DbHelper;
 import hr.frenesius.list.Habit;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import android.os.Build;
 
 public class InputBadHabitActivity extends ActionBarActivity {
@@ -22,9 +26,12 @@ public class InputBadHabitActivity extends ActionBarActivity {
 	Button button1; // Button
 	private String title1;
 	private String description1;
+	private int reward1;
 	static int InputHabitActivityCounter;
-	public static String badHabitParcelable = "INPUT_BADHABIT";
-	
+
+	DbHelper helper;
+	SQLiteDatabase db;
+	DbDatabaseCreate entry;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +67,17 @@ public class InputBadHabitActivity extends ActionBarActivity {
 	private void makeObject(){
 		
 		Habit h = new Habit(title1, description1);
-		h.setReward(10);	
-		MainActivity.badHabitTRIGGER = true;				
+		h.setReward(10);
+		reward1 = h.getReward();
+		MainActivity.badHabitTRIGGER = true;
+		
 		Intent i = new Intent();
 		i.setClass(this, MainActivity.class);
-		i.putExtra(badHabitParcelable, h);
+		
 		//End Main activity wanneer iets ingevuld
+		
+		placeInDatabase();
+		
 		MainActivity.MainActivityACTIVITY.finish();
 		finish();
 		startActivityForResult(i,1);
@@ -73,7 +85,20 @@ public class InputBadHabitActivity extends ActionBarActivity {
 	}
 	
 	
-	
+	private void placeInDatabase(){
+		String title = title1;				//title is de string voor title die je in databse moet zetten
+		String description = description1;	//description is een string die je in databse moet zetten
+		int reward = reward1;	
+		//Ook in database maar let op integer!
+		
+		entry = new DbDatabaseCreate(InputBadHabitActivity.this);
+		helper = new DbHelper(this);
+		entry.open();
+		
+        entry.createEntryBadHabit(title, description, reward);
+			
+		entry.close();
+	}
 	
 	
 	

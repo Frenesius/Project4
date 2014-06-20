@@ -125,10 +125,23 @@ public class Snippet {
 	
 	
 	
+		private void processObject(){
+		if(goodHabitTRIGGER == true){
+			addGoodHabitToDashboard();
+			
+			goodHabitTRIGGER = false;
+		}
+		if(badHabitTRIGGER == true){
+			addBadHabitToDashboard();
+			badHabitTRIGGER = false;
+		}
+	}
 	
 	
-	
-	
+	private void setUserAantalHabits(){
+		int aantalHabits = goodHabitlist.size() + badHabitlist.size();
+		user.setAantalHabits(aantalHabits);
+	}	
 	
 	
 	
