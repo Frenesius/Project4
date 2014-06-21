@@ -17,7 +17,7 @@ public class DbHelper extends SQLiteOpenHelper{
 
 	//DATABASE
 	public static final String DATABASE_NAME = "Happit.db";
-	public static final int DATABASE_VERSION = 2;
+	public static final int DATABASE_VERSION = 31;
 	
 	//TABLES
 	public static final String GOODHABIT_TABLE = "goodhabit";
@@ -52,10 +52,10 @@ public class DbHelper extends SQLiteOpenHelper{
 	
 	private String CREATEREWARDTABLE = "CREATE TABLE "+REWARD_TABLE+"("+
 									KEY_ID+" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"+
-									KEY_PICTURE+" INTEGER NOT NULL"+
+									KEY_PICTURE+" INTEGER NOT NULL,"+
 									KEY_TITLE+" VARCHAR(255) NOT NULL,"+
 									KEY_DESCRIPTION+" VARCHAR(255) NOT NULL,"+
-									KEY_BOUGHT+" INTEGER NOT NULL"+
+									KEY_BOUGHT+" INTEGER NOT NULL,"+
 									KEY_POINT +" INTEGER NOT NULL);";
 	
 		

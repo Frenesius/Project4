@@ -50,16 +50,18 @@ SQLiteDatabase ourDatabase;
 	    cv.put(DbHelper.KEY_REWARD, reward);
 	    return ourDatabase.insert(DbHelper.BADHABIT_TABLE, null, cv);
 	    
-	}/**
-	public long createEntryBadHabit(String title, String description, int reward) {
+	}
+	public long createEntryReward(int drawable, String title1, String description1, int point1) {
 		
 		ContentValues cv = new ContentValues();
-	    cv.put(DbHelper.KEY_TITLE, title);
-	    cv.put(DbHelper.KEY_DESCRIPTION, description);
-	    cv.put(DbHelper.KEY_REWARD, reward);
-	    return ourDatabase.insert(DbHelper.BADHABIT_TABLE, null, cv);
+		cv.put(DbHelper.KEY_PICTURE, drawable);
+	    cv.put(DbHelper.KEY_TITLE, title1);
+	    cv.put(DbHelper.KEY_DESCRIPTION, description1);
+	    cv.put(DbHelper.KEY_BOUGHT, 0);
+	    cv.put(DbHelper.KEY_POINT, point1);
+	    return ourDatabase.insert(DbHelper.REWARD_TABLE, null, cv);
 	    
-	}**/
+	}
 }
 
 

@@ -450,7 +450,7 @@ public class MainActivity extends ActionBarActivity {
 			
 		}
 		if (id == R.id.reward_activity) {
-			Message.message(getApplicationContext(), "Loading...");
+			
 			intentRewardActivity();
 			
 			return true;

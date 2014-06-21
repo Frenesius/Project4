@@ -21,20 +21,14 @@ public class Reward {
 		this.point = point1;
 		
 	}
+	//HERSCHRIJVEN
 	public void buyReward(){
-		User u = MainActivity.user;
-		int userPoints = u.getRewardpoint();
-		int remainingPoints = userPoints - point;
-		u.setRewardpoint(remainingPoints);
-		rewardBought = true;
+	
+
 		
 	}
 	public void sellReward(){
-		User u = MainActivity.user;
-		int userPoints = u.getRewardpoint();
-		int remainingPoints = userPoints + point;
-		u.setRewardpoint(remainingPoints);
-		rewardBought = false;
+
 		
 	}
 	
