@@ -50,7 +50,16 @@ SQLiteDatabase ourDatabase;
 	    cv.put(DbHelper.KEY_REWARD, reward);
 	    return ourDatabase.insert(DbHelper.BADHABIT_TABLE, null, cv);
 	    
-	}
+	}/**
+	public long createEntryBadHabit(String title, String description, int reward) {
+		
+		ContentValues cv = new ContentValues();
+	    cv.put(DbHelper.KEY_TITLE, title);
+	    cv.put(DbHelper.KEY_DESCRIPTION, description);
+	    cv.put(DbHelper.KEY_REWARD, reward);
+	    return ourDatabase.insert(DbHelper.BADHABIT_TABLE, null, cv);
+	    
+	}**/
 }
 
 

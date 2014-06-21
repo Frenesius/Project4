@@ -29,7 +29,6 @@ public class RewardActivity extends ActionBarActivity {
 	int userPoints;
 	User user = MainActivity.user;
 	String userName;
-	static Reward r1 = new Reward(100);
 	public static String USER_POINTS = "UserPoints";
 	final static String PREFS_NAME = "Happits";
 	SharedPreferences SHAREDPREFS;
@@ -45,14 +44,14 @@ public class RewardActivity extends ActionBarActivity {
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 		//setReward();
-		setButtons();
-		
+	
+	
 		//User related
 		updateUserPoints();
 		setUserName();
 		setUserPoints();	
 	}
-
+	
 	private void setUserName(){
 		userName = user.getName();
 		TextView tv = (TextView) findViewById(R.id.YourName);
@@ -70,58 +69,11 @@ public class RewardActivity extends ActionBarActivity {
 	}
 
 
-	private void setButtons(){
-		buyButton = (Button) findViewById(R.id.buyButton);
-		buyButton.setOnClickListener(buyButtonListener);
-		
-		sellButton = (Button) findViewById(R.id.sellButton);
-		sellButton.setOnClickListener(sellButtonListener);	
-		if (r1.isRewardBought() == true){
-			updateTableBuy();
-		}
-		if (r1.isRewardBought() == false){
-			updateTableSell();
-		}
-		
-	}
+
 	
 	
-	private void buyReward1(){
-		r1.buyReward();
-		setUserPoints();
-		if(r1.isRewardBought() == true){
-			updateTableBuy();
-		}
-	}
-	
-	private void updateTableBuy(){
-		Button b = (Button) findViewById(R.id.buyButton);
-		Button s = (Button) findViewById(R.id.sellButton);
-		b.setText("You have already bought this item");
-		b.setEnabled(false);
-		s.setText("Sell Item");
-		s.setEnabled(true);
-		
-	}
-	
-	private void sellReward(){
-		r1.sellReward();
-		setUserPoints();
-		if(r1.isRewardBought() == false){
-			updateTableSell();
-		}
-		
-	}
-	
-	private void updateTableSell(){
-		Button b = (Button) findViewById(R.id.buyButton);
-		Button s = (Button) findViewById(R.id.sellButton);
-		b.setText("Buy Item");
-		b.setEnabled(true);
-		s.setText("You don't have this item");
-		s.setEnabled(false);
-		
-	}
+
+
 	
 	
 	
@@ -129,7 +81,7 @@ public class RewardActivity extends ActionBarActivity {
 	
 	View.OnClickListener buyButtonListener = new View.OnClickListener() {
 		public void onClick(View v) {
-			buyReward1();
+	
 				
 				Toast.makeText(getApplicationContext(), "Buy",
 					   Toast.LENGTH_LONG).show();
@@ -140,8 +92,7 @@ public class RewardActivity extends ActionBarActivity {
 	
 	View.OnClickListener sellButtonListener = new View.OnClickListener() {
 		public void onClick(View v) {
-			sellReward();
-				
+
 				Toast.makeText(getApplicationContext(), "Sell",
 					   Toast.LENGTH_LONG).show();
 			}

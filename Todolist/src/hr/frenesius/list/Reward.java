@@ -3,17 +3,23 @@ package hr.frenesius.list;
 import hr.frenesius.todolist.MainActivity;
 import hr.frenesius.list.User;
 public class Reward {
+	private int picture;
 	private String title;
 	private String description;
 	private int point;
 	private boolean rewardBought = false;
+	private boolean selected = false;
 	
 
 	public Reward(){
 		
 	}
-	public Reward(int point1){
+	public Reward(int drawable, String title1, String description1, int point1){
+		this.picture = drawable;
+		this.title = title1;
+		this.description = description1;
 		this.point = point1;
+		
 	}
 	public void buyReward(){
 		User u = MainActivity.user;
@@ -65,7 +71,20 @@ public class Reward {
 		this.rewardBought = rewardBought;
 	}
 	
-	
+	public int getPicture() {
+		return picture;
+	}
+	public void setPicture(int picture) {
+		this.picture = picture;
+	}
+	public boolean isSelected() {
+		return selected;
+	}
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+	}
+
+
 	
 }
 

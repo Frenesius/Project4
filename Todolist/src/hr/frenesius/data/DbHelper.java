@@ -22,17 +22,18 @@ public class DbHelper extends SQLiteOpenHelper{
 	//TABLES
 	public static final String GOODHABIT_TABLE = "goodhabit";
 	public static final String BADHABIT_TABLE = "badhabit";
+	public static final String REWARD_TABLE = "reward";
 	
 	//ATTRIBUTES
 	public static final String KEY_ID = "_id";
 	public static final String KEY_TITLE = "title";
 	public static final String KEY_DESCRIPTION = "description" ;
 	public static final String KEY_REWARD = "reward";
-		
-
-
 	
+	public static final String KEY_PICTURE = "picture";	
+	public static final String KEY_POINT = "point";	
 	
+	public static final String KEY_BOUGHT = "bought";	//BOOLEAN WAARDE 0 = FALSE 1 = TRUE
 	
 	public  Context context1;
 		
@@ -48,7 +49,15 @@ public class DbHelper extends SQLiteOpenHelper{
 									KEY_TITLE+" VARCHAR(255) NOT NULL,"+
 									KEY_DESCRIPTION+" VARCHAR(255) NOT NULL,"+
 									KEY_REWARD +" INTEGER NOT NULL);";
-									
+	
+	private String CREATEREWARDTABLE = "CREATE TABLE "+REWARD_TABLE+"("+
+									KEY_ID+" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"+
+									KEY_PICTURE+" INTEGER NOT NULL"+
+									KEY_TITLE+" VARCHAR(255) NOT NULL,"+
+									KEY_DESCRIPTION+" VARCHAR(255) NOT NULL,"+
+									KEY_BOUGHT+" INTEGER NOT NULL"+
+									KEY_POINT +" INTEGER NOT NULL);";
+	
 		
 	public DbHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -60,7 +69,7 @@ public class DbHelper extends SQLiteOpenHelper{
 		try {
 		db.execSQL(CREATEGOODHABITTABLE);
 		db.execSQL(CREATEBADHABITTABLE);
-		
+		db.execSQL(CREATEREWARDTABLE);
 		
 		}catch(SQLException e){
 			Message.message(context1, "onCreate" + e);
@@ -75,6 +84,7 @@ public class DbHelper extends SQLiteOpenHelper{
 		try {
 			db.execSQL("DROP TABLE IF EXISTS "+GOODHABIT_TABLE+";");
 			db.execSQL("DROP TABLE IF EXISTS "+BADHABIT_TABLE+";");
+			db.execSQL("DROP TABLE IF EXISTS "+REWARD_TABLE+";");
 			
 			onCreate(db);
 			Toast.makeText(context1, "onUpgrade()", 1).show();
