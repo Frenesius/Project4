@@ -23,11 +23,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.TableRow.LayoutParams;
 import android.os.Build;
 
 public class RewardActivity extends ActionBarActivity {
@@ -42,6 +46,8 @@ public class RewardActivity extends ActionBarActivity {
 	final static String PREFS_NAME = "Happits";
 	SharedPreferences SHAREDPREFS;
 	RadioGroup rGroup;
+	
+
 	
 	static List<Reward> rewardList 
 	= new ArrayList<Reward>();							//List met alle Habit objecten
@@ -69,13 +75,14 @@ public class RewardActivity extends ActionBarActivity {
 		updateUserPoints();
 		setUserName();
 		setUserPoints();	
-		//selectDatabaseReward();
+		selectDatabaseReward();
 		
 			// This will get the radiogroup
 			RadioGroup rGroup = (RadioGroup)findViewById(R.id.radioGroup1);
 			// This will get the radiobutton in the radiogroup that is checked
 			RadioButton checkedRadioButton = (RadioButton)rGroup.findViewById(rGroup.getCheckedRadioButtonId());
 			rGroup.setOnCheckedChangeListener(rListener);
+		addGoodHabitToDashboard();
 		
 	}
 	
@@ -95,6 +102,59 @@ public class RewardActivity extends ActionBarActivity {
 		tv.setText("Your score is: " + score);
 	}
 
+	
+	
+	
+	//WIJZIGEN
+	private void addGoodHabitToDashboard(){
+		//Variabelen
+		int length = rewardList.size();	//
+		
+		RelativeLayout brl = (RelativeLayout) findViewById(R.id.rewardLayout1);
+		//ln.setOrientation(LinearLayout.VERTICAL); //
+		
+		
+
+
+		
+		
+		
+		//Workaround voor probleem
+		final int N = length; // total number of textviews to add
+		
+			for (int i = 0; i < N; i++) {
+				TableRow tr = new TableRow(this);
+				TextView tv = new TextView(this); //
+				Reward rw = rewardList.get(i); //
+				
+				//Get strings
+				String Title = rw.getTitle(); //
+				String description = rw.getDescription(); //
+				
+				//Set text for the row
+				tv.setText(Title + " \n" + description + "\n --------------------"); //
+				
+				//layouts
+				TableLayout ll = (TableLayout) findViewById(R.id.tableLayoutReward1); //
+				
+				//Buttons
+				Button b1 = new Button(this);
+				b1.setBackgroundResource(R.drawable.button_good);
+				
+
+				
+				tr.addView(tv);
+				tr.addView(b1);
+				//Add row in Tableview
+				brl.addView(tr);	 
+				
+				
+				
+						
+//ADD EEN STREEP VIEW HIERONDER 				
+} 
+	}
+	
 	
 	
 	    
@@ -126,8 +186,9 @@ public class RewardActivity extends ActionBarActivity {
 	private void selectDatabaseReward(){
 		rewardList.clear();
 	
-		entry = new DbDatabaseCreate(RewardActivity.this);//
-		entry.open();//
+		entry = new DbDatabaseCreate(RewardActivity.this);
+		entry.open();
+		SQLiteDatabase db = helper.getWritableDatabase();
 		
 		String selectQuery = "SELECT "+DbHelper.KEY_ID+", "+DbHelper.KEY_PICTURE+", "+DbHelper.KEY_TITLE+", "+DbHelper.KEY_DESCRIPTION+", "+DbHelper.KEY_BOUGHT+", "+DbHelper.KEY_POINT+" FROM "+DbHelper.REWARD_TABLE+";";
 		try {
