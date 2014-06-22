@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import android.app.Activity;
+import hr.frenesius.data.DbDatabaseCreate;
 import hr.frenesius.todolist.MainActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +28,7 @@ public class StartupActivity extends Activity {
 	String name;
 	SharedPreferences SHAREDPREFS;
 	Calendar SAdate = Calendar.getInstance();
+
 	
 	@Override 
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +43,7 @@ public class StartupActivity extends Activity {
 	View.OnClickListener b1listener = new View.OnClickListener() {
 		public void onClick(View v) {
 			saActivityTrigger();
-		}
+		} 
 	};
 	public boolean dispatchKeyEvent(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
@@ -83,4 +85,5 @@ public class StartupActivity extends Activity {
 		Calendar cal = Calendar.getInstance();
 		MainActivity.user.setfirstLogin(cal);	
 	}	
+
 }

@@ -3,6 +3,8 @@ package hr.frenesius.todolist;
 import java.util.ArrayList;
 import java.util.List;
 
+import hr.frenesius.data.DbDatabaseCreate;
+import hr.frenesius.data.DbHelper;
 import hr.frenesius.list.Habit;
 import hr.frenesius.list.Reward;
 import hr.frenesius.list.User;
@@ -12,6 +14,8 @@ import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,6 +23,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,25 +41,42 @@ public class RewardActivity extends ActionBarActivity {
 	public static String USER_POINTS = "UserPoints";
 	final static String PREFS_NAME = "Happits";
 	SharedPreferences SHAREDPREFS;
+	RadioGroup rGroup;
 	
 	static List<Reward> rewardList 
 	= new ArrayList<Reward>();							//List met alle Habit objecten
 	
+	
+	DbHelper helper;
+	SQLiteDatabase db;
+	DbDatabaseCreate entry;
+	Cursor cursor;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_reward);
 
-		Button buyButton = (Button) findViewById(R.id.buyButton);
-		Button sellButton = (Button) findViewById(R.id.sellButton);
-		buyButton.setOnClickListener(buyButtonListener);
-		sellButton.setOnClickListener(sellButtonListener);
+		helper = new DbHelper(this);
+		SQLiteDatabase db = helper.getWritableDatabase();
+		
+			Button buyButton = (Button) findViewById(R.id.buyButton);
+			Button sellButton = (Button) findViewById(R.id.selectButton);
+			buyButton.setOnClickListener(buyButtonListener);
+			sellButton.setOnClickListener(sellButtonListener);
 	
 		//User related
 		updateUserPoints();
 		setUserName();
 		setUserPoints();	
+		//selectDatabaseReward();
+		
+			// This will get the radiogroup
+			RadioGroup rGroup = (RadioGroup)findViewById(R.id.radioGroup1);
+			// This will get the radiobutton in the radiogroup that is checked
+			RadioButton checkedRadioButton = (RadioButton)rGroup.findViewById(rGroup.getCheckedRadioButtonId());
+			rGroup.setOnCheckedChangeListener(rListener);
+		
 	}
 	
 	private void setUserName(){
@@ -72,13 +95,83 @@ public class RewardActivity extends ActionBarActivity {
 		tv.setText("Your score is: " + score);
 	}
 
-
+	
+	
+	    
+	
+	//WIJZIGEN
+	RadioGroup.OnCheckedChangeListener rListener = new RadioGroup.OnCheckedChangeListener() {
+		
+		@Override
+		public void onCheckedChanged(RadioGroup group, int checkedId) {
+		
+			// This will get the radiobutton that has changed in its check state
+	        RadioButton checkedRadioButton = (RadioButton)rGroup.findViewById(checkedId);
+	        
+	        // This puts the value (true/false) into the variable
+	        boolean isChecked = checkedRadioButton.isChecked();
+	        
+	        // If the radiobutton that has changed in check state is now checked...
+	        if (isChecked)
+	        {
+	        	checkedRadioButton.getId();
+	            
+	        }
+		}
+	};
 
 	
 	
-
-
 	
+	private void selectDatabaseReward(){
+		rewardList.clear();
+	
+		entry = new DbDatabaseCreate(RewardActivity.this);//
+		entry.open();//
+		
+		String selectQuery = "SELECT "+DbHelper.KEY_ID+", "+DbHelper.KEY_PICTURE+", "+DbHelper.KEY_TITLE+", "+DbHelper.KEY_DESCRIPTION+", "+DbHelper.KEY_BOUGHT+", "+DbHelper.KEY_POINT+" FROM "+DbHelper.REWARD_TABLE+";";
+		try {
+			cursor = db.rawQuery(selectQuery, null);//
+		
+			cursor.move(0);
+			while (cursor.moveToNext()) {
+					int dbId = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_ID)) -1;
+					int dbPicture = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_PICTURE));
+					String dbTitle = cursor.getString(cursor.getColumnIndex(DbHelper.KEY_TITLE));
+					String dbDescription = cursor.getString(cursor.getColumnIndex(DbHelper.KEY_DESCRIPTION));
+					int dbBought = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_BOUGHT));
+					int dbPoint = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_POINT));
+					boolean rewardBought = false;
+				
+				if(dbBought == 0){
+					rewardBought = false;
+				}else if(dbBought == 1){
+					rewardBought = true;
+				}
+				
+				Reward rw  = new Reward();
+					rw.setPicture(dbPicture);
+					rw.setTitle(dbTitle);
+					rw.setDescription(dbDescription);
+					rw.setRewardBought(rewardBought); // VERANDEREN IN INT
+					rw.setPoint(dbPoint);
+					rw.setSelected(false);
+				rewardList.add(dbId, rw);
+			}
+		
+			
+			
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			
+			Toast.makeText(getApplicationContext(), e1.toString(), 1).show();
+			
+		}
+		
+		cursor.close();
+		entry.close();
+	}
 	
 	
 	

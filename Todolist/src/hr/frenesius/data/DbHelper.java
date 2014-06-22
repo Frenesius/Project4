@@ -1,6 +1,7 @@
 package hr.frenesius.data;
 
 import hr.frenesius.list.Message;
+import hr.frenesius.todolist.R;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.SQLException;
@@ -15,9 +16,11 @@ import android.widget.Toast;
 	
 public class DbHelper extends SQLiteOpenHelper{
 
+	DbDatabaseCreate db;
+	
 	//DATABASE
 	public static final String DATABASE_NAME = "Happit.db";
-	public static final int DATABASE_VERSION = 31;
+	public static final int DATABASE_VERSION = 32;
 	
 	//TABLES
 	public static final String GOODHABIT_TABLE = "goodhabit";
@@ -85,6 +88,7 @@ public class DbHelper extends SQLiteOpenHelper{
 			db.execSQL("DROP TABLE IF EXISTS "+GOODHABIT_TABLE+";");
 			db.execSQL("DROP TABLE IF EXISTS "+BADHABIT_TABLE+";");
 			db.execSQL("DROP TABLE IF EXISTS "+REWARD_TABLE+";");
+			db.execSQL("DROP TABLE IF EXISTS habits;");
 			
 			onCreate(db);
 			Toast.makeText(context1, "onUpgrade()", 1).show();
@@ -95,8 +99,8 @@ public class DbHelper extends SQLiteOpenHelper{
 		}
 	}
 		
-		
-	
+
+
 	
 }
 

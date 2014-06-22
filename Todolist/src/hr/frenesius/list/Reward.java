@@ -1,6 +1,7 @@
 package hr.frenesius.list;
 
 import hr.frenesius.todolist.MainActivity;
+import hr.frenesius.data.DbHelper;
 import hr.frenesius.list.User;
 public class Reward {
 	private int picture;
@@ -23,8 +24,6 @@ public class Reward {
 	}
 	//HERSCHRIJVEN
 	public void buyReward(){
-	
-
 		
 	}
 	public void sellReward(){

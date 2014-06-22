@@ -59,9 +59,10 @@ public class MainActivity extends ActionBarActivity {
 	DbHelper helper;
 	SQLiteDatabase db;
 	DbDatabaseCreate entry;
+	Cursor cursor;
 	
 	public static String USER_POINTS = "UserPoints";
-	Cursor cursor;
+
 	LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT); //
 	LayoutParams lptr = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 	LayoutParams lpb1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
@@ -92,7 +93,7 @@ public class MainActivity extends ActionBarActivity {
 		//processObject();
 		addHabitsToDashboard();
 		
-		
+		addRewardsToDatabase();
 	}
 	
 	
@@ -110,7 +111,22 @@ public class MainActivity extends ActionBarActivity {
 	}
 	
 
-	
+	private void addRewardsToDatabase(){
+		
+		SHAREDPREFS = getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
+		Editor a  = SHAREDPREFS.edit();
+		int i = SHAREDPREFS.getInt("Reward", 0);
+		if(i == 0){
+		entry.open();
+		entry.createEntryReward(R.drawable.char1_fist, "Fist", "Fist Character", 100);
+		entry.createEntryReward(R.drawable.char2_skelet, "Skeletor", "Skeletor Character", 200);
+		entry.createEntryReward(R.drawable.char3_addictr, "Caffeine Addict", "Caffeine Character", 450);
+		entry.close();
+		}
+		a.putInt("Reward", 1);
+		a.commit();
+		
+	}
 
 	
 	private void DatabaseSelectBadHabit(){
@@ -228,7 +244,7 @@ public class MainActivity extends ActionBarActivity {
 	private void setScore(){
 		SHAREDPREFS = getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
 		
-		user.setRewardpoint(SHAREDPREFS.getInt(USER_POINTS, 1));
+		user.setRewardpoint(SHAREDPREFS.getInt(USER_POINTS, 0));
 		
 		
 		TextView tv = (TextView) findViewById(R.id.YourScore);
