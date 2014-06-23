@@ -16,6 +16,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -37,8 +38,6 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 
 public class RewardActivity extends ActionBarActivity {
 
-	Button buyButton;
-	Button sellButton;
 	
 	int userPoints;
 	User user = MainActivity.user;
@@ -66,15 +65,12 @@ public class RewardActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_reward);
+		
 
 		helper = new DbHelper(this);
 		SQLiteDatabase db = helper.getWritableDatabase();
 		
-			Button buyButton = (Button) findViewById(R.id.buyButton);
-			Button sellButton = (Button) findViewById(R.id.selectButton);
-			buyButton.setOnClickListener(buyButtonListener);
-			sellButton.setOnClickListener(sellButtonListener);
-	
+		
 		//User related
 		updateUserPoints();
 		setUserName();
@@ -105,16 +101,18 @@ public class RewardActivity extends ActionBarActivity {
 
 	//Code herschrijven
 	private void rButtonListener(){
-		RadioButton r0 = (RadioButton) findViewById(R.id.radio0);
-		RadioButton r1 = (RadioButton) findViewById(R.id.radio1);
-		RadioButton r2 = (RadioButton) findViewById(R.id.radio2);
+		//Custom IDs 
+		//TODO maak hier een switch van
+		RadioButton r0 = (RadioButton) findViewById(2550);
+		RadioButton r1 = (RadioButton) findViewById(2551);
+		RadioButton r2 = (RadioButton) findViewById(2552);
 		
 		if(r0.isChecked()){
-			Toast.makeText(getApplicationContext(), "r0", 1).show();
+			Toast.makeText(getApplicationContext(), "fist", 1).show();
 		}else if(r1.isChecked()){
-			Toast.makeText(getApplicationContext(), "r1", 1).show();
+			Toast.makeText(getApplicationContext(), "Skelet0r", 1).show();
 		}if(r2.isChecked()){
-			Toast.makeText(getApplicationContext(), "r2", 1).show();
+			Toast.makeText(getApplicationContext(), "3", 1).show();
 		}
 		
 	}
@@ -125,41 +123,54 @@ public class RewardActivity extends ActionBarActivity {
 		//Variabelen
 		int length = rewardList.size();	//
 		
-		//RelativeLayout brl = (RelativeLayout) findViewById(R.id.rewardLayout1);
-		//ln.setOrientation(LinearLayout.VERTICAL); //
+		TableLayout tl = (TableLayout) findViewById(R.id.tableLayoutReward1);
+		Button buyB1 = new Button(this);
+		Button selectB1 = new Button(this);
 		
+		buyB1.setOnClickListener(buyButtonListener);
+		selectB1.setOnClickListener(selectButtonListener);
 		
-
-
+		buyB1.setBackground(getResources().getDrawable(R.drawable.button_click));
 		
-		
-		
+		selectB1.setBackground(getResources().getDrawable(R.drawable.button_click));
+		tl.addView(buyB1);
+		tl.addView(selectB1);
 		//Workaround voor probleem
 		final int N = length; // total number of textviews to add
-		
+		int rwCount = 0;
 			for (int i = 0; i < N; i++) {
-				TableRow tr = new TableRow(this);
-				TextView tv = new TextView(this); //
+				
+				//TODO IF i>3 NIEUWE RIJ -> set padding(?)
+				
+				tl.setOrientation(TableLayout.HORIZONTAL);
+				
+				
+				
+				LayoutParams rbl = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+				RadioButton rb = new RadioButton(this);
+				
 				Reward rw = rewardList.get(i); //
+				Drawable d = getResources().getDrawable(rw.getPicture());
+				
+				rb.setButtonDrawable(d);
+				rb.setLayoutParams(rbl);
+				
+				//ID
+				int id = 2550 + rwCount;
+				rb.setId(id);
 				
 				//Get strings
-				String Title = rw.getTitle(); //
+				String title = rw.getTitle(); //
 				String description = rw.getDescription(); //
 				
-				//Set text for the row
-				tv.setText(Title + " \n" + description + "\n --------------------"); //
 				
-				//layouts
-				TableLayout ll = (TableLayout) findViewById(R.id.); //
+				//Afmaken van TL
 				
-				//Buttons
+				tl.addView(rb);
+				rwCount++;
 				
 
 				
-				tr.addView(tv);
-				tr.addView(b1);
-				//Add row in Tableview
-//				brl.addView(tr);	 
 				
 				
 				
@@ -177,6 +188,12 @@ public class RewardActivity extends ActionBarActivity {
 	
 	
 	
+	private android.widget.TableLayout.LayoutParams LayoutParams(
+			int wrapContent, int wrapContent2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	private void selectDatabaseReward(){
 		rewardList.clear();
 	
@@ -241,7 +258,7 @@ public class RewardActivity extends ActionBarActivity {
 	
 	
 	
-	View.OnClickListener sellButtonListener = new View.OnClickListener() {
+	View.OnClickListener selectButtonListener = new View.OnClickListener() {
 		public void onClick(View v) {
 
 				Toast.makeText(getApplicationContext(), "Sell",
