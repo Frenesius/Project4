@@ -78,18 +78,13 @@ public class RewardActivity extends ActionBarActivity {
 		//User related
 		updateUserPoints();
 		setUserName();
-		setUserPoints();	
-		
-		
-		
-		
-		
-		
+		setUserPoints();
+		selectDatabaseReward();
+		addReward();
 	}
 	protected void onResume(){
 		super.onResume();
-		selectDatabaseReward();
-		addReward();
+
 	}
 	private void setUserName(){
 		userName = user.getName();
@@ -108,8 +103,8 @@ public class RewardActivity extends ActionBarActivity {
 	}
 
 
-	//TODO $## HERSCHRIJVEN
-	//Moet objecten in lijstje gooien -> radio buttons
+	
+
 	private void addReward(){
 		//Variabelen
 		int length = rewardList.size();	//
@@ -155,38 +150,26 @@ public class RewardActivity extends ActionBarActivity {
 				Drawable d;
 				Reward rw = rewardList.get(i); //
 				if(rw.isRewardBought()){
-					d = getResources().getDrawable(rw.getPictureUnlock());						
+					d = getResources().getDrawable(rw.getPictureUnlock());
+					rb.setButtonDrawable(d);
 				}if(rw.isSelected()){
-					d = getResources().getDrawable(rw.getPictureSelect());	
-				}else{
+					d = getResources().getDrawable(rw.getPictureSelect());
+					rb.setButtonDrawable(d);
+				}if(!rw.isRewardBought() && !rw.isSelected()){
 					d = getResources().getDrawable(rw.getPictureLock());	
+					rb.setButtonDrawable(d);
 				}
-				
-				
-				rb.setButtonDrawable(d);
-				
 				rb.setLayoutParams(rbl);
-				
-				
 				//ID
 				int id = 2550 + rwCount;
 				rb.setId(id);
-				
 		
-				
 				//Afmaken van TL
 				rg.addView(rb);
 				tr2.addView(rg);
 				tl.addView(tr2);
 				rwCount++;
 				
- 
-				
-				
-				
-				
-						
-//ADD EEN STREEP VIEW HIERONDER 				
 } 
 	}
 	
@@ -267,59 +250,62 @@ public class RewardActivity extends ActionBarActivity {
 			RadioButton r2 = (RadioButton) findViewById(2552);
 			
 			if(r0.isChecked()){
-				Reward rw = rewardList.get(0);
-				rw.buyReward();
-				updateScore();
-				int intBool = 0;
-					if(rw.isRewardBought()){
-						intBool = 1;
+					if(MainActivity.user.getRewardpoint() > 0){
+						updateBuyTable(0);
+						updateScore();
+						restartActivity();
 					}else{
-						intBool = 0;
+						Toast.makeText(getApplicationContext(), "You do not have enough points.", 1).show();
+						}
+					}else if(r1.isChecked()){
+					if(MainActivity.user.getRewardpoint() > 0){
+						updateBuyTable(1);
+						updateScore();
+						restartActivity();
+						}else{
+							Toast.makeText(getApplicationContext(), "You do not have enough points.", 1).show();
+						}
+
+					}else if(r2.isChecked()){
+						if(MainActivity.user.getRewardpoint() > 0){
+							updateBuyTable(2);
+							updateScore();
+							restartActivity();
+						}else{
+							Toast.makeText(getApplicationContext(), "You do not have enough points.", 1).show();
+						}
 					}
-				 // 1. get reference to writable DB
-			    SQLiteDatabase db = helper.getWritableDatabase();
-			 
-			    // 2. create ContentValues to add key "column"/value
-			    ContentValues values = new ContentValues();
-			    values.put(DbHelper.KEY_BOUGHT, intBool); // get title
-			    
-			    // 3. updating row
-			    int i = db.update(DbHelper.REWARD_TABLE, //table
-			            values, // column/value
-			            "_id = 1", // selections
-			            null); //selection args
-			 
-			    // 4. close
-			    db.close();
-				
-				
-				
-				
-				
-				
-				restartActivity();
-				Toast.makeText(getApplicationContext(), "fist", 1).show();
-			}else if(r1.isChecked()){
-				Reward rw = rewardList.get(1);
-				rw.buyReward();
-				updateScore();
-				restartActivity();
-				Toast.makeText(getApplicationContext(), "Skelet0r", 1).show();
-			}else if(r2.isChecked()){
-				Reward rw = rewardList.get(2);
-				rw.buyReward();
-				updateScore();
-				restartActivity();
-				Toast.makeText(getApplicationContext(), "3", 1).show();
-			}
-		
 		}
 	};
+	private void updateBuyTable(int habitNumber){
+		Reward rw = rewardList.get(habitNumber);
+		rw.buyReward();
+		
+		int intBool = 0;
+			if(rw.isRewardBought()){
+				intBool = 1;
+			}else{
+				intBool = 0;
+			}
+
+		SQLiteDatabase db = helper.getWritableDatabase();
+		ContentValues values = new ContentValues();
+    	values.put(DbHelper.KEY_BOUGHT, intBool); // get title
+    
+    	habitNumber = habitNumber + 1;
+    	int i = db.update(DbHelper.REWARD_TABLE, //table
+    			values, // column/value
+    			"_id = "+habitNumber, // selections
+    			null); //selection args
+    	db.close();
+	}
 	
 	private void restartActivity(){
-	Intent intent = getIntent();
-	finish();
-	startActivity(intent);
+		Intent i = new Intent();
+		i.setClass(this, RewardActivity.class);
+		startActivity(i);
+		finish();
+	
 	}
 	
 	private void updateScore(){
@@ -332,7 +318,7 @@ public class RewardActivity extends ActionBarActivity {
 		TextView tv = (TextView) findViewById(R.id.YourScore);
 		tv.setText("Your score is: " + user.getRewardpoint());
 	} 
-	
+	//TODO 
 	View.OnClickListener selectButtonListener = new View.OnClickListener() {
 		public void onClick(View v) {
 
