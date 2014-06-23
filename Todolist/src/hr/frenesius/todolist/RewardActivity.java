@@ -33,6 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.TableRow.LayoutParams;
 import android.os.Build;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 
 public class RewardActivity extends ActionBarActivity {
 
@@ -47,7 +48,10 @@ public class RewardActivity extends ActionBarActivity {
 	SharedPreferences SHAREDPREFS;
 	RadioGroup rGroup;
 	
-
+	RadioButton r0;
+	RadioButton r1;
+	RadioButton r2;
+	
 	
 	static List<Reward> rewardList 
 	= new ArrayList<Reward>();							//List met alle Habit objecten
@@ -77,11 +81,8 @@ public class RewardActivity extends ActionBarActivity {
 		setUserPoints();	
 		selectDatabaseReward();
 		
-			// This will get the radiogroup
-			RadioGroup rGroup = (RadioGroup)findViewById(R.id.radioGroup1);
-			// This will get the radiobutton in the radiogroup that is checked
-			RadioButton checkedRadioButton = (RadioButton)rGroup.findViewById(rGroup.getCheckedRadioButtonId());
-			rGroup.setOnCheckedChangeListener(rListener);
+		
+		
 		addGoodHabitToDashboard();
 		
 	}
@@ -102,15 +103,29 @@ public class RewardActivity extends ActionBarActivity {
 		tv.setText("Your score is: " + score);
 	}
 
+	//Code herschrijven
+	private void rButtonListener(){
+		RadioButton r0 = (RadioButton) findViewById(R.id.radio0);
+		RadioButton r1 = (RadioButton) findViewById(R.id.radio1);
+		RadioButton r2 = (RadioButton) findViewById(R.id.radio2);
+		
+		if(r0.isChecked()){
+			Toast.makeText(getApplicationContext(), "r0", 1).show();
+		}else if(r1.isChecked()){
+			Toast.makeText(getApplicationContext(), "r1", 1).show();
+		}if(r2.isChecked()){
+			Toast.makeText(getApplicationContext(), "r2", 1).show();
+		}
+		
+	}
 	
-	
-	
-	//WIJZIGEN
+	//TODO $## HERSCHRIJVEN
+	//Moet objecten in lijstje gooien -> radio buttons
 	private void addGoodHabitToDashboard(){
 		//Variabelen
 		int length = rewardList.size();	//
 		
-		RelativeLayout brl = (RelativeLayout) findViewById(R.id.rewardLayout1);
+		//RelativeLayout brl = (RelativeLayout) findViewById(R.id.rewardLayout1);
 		//ln.setOrientation(LinearLayout.VERTICAL); //
 		
 		
@@ -135,18 +150,16 @@ public class RewardActivity extends ActionBarActivity {
 				tv.setText(Title + " \n" + description + "\n --------------------"); //
 				
 				//layouts
-				TableLayout ll = (TableLayout) findViewById(R.id.tableLayoutReward1); //
+				TableLayout ll = (TableLayout) findViewById(R.id.); //
 				
 				//Buttons
-				Button b1 = new Button(this);
-				b1.setBackgroundResource(R.drawable.button_good);
 				
 
 				
 				tr.addView(tv);
 				tr.addView(b1);
 				//Add row in Tableview
-				brl.addView(tr);	 
+//				brl.addView(tr);	 
 				
 				
 				
@@ -160,26 +173,7 @@ public class RewardActivity extends ActionBarActivity {
 	    
 	
 	//WIJZIGEN
-	RadioGroup.OnCheckedChangeListener rListener = new RadioGroup.OnCheckedChangeListener() {
-		
-		@Override
-		public void onCheckedChanged(RadioGroup group, int checkedId) {
-		
-			// This will get the radiobutton that has changed in its check state
-	        RadioButton checkedRadioButton = (RadioButton)rGroup.findViewById(checkedId);
-	        
-	        // This puts the value (true/false) into the variable
-	        boolean isChecked = checkedRadioButton.isChecked();
-	        
-	        // If the radiobutton that has changed in check state is now checked...
-	        if (isChecked)
-	        {
-	        	checkedRadioButton.getId();
-	            
-	        }
-		}
-	};
-
+	
 	
 	
 	
@@ -223,7 +217,7 @@ public class RewardActivity extends ActionBarActivity {
 			
 			
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
+			
 			e1.printStackTrace();
 			
 			Toast.makeText(getApplicationContext(), e1.toString(), 1).show();
@@ -234,16 +228,15 @@ public class RewardActivity extends ActionBarActivity {
 		entry.close();
 	}
 	
-	
+	//TODO IF CHECKED CHANGE PLAATJE NAAR BLAUW
 	
 	
 	View.OnClickListener buyButtonListener = new View.OnClickListener() {
 		public void onClick(View v) {
 	
-				
-				Toast.makeText(getApplicationContext(), "Buy",
-					   Toast.LENGTH_LONG).show();
-			}
+			rButtonListener();
+		
+		}
 	};
 	
 	

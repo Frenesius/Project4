@@ -17,7 +17,10 @@
         android:src="@drawable/applogo" />
     <!-- Main  -->
     <!-- Scroll view voor de Main -->
-
+     <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
 	<!-- Lineare Layout Main -->
 
         <LinearLayout
@@ -199,19 +202,9 @@
                 android:layout_height="wrap_content" >
 
             </TableRow>
-
-
-      
-            
-        </TableLayout>
+		</TableLayout>
        
 <!--  Einde Tabel Bad Habbits -->
     </LinearLayout>
-    
-
-    
-
-    
-
-   
+  </ScrollView>  
 </FrameLayout>

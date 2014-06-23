@@ -88,7 +88,7 @@ public class DbHelper extends SQLiteOpenHelper{
 			db.execSQL("DROP TABLE IF EXISTS "+GOODHABIT_TABLE+";");
 			db.execSQL("DROP TABLE IF EXISTS "+BADHABIT_TABLE+";");
 			db.execSQL("DROP TABLE IF EXISTS "+REWARD_TABLE+";");
-			db.execSQL("DROP TABLE IF EXISTS habits;");
+			
 			
 			onCreate(db);
 			Toast.makeText(context1, "onUpgrade()", 1).show();
