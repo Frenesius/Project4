@@ -51,15 +51,30 @@ SQLiteDatabase ourDatabase;
 	    return ourDatabase.insert(DbHelper.BADHABIT_TABLE, null, cv);
 	    
 	}
-	public long createEntryReward(int drawable, String title1, String description1, int point1) {
+	public long createEntryReward(int picture_unlock,int picture_lock,int picture_select, String title1, String description1, int point1) {
 		
 		ContentValues cv = new ContentValues();
-		cv.put(DbHelper.KEY_PICTURE, drawable);
-	    cv.put(DbHelper.KEY_TITLE, title1);
+		cv.put(DbHelper.KEY_PICTUREUNLOCK, picture_unlock);
+		cv.put(DbHelper.KEY_PICTURELOCK, picture_lock);
+		cv.put(DbHelper.KEY_PICTURESELECT, picture_select);
+		cv.put(DbHelper.KEY_TITLE, title1);
 	    cv.put(DbHelper.KEY_DESCRIPTION, description1);
 	    cv.put(DbHelper.KEY_BOUGHT, 0);
 	    cv.put(DbHelper.KEY_POINT, point1);
 	    return ourDatabase.insert(DbHelper.REWARD_TABLE, null, cv);
+	    
+	}
+	public long updateEntryReward(int bought1, int point1, String whereClause1) {
+		String whereClause = whereClause1;
+		
+		ContentValues cv = new ContentValues();
+
+			cv.put(DbHelper.KEY_BOUGHT, bought1);
+			cv.put(DbHelper.KEY_POINT, point1);
+	   
+		
+	  
+	    return ourDatabase.update(DbHelper.REWARD_TABLE, cv, whereClause, null);
 	    
 	}
 }

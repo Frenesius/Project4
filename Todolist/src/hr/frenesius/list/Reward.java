@@ -1,32 +1,57 @@
 package hr.frenesius.list;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.widget.TextView;
 import hr.frenesius.todolist.MainActivity;
+import hr.frenesius.todolist.R;
+import hr.frenesius.data.DbDatabaseCreate;
 import hr.frenesius.data.DbHelper;
 import hr.frenesius.list.User;
 public class Reward {
-	private int picture;
+
+	private int pictureLock;
+	private int pictureUnlock;
+	private int pictureSelect;
+
 	private String title;
 	private String description;
 	private int point;
 	private boolean rewardBought = false;
 	private boolean selected = false;
 	
+	DbHelper helper;
+	SQLiteDatabase db;
+	DbDatabaseCreate entry;
+	Cursor cursor;
 
 	public Reward(){
 		
 	}
-	public Reward(int drawable, String title1, String description1, int point1){
-		this.picture = drawable;
-		this.title = title1;
-		this.description = description1;
-		this.point = point1;
-		
-	}
+
 	//HERSCHRIJVEN
 	public void buyReward(){
+		int userPoints = MainActivity.user.getRewardpoint();
+		int remainingPoints = userPoints - point;
+		MainActivity.user.setRewardpoint(remainingPoints);
+		rewardBought = true;
+
 		
 	}
+	
 	public void sellReward(){
+
+		
+	}
+	public void selectReward(){
+
+		
+	}	
+	public void deselectReward(){
 
 		
 	}
@@ -64,19 +89,36 @@ public class Reward {
 		this.rewardBought = rewardBought;
 	}
 	
-	public int getPicture() {
-		return picture;
-	}
-	public void setPicture(int picture) {
-		this.picture = picture;
-	}
+
 	public boolean isSelected() {
 		return selected;
 	}
-	public void setSelected(boolean selected) {
-		this.selected = selected;
+	public void setSelected(boolean selected1) {
+		this.selected = selected1;
+	}
+	public int getPictureLock() {
+		return pictureLock;
 	}
 
+	public void setPictureLock(int pictureLock1) {
+		this.pictureLock = pictureLock1;
+	}
+
+	public int getPictureUnlock() {
+		return pictureUnlock;
+	}
+
+	public void setPictureUnlock(int pictureUnlock1) {
+		this.pictureUnlock = pictureUnlock1;
+	}
+
+	public int getPictureSelect() {
+		return pictureSelect;
+	}
+
+	public void setPictureSelect(int pictureSelect1) {
+		this.pictureSelect = pictureSelect1;
+	}
 
 	
 }

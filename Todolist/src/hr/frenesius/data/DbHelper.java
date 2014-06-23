@@ -20,7 +20,7 @@ public class DbHelper extends SQLiteOpenHelper{
 	
 	//DATABASE
 	public static final String DATABASE_NAME = "Happit.db";
-	public static final int DATABASE_VERSION = 32;
+	public static final int DATABASE_VERSION = 35;
 	
 	//TABLES
 	public static final String GOODHABIT_TABLE = "goodhabit";
@@ -33,7 +33,9 @@ public class DbHelper extends SQLiteOpenHelper{
 	public static final String KEY_DESCRIPTION = "description" ;
 	public static final String KEY_REWARD = "reward";
 	
-	public static final String KEY_PICTURE = "picture";	
+	public static final String KEY_PICTUREUNLOCK = "picture_unlocked";	
+	public static final String KEY_PICTURELOCK = "picture_locked";
+	public static final String KEY_PICTURESELECT = "picture_select";
 	public static final String KEY_POINT = "point";	
 	
 	public static final String KEY_BOUGHT = "bought";	//BOOLEAN WAARDE 0 = FALSE 1 = TRUE
@@ -55,7 +57,9 @@ public class DbHelper extends SQLiteOpenHelper{
 	
 	private String CREATEREWARDTABLE = "CREATE TABLE "+REWARD_TABLE+"("+
 									KEY_ID+" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"+
-									KEY_PICTURE+" INTEGER NOT NULL,"+
+									KEY_PICTURELOCK+" INTEGER NOT NULL,"+
+									KEY_PICTUREUNLOCK+" INTEGER NOT NULL,"+
+									KEY_PICTURESELECT+" INTEGER NOT NULL,"+
 									KEY_TITLE+" VARCHAR(255) NOT NULL,"+
 									KEY_DESCRIPTION+" VARCHAR(255) NOT NULL,"+
 									KEY_BOUGHT+" INTEGER NOT NULL,"+

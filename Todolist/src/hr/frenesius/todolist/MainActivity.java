@@ -44,7 +44,7 @@ public class MainActivity extends ActionBarActivity {
 	public static boolean badHabitTRIGGER = false; 	//Triggerchecker voor onResume
 	public static User user = new User();				//Een user met zijn eigen attributen
 	public static Activity MainActivityACTIVITY;		//Gebruikt in InputHabitActivity.class om MainActivity te finish()
-	final static String PREFS_NAME = "Happits";
+	public final static String PREFS_NAME = "Happits";
 	
 	//Habit lists
 	static List<Habit> goodHabitlist 
@@ -110,7 +110,7 @@ public class MainActivity extends ActionBarActivity {
 			}
 	}
 	
-
+//TODO wijzigen
 	private void addRewardsToDatabase(){
 		
 		SHAREDPREFS = getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
@@ -118,9 +118,9 @@ public class MainActivity extends ActionBarActivity {
 		int i = SHAREDPREFS.getInt("Reward", 0);
 		if(i == 0){
 		entry.open();
-		entry.createEntryReward(R.drawable.char1_fist, "Fist", "Fist Character", 100);
-		entry.createEntryReward(R.drawable.char2_skelet, "Skeletor", "Skeletor Character", 200);
-		entry.createEntryReward(R.drawable.char3_addictr, "Caffeine Addict", "Caffeine Character", 450);
+		entry.createEntryReward(R.drawable.char1_fist, R.drawable.goy, R.drawable.goy, "Fist", "Fist Character", 100);
+		entry.createEntryReward(R.drawable.char2_skelet, R.drawable.goy, R.drawable.goy, "Skeletor", "Skeletor Character", 200);
+		entry.createEntryReward(R.drawable.char3_addictr, R.drawable.goy, R.drawable.goy, "Caffeine Addict", "Caffeine Character", 450);
 		entry.close();
 		}
 		a.putInt("Reward", 1);
