@@ -177,6 +177,7 @@ public class RewardActivity extends ActionBarActivity {
 				}
 				rb.setLayoutParams(rbl);
 				//ID
+				rb.setClickable(true);
 				int id = 2550 + rwCount;
 				rb.setId(id);
 		
@@ -354,8 +355,11 @@ public class RewardActivity extends ActionBarActivity {
 	//TODO 
 	View.OnClickListener selectButtonListener = new View.OnClickListener() {
 		public void onClick(View v) {
+			
 			//Custom IDs 
 			//TODO maak hier een switch van
+			
+			
 			RadioButton r0 = (RadioButton) findViewById(2550);
 			RadioButton r1 = (RadioButton) findViewById(2551);
 			RadioButton r2 = (RadioButton) findViewById(2552);
