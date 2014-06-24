@@ -22,7 +22,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 	<!-- Lineare Layout Main -->
-
         <LinearLayout
             android:id="@+id/DashboardLinearLayout"
             android:layout_width="match_parent"
@@ -40,37 +39,46 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/borderlayout" >
 
->
-<!-- Dashbaord Main -->
             <TableRow
-                android:id="@+id/tableRow5"
+                android:id="@+id/tableRowDash1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-                
-              <TextView      
-                   	android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                   	android:text="Dashboard"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />  
-                
-            </TableRow>
+                android:layout_height="wrap_content" 
+                android:weightSum="100" >
 
-            <TableRow
-                android:id="@+id/tableRow3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-               <View
+                <ImageView
+                    android:id="@+id/imageViewDash"
+                    android:layout_width="10dp"
+                    android:layout_height="100dp"
+                    
+                    android:src="@drawable/char1_unlock" />
+
+                <TextView
+                    android:id="@+id/TextViewDash"
                     android:layout_width="wrap_content"
-                    android:layout_height="1dp"
-                    android:background="@android:color/darker_gray" />
+                    android:layout_height="wrap_content"
+                    android:layout_weight="75"
+                    android:text="Dashboard"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
             </TableRow>
 
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray" />
+
+<TableRow
+                android:id="@+id/tableRowView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+            </TableRow>
             <TableRow
                 android:id="@+id/tableRow4"
                 android:layout_width="wrap_content"
@@ -99,6 +107,8 @@
  
             </TableRow>
 
+
+
         </TableLayout>
 <!-- Einde Dashboard -->
         
@@ -126,7 +136,7 @@
                    	android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:shadowColor="#000000"
-                    android:text="Good Habbits"
+                    android:text="Good Habits"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="#2BAD00"
                     android:textSize="16dp"
@@ -135,7 +145,7 @@
             </TableRow>
 <!--  Einde van Textiew van text Good Habits -->
             <TableRow
-                android:id="@+id/tableRow2"
+                android:id="@+id/tableRowRadio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 <!--  Horizontale Streep  -->
@@ -202,9 +212,19 @@
                 android:layout_height="wrap_content" >
 
             </TableRow>
-		</TableLayout>
+
+
+      
+            
+        </TableLayout>
        
 <!--  Einde Tabel Bad Habbits -->
     </LinearLayout>
-  </ScrollView>  
+    
+    </ScrollView>
+    
+
+    
+
+   
 </FrameLayout>

@@ -90,16 +90,16 @@ public class MainActivity extends ActionBarActivity {
 		DatabaseSelectGoodHabit();
 		DatabaseSelectBadHabit();
 		
-		//processObject();
+		
 		addHabitsToDashboard();
 		
-		addRewardsToDatabase();
 	}
 	
 	
 	protected void onResume(){
 		super.onResume();
 		setScore();
+		addRewardsToDatabase();
 		
 	}
 	private void addHabitsToDashboard(){
@@ -110,6 +110,7 @@ public class MainActivity extends ActionBarActivity {
 			}
 	}
 	
+	
 //TODO wijzigen
 	private void addRewardsToDatabase(){
 		
@@ -118,9 +119,10 @@ public class MainActivity extends ActionBarActivity {
 		int i = SHAREDPREFS.getInt("Reward", 0);
 		if(i == 0){
 		entry.open();
-		entry.createEntryReward(R.drawable.char1_fist, R.drawable.goy, R.drawable.goy, "Fist", "Fist Character", 100);
-		entry.createEntryReward(R.drawable.char2_skelet, R.drawable.goy, R.drawable.goy, "Skeletor", "Skeletor Character", 200);
-		entry.createEntryReward(R.drawable.char3_addictr, R.drawable.goy, R.drawable.goy, "Caffeine Addict", "Caffeine Character", 450);
+		//picture_unlock, picture_lock, picture_select, title1, description1, point1) 
+		entry.createEntryReward(R.drawable.char1_unlock, R.drawable.char1_lock, R.drawable.char1_select, "Fist", "Fist Character", 100);
+		entry.createEntryReward(R.drawable.char2_unlock, R.drawable.char2_lock, R.drawable.char2_select, "Skeletor", "Skeletor Character", 200);
+		entry.createEntryReward(R.drawable.char3_unlock, R.drawable.char3_lock, R.drawable.char3_select, "Caffeine Addict", "Caffeine Character", 450);
 		entry.close();
 		}
 		a.putInt("Reward", 1);

@@ -61,22 +61,20 @@ SQLiteDatabase ourDatabase;
 	    cv.put(DbHelper.KEY_DESCRIPTION, description1);
 	    cv.put(DbHelper.KEY_BOUGHT, 0);
 	    cv.put(DbHelper.KEY_POINT, point1);
+	    cv.put(DbHelper.KEY_SELECTREWARD, 0);
 	    return ourDatabase.insert(DbHelper.REWARD_TABLE, null, cv);
 	    
 	}
 	public long updateEntryReward(int bought1, int point1, String whereClause1) {
 		String whereClause = whereClause1;
-		
 		ContentValues cv = new ContentValues();
-
 			cv.put(DbHelper.KEY_BOUGHT, bought1);
 			cv.put(DbHelper.KEY_POINT, point1);
 	   
-		
-	  
 	    return ourDatabase.update(DbHelper.REWARD_TABLE, cv, whereClause, null);
 	    
 	}
+	
 }
 
 

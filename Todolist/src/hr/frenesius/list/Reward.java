@@ -24,10 +24,12 @@ public class Reward {
 	private boolean rewardBought = false;
 	private boolean selected = false;
 	
+	
 	DbHelper helper;
 	SQLiteDatabase db;
 	DbDatabaseCreate entry;
 	Cursor cursor;
+	
 
 	public Reward(){
 		
@@ -48,11 +50,11 @@ public class Reward {
 		
 	}
 	public void selectReward(){
-
+		selected = true;
 		
 	}	
 	public void deselectReward(){
-
+		selected=false;
 		
 	}
 	

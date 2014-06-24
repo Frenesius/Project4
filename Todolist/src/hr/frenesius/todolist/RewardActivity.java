@@ -152,12 +152,25 @@ public class RewardActivity extends ActionBarActivity {
 				if(rw.isRewardBought()){
 					d = getResources().getDrawable(rw.getPictureUnlock());
 					rb.setButtonDrawable(d);
+					
+						if(rw.isSelected()){
+							d = getResources().getDrawable(rw.getPictureSelect());
+							rb.setButtonDrawable(d);
+						}
 				}if(rw.isSelected()){
 					d = getResources().getDrawable(rw.getPictureSelect());
 					rb.setButtonDrawable(d);
+						if(rw.isSelected()){
+							d = getResources().getDrawable(rw.getPictureSelect());
+							rb.setButtonDrawable(d);
+						}
 				}if(!rw.isRewardBought() && !rw.isSelected()){
 					d = getResources().getDrawable(rw.getPictureLock());	
 					rb.setButtonDrawable(d);
+						if(rw.isSelected()){
+							d = getResources().getDrawable(rw.getPictureSelect());
+							rb.setButtonDrawable(d);
+						}
 				}
 				rb.setLayoutParams(rbl);
 				//ID
@@ -189,7 +202,16 @@ public class RewardActivity extends ActionBarActivity {
 		entry.open();
 		SQLiteDatabase db = helper.getWritableDatabase();
 		
-		String selectQuery = "SELECT "+DbHelper.KEY_ID+", "+DbHelper.KEY_PICTURELOCK+", "+DbHelper.KEY_PICTUREUNLOCK+", "+DbHelper.KEY_PICTURESELECT+", "+DbHelper.KEY_TITLE+", "+DbHelper.KEY_DESCRIPTION+", "+DbHelper.KEY_BOUGHT+", "+DbHelper.KEY_POINT+" FROM "+DbHelper.REWARD_TABLE+";";
+		String selectQuery = "SELECT "+DbHelper.KEY_ID+
+				", "+DbHelper.KEY_PICTURELOCK+
+				", "+DbHelper.KEY_PICTUREUNLOCK+
+				", "+DbHelper.KEY_PICTURESELECT+
+				", "+DbHelper.KEY_TITLE+
+				", "+DbHelper.KEY_DESCRIPTION+
+				", "+DbHelper.KEY_SELECTREWARD+
+				", "+DbHelper.KEY_BOUGHT+
+				", "+DbHelper.KEY_POINT+
+				" FROM "+DbHelper.REWARD_TABLE+";";
 		try {
 			cursor = db.rawQuery(selectQuery, null);//
 		
@@ -202,14 +224,22 @@ public class RewardActivity extends ActionBarActivity {
 					String dbTitle = cursor.getString(cursor.getColumnIndex(DbHelper.KEY_TITLE));
 					String dbDescription = cursor.getString(cursor.getColumnIndex(DbHelper.KEY_DESCRIPTION));
 					int dbBought = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_BOUGHT));
+					int dbSelect = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_SELECTREWARD));
 					int dbPoint = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_POINT));
 					boolean rewardBought = false;
+					boolean rewardSelect = false;
+					
+						if(dbBought == 0){
+							rewardBought = false;
+						}else if(dbBought == 1){
+							rewardBought = true;
+						}
+						if(dbSelect == 0){
+							rewardSelect = false;
+						}else if(dbSelect == 1){
+							rewardSelect = true;
+						}
 				
-				if(dbBought == 0){
-					rewardBought = false;
-				}else if(dbBought == 1){
-					rewardBought = true;
-				}
 				
 				Reward rw  = new Reward();
 					rw.setPictureUnlock(dbPicture_unlock);
@@ -219,7 +249,7 @@ public class RewardActivity extends ActionBarActivity {
 					rw.setDescription(dbDescription);
 					rw.setRewardBought(rewardBought); // VERANDEREN IN INT
 					rw.setPoint(dbPoint);
-					rw.setSelected(false);
+					rw.setSelected(rewardSelect);
 				rewardList.add(dbId, rw);
 			}
 		
@@ -321,11 +351,76 @@ public class RewardActivity extends ActionBarActivity {
 	//TODO 
 	View.OnClickListener selectButtonListener = new View.OnClickListener() {
 		public void onClick(View v) {
-
-				Toast.makeText(getApplicationContext(), "Sell",
-					   Toast.LENGTH_LONG).show();
+			//Custom IDs 
+			//TODO maak hier een switch van
+			RadioButton r0 = (RadioButton) findViewById(2550);
+			RadioButton r1 = (RadioButton) findViewById(2551);
+			RadioButton r2 = (RadioButton) findViewById(2552);
+			
+			if(r0.isChecked()){
+				unselectEverything();
+				updateSelectTable(0);
+				restartActivity();
+			}else if(r1.isChecked()){
+				unselectEverything();
+				updateSelectTable(1);
+				restartActivity();
+					
+			}else if(r2.isChecked()){
+				unselectEverything();
+				updateSelectTable(2);
+				restartActivity();
 			}
+			
+			
+			
+		}
 	};
+	//TODO
+	private void updateSelectTable(int habitNumber){
+		Reward rw = rewardList.get(habitNumber);
+		rw.selectReward();
+		
+		int intBool = 0;
+			if(rw.isSelected()){
+				intBool = 1;
+			}
+
+			SQLiteDatabase db = helper.getWritableDatabase();
+			ContentValues values = new ContentValues();
+			values.put(DbHelper.KEY_SELECTREWARD, intBool); // get title
+    
+    		habitNumber = habitNumber + 1;
+    		int i = db.update(DbHelper.REWARD_TABLE, //table
+    			values, // column/value
+    			"_id = "+habitNumber, // selections
+    			null); //selection args
+    		db.close();
+	}
+	private void unselectEverything(){
+		int N = rewardList.size();
+		for(int C=0; C<N; C++){
+			Reward rw = rewardList.get(C);
+			rw.selectReward();
+		
+			int intBool = 0;
+				if(rw.isSelected()){
+					intBool = 0;
+			
+
+				SQLiteDatabase db = helper.getWritableDatabase();
+				ContentValues values = new ContentValues();
+				values.put(DbHelper.KEY_SELECTREWARD, intBool); // get title
+    
+    		
+    			int Z = db.update(DbHelper.REWARD_TABLE, //table
+    				values, // column/value
+    				"_id = "+C, // selections
+    				null); //selection args
+    			db.close();
+				}	
+		}
+	}
 	
 	private void updateUserPoints(){
 		userPoints = MainActivity.user.getRewardpoint();

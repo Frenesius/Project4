@@ -101,68 +101,7 @@ android:fillViewport="true"
 
     <!-- BEGIN 2E SET REWARDS -->
 
-    <TableLayout
-        android:id="@+id/tableLayoutReward2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tableLayoutReward1"
-        android:layout_alignRight="@+id/tableLayoutReward1"
-        android:layout_below="@+id/tableLayoutReward1"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/borderlayout" >
 
-        <TableRow
-            android:id="@+id/TableRow2eReward"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:weightSum="8" >
-
-            <ImageView
-                android:id="@+id/imageViewchar4"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_weight="4"
-                android:src="@drawable/char4_necro" />
-
-            <ImageView
-                android:id="@+id/imageViewchar5"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_weight="4"
-                android:src="@drawable/char5_pimp" />
-
-            <ImageView
-                android:id="@+id/imageViewchar6"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_weight="4"
-                android:src="@drawable/char3_addictr" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/tableRowButtonSelection"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:weightSum="8" >
-
-            <Button
-                android:id="@+id/sellButton"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_weight="6"
-                android:background="@drawable/button_click"
-                android:text="Select" />
-
-            <Button
-                android:id="@+id/buyButton"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_weight="6"
-                android:background="@drawable/button_click"
-                android:text="Buy" />
-        </TableRow>
-    </TableLayout>
 
 </RelativeLayout>
 
