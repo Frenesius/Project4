@@ -78,7 +78,7 @@ public class RewardActivity extends ActionBarActivity {
 		
 		
 		//User related
-		updateUserPoints();
+		updateUserPoints(); 
 		setUserName();
 		setUserPoints();
 		selectDatabaseReward();
