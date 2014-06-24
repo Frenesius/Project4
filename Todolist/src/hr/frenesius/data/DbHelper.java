@@ -20,7 +20,7 @@ public class DbHelper extends SQLiteOpenHelper{
 	
 	//DATABASE
 	public static final String DATABASE_NAME = "Happit.db";
-	public static final int DATABASE_VERSION = 42;
+	public static final int DATABASE_VERSION = 44;
 	
 	//TABLES
 	public static final String GOODHABIT_TABLE = "goodhabit";

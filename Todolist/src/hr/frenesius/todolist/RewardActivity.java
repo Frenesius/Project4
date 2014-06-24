@@ -1,6 +1,7 @@
 package hr.frenesius.todolist;
 
 import java.util.ArrayList;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import java.util.List;
 
 import hr.frenesius.data.DbDatabaseCreate;
@@ -37,7 +38,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.TableRow.LayoutParams;
 import android.os.Build;
-import android.widget.RadioGroup.OnCheckedChangeListener;
+
 
 public class RewardActivity extends ActionBarActivity {
 
@@ -50,11 +51,10 @@ public class RewardActivity extends ActionBarActivity {
 	public static String USER_PICTURE = "UserPicture";
 	
 	SharedPreferences SHAREDPREFS;
-	RadioGroup rGroup;
 	
-	RadioButton r0;
-	RadioButton r1;
-	RadioButton r2;
+	RadioGroup rg;
+	static int RADIOGROUP_ID = 21313;
+
 	
 	
 	static List<Reward> rewardList 
@@ -66,27 +66,32 @@ public class RewardActivity extends ActionBarActivity {
 	Cursor cursor;
 
 
-	
+	//Rewards toevoegen, wijzig mainactivity ContentValues en add in RewardActivity de cases aan beide switches
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_reward);
-		
-
+	
 		helper = new DbHelper(this);
 		SQLiteDatabase db = helper.getWritableDatabase();
-		
 		
 		//User related
 		updateUserPoints(); 
 		setUserName();
 		setUserPoints();
+		//Reward related
 		selectDatabaseReward();
 		addReward();
+		
+
 	}
 	protected void onResume(){
 		super.onResume();
-		setUserPicture();
+		try{
+			setUserPicture();	//Mogelijk kans dat er geen picture in sharedprefs staat
+		}catch(Exception e){
+			e.getStackTrace();
+		}
 
 	}
 	private void setUserName(){
@@ -99,10 +104,10 @@ public class RewardActivity extends ActionBarActivity {
 		SHAREDPREFS = getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
 		
 		Editor a  = SHAREDPREFS.edit();
-		a.putInt(USER_POINTS, score);
-		a.commit();
+			a.putInt(USER_POINTS, score);
+			a.commit();
 		TextView tv = (TextView) findViewById(R.id.YourScore);
-		tv.setText("Your score is: " + score);
+			tv.setText("Your score is: " + score);
 	}
 
 
@@ -135,6 +140,9 @@ public class RewardActivity extends ActionBarActivity {
 		tr.addView(selectB1);
 	
 		tl.addView(tr); 
+		TableRow tr2 = new TableRow(this);
+		
+		RadioGroup rg = new RadioGroup(this); //create the RadioGroup
 		//Workaround voor probleem
 		final int N = length; // total number of textviews to add
 		int rwCount = 0;
@@ -142,16 +150,15 @@ public class RewardActivity extends ActionBarActivity {
 				
 				//TODO IF i>3 NIEUWE RIJ -> set padding(?)
 				
-				TableRow tr2 = new TableRow(this);
 				
-				RadioGroup rg = new RadioGroup(this); //create the RadioGroup
 			    rg.setOrientation(RadioGroup.HORIZONTAL);//or RadioGroup.VERTICAL
-				
+				rg.setId(RADIOGROUP_ID);
 				LayoutParams rbl = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 				RadioButton rb = new RadioButton(this);
 				
 				Drawable d;
 				Reward rw = rewardList.get(i); //
+				
 				if(rw.isRewardBought()){
 					d = getResources().getDrawable(rw.getPictureUnlock());
 					rb.setButtonDrawable(d);
@@ -175,19 +182,27 @@ public class RewardActivity extends ActionBarActivity {
 							rb.setButtonDrawable(d);
 						}
 				}
-				rb.setLayoutParams(rbl);
+				rbl.width = 100;
+				rbl.height = 140 ;
+				
 				//ID
-				rb.setClickable(true);
-				int id = 2550 + rwCount;
+				rb.setLayoutParams(rbl);
+				int startValue = 1121;
+				int id = startValue + rwCount;
+				
 				rb.setId(id);
-		
+				rb.setText(String.valueOf(id));
+				
+				rwCount++;
 				//Afmaken van TL
 				rg.addView(rb);
-				tr2.addView(rg);
-				tl.addView(tr2);
-				rwCount++;
 				
-} 
+				
+				} 
+			
+			tr2.addView(rg);
+			tl.addView(tr2);
+			
 	}
 	
 	
@@ -277,40 +292,40 @@ public class RewardActivity extends ActionBarActivity {
 	View.OnClickListener buyButtonListener = new View.OnClickListener() {
 		public void onClick(View v) {
 	
-			//Custom IDs 
-			//TODO maak hier een switch van
-			RadioButton r0 = (RadioButton) findViewById(2550);
-			RadioButton r1 = (RadioButton) findViewById(2551);
-			RadioButton r2 = (RadioButton) findViewById(2552);
 			
-			if(r0.isChecked()){
-					if(MainActivity.user.getRewardpoint() > 0){
-						updateBuyTable(0);
-						updateScore();
-						restartActivity();
-					}else{
-						Toast.makeText(getApplicationContext(), "You do not have enough points.", 1).show();
-						}
-					}else if(r1.isChecked()){
-					if(MainActivity.user.getRewardpoint() > 0){
-						updateBuyTable(1);
-						updateScore();
-						restartActivity();
-						}else{
-							Toast.makeText(getApplicationContext(), "You do not have enough points.", 1).show();
-						}
+			
+			boolean defaultCheck = false;
+			
+			rg = (RadioGroup) findViewById(RADIOGROUP_ID);
 
-					}else if(r2.isChecked()){
-						if(MainActivity.user.getRewardpoint() > 0){
-							updateBuyTable(2);
-							updateScore();
-							restartActivity();
-						}else{
-							Toast.makeText(getApplicationContext(), "You do not have enough points.", 1).show();
-						}
+			if(MainActivity.user.getRewardpoint()>0){
+				switch(rg.getCheckedRadioButtonId()){
+					case 1121:
+						updateBuyTable(0);
+						break;
+					case 1122:
+						updateBuyTable(1);
+						break;
+					case 1123:
+						updateBuyTable(2);
+						break;
+					default:
+						Toast.makeText(getApplicationContext(), "Please select a reward.", Toast.LENGTH_SHORT).show();
+						defaultCheck = true;
+				}if(!defaultCheck){
+						updateScore();
+						restartActivity();
 					}
+				}else{
+					Toast.makeText(getApplicationContext(), "You do not have enough points.", Toast.LENGTH_SHORT).show();
+				}
 		}
+		
 	};
+	
+
+	
+	
 	private void updateBuyTable(int habitNumber){
 		Reward rw = rewardList.get(habitNumber);
 		rw.buyReward();
@@ -318,8 +333,6 @@ public class RewardActivity extends ActionBarActivity {
 		int intBool = 0;
 			if(rw.isRewardBought()){
 				intBool = 1;
-			}else{
-				intBool = 0;
 			}
 
 		SQLiteDatabase db = helper.getWritableDatabase();
@@ -355,34 +368,33 @@ public class RewardActivity extends ActionBarActivity {
 	//TODO 
 	View.OnClickListener selectButtonListener = new View.OnClickListener() {
 		public void onClick(View v) {
+	
+			boolean defaultCheck = false;
 			
-			//Custom IDs 
-			//TODO maak hier een switch van
-			
-			
-			RadioButton r0 = (RadioButton) findViewById(2550);
-			RadioButton r1 = (RadioButton) findViewById(2551);
-			RadioButton r2 = (RadioButton) findViewById(2552);
-			
-			if(r0.isChecked()){
-				unselectEverything();
-				updateSelectTable(0);
-				restartActivity();
-			}else if(r1.isChecked()){
-				unselectEverything();
-				updateSelectTable(1);
-				restartActivity();
-					
-			}else if(r2.isChecked()){
-				unselectEverything();
-				updateSelectTable(2);
-				restartActivity();
-			}
-			
-			
-			
-		}
+			rg = (RadioGroup) findViewById(RADIOGROUP_ID);
+			unselectEverything();
+				switch(rg.getCheckedRadioButtonId()){
+					case 1121:
+						updateSelectTable(0);
+						break;
+					case 1122:
+						updateSelectTable(1);
+						break;
+					case 1123:
+						updateSelectTable(2);
+						break;
+					default:
+						Toast.makeText(getApplicationContext(), "Please select a reward.", Toast.LENGTH_SHORT).show();
+						defaultCheck = true;
+				}if(!defaultCheck){
+						restartActivity();
+				}else{
+					Toast.makeText(getApplicationContext(), "You do not have enough points.", Toast.LENGTH_SHORT).show();
+				}
+}
 	};
+				
+
 	//TODO
 	private void updateSelectTable(int habitNumber){
 		Reward rw = rewardList.get(habitNumber);
