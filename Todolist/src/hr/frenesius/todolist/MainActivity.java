@@ -19,6 +19,7 @@ import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -27,6 +28,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TableRow.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -100,7 +102,11 @@ public class MainActivity extends ActionBarActivity {
 		super.onResume();
 		setScore();
 		addRewardsToDatabase();
-		
+		try{
+			setUserPicture();
+		}catch(Exception e){
+			e.getStackTrace();
+		}
 	}
 	private void addHabitsToDashboard(){
 		try{
@@ -109,7 +115,16 @@ public class MainActivity extends ActionBarActivity {
 		}catch(Exception e){
 			}
 	}
+private void setUserPicture(){
 	
+	SHAREDPREFS = getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
+	
+	ImageView iv = (ImageView) findViewById(R.id.ImageViewDashMain);
+	
+	Drawable draw =getResources().getDrawable(SHAREDPREFS.getInt(RewardActivity.USER_PICTURE, 0)); 
+
+	iv.setBackground(draw);
+}	
 	
 //TODO wijzigen
 	private void addRewardsToDatabase(){

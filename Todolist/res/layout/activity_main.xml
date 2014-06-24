@@ -37,27 +37,13 @@
             android:id="@+id/DashboardMain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/borderlayout" >
-
-            <TableRow
-                android:id="@+id/tableRowDash1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" 
-                android:weightSum="100" >
-
-                <ImageView
-                    android:id="@+id/imageViewDash"
-                    android:layout_width="10dp"
-                    android:layout_height="100dp"
-                    
-                    android:src="@drawable/char1_unlock" />
-
-                <TextView
+            android:background="@drawable/borderlayout">
+<!--  Geeft de text Dashboard weer in Bold -->
+            <TextView
                     android:id="@+id/TextViewDash"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -65,51 +51,67 @@
                     android:text="Dashboard"
                     android:textSize="16dp"
                     android:textStyle="bold" />
-
-            </TableRow>
-
+<!--  zorgt voor een horizontale streep onder tekst DASHBOARD(horizontaal view) -->
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:background="@android:color/darker_gray" />
-
-<TableRow
-                android:id="@+id/tableRowView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-
-            </TableRow>
-            <TableRow
-                android:id="@+id/tableRow4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-               <TextView      
+<!--  TableRow voor afbeelding chars -->            
+           <TableRow
+               android:id="@+id/TableImageview"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="10dp" >
+           	 
+           	 <ImageView
+           	     android:id="@+id/ImageViewDashMain"
+           	     android:layout_width="100dp"
+           	     android:layout_height="140dp"
+           	     android:background="@drawable/char1_unlock" />
+ <!-- nieuwe TableLayout in TableLayout , zorgt ervoor dat je twee table rows naast een tablerow krijgt -->	    
+           	 <TableLayout
+           	     android:id="@+id/TableStats1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           	     >
+           	     
+<!--  TableRow voor naam(dashboard) -->
+           	     <TableRow
+           	 android:id="@+id/TableRowYourName"
+             android:layout_height="wrap_content"
+           	 android:layout_width="wrap_content">
+<!-- Naam van gebruiker -->
+           	 <TextView      
                    android:id="@+id/YourName"
                    	android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                    	android:text="YourName"
-                    
-                    android:textStyle="italic" /> 
-                 
-            </TableRow>
+					android:textStyle="italic" /> 
 
-            <TableRow
-                android:id="@+id/tableRow6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-
-               <TextView
+           	         </TableRow>
+  <!--  TableRow voor SCORE(dashboard) -->         	         
+           	      <TableRow
+           	 android:id="@+id/TableRYourScore"
+             android:layout_height="wrap_content"
+           	 android:layout_width="wrap_content">
+<!-- Score van gebruiker -->
+           	 <TextView
                    android:id="@+id/YourScore"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:text="Your score is: 0"
                    android:textStyle="italic" />
- 
-            </TableRow>
 
+           	         </TableRow>
+           	     
+           	    </TableLayout>
+           	 </TableRow>
 
+          
 
-        </TableLayout>
+</TableLayout>
+            
+
 <!-- Einde Dashboard -->
         
         <!--  Begin van Good Habits Main Tabel -->

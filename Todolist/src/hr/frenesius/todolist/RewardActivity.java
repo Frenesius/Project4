@@ -47,6 +47,8 @@ public class RewardActivity extends ActionBarActivity {
 	String userName;
 	public static String USER_POINTS = "UserPoints";
 	final static String PREFS_NAME = "Happits";
+	public static String USER_PICTURE = "UserPicture";
+	
 	SharedPreferences SHAREDPREFS;
 	RadioGroup rGroup;
 	
@@ -84,6 +86,7 @@ public class RewardActivity extends ActionBarActivity {
 	}
 	protected void onResume(){
 		super.onResume();
+		setUserPicture();
 
 	}
 	private void setUserName(){
@@ -385,17 +388,24 @@ public class RewardActivity extends ActionBarActivity {
 			if(rw.isSelected()){
 				intBool = 1;
 			}
-
-			SQLiteDatabase db = helper.getWritableDatabase();
-			ContentValues values = new ContentValues();
-			values.put(DbHelper.KEY_SELECTREWARD, intBool); // get title
+		
+		//Write image to SharedPrefs
+		SHAREDPREFS = getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
+		Editor a  = SHAREDPREFS.edit();
+		a.putInt(USER_PICTURE, rw.getPictureUnlock());
+		a.commit();
+		
+		//Write to Database
+		SQLiteDatabase db = helper.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put(DbHelper.KEY_SELECTREWARD, intBool); // get title
     
-    		habitNumber = habitNumber + 1;
-    		int i = db.update(DbHelper.REWARD_TABLE, //table
-    			values, // column/value
-    			"_id = "+habitNumber, // selections
-    			null); //selection args
-    		db.close();
+    	habitNumber = habitNumber + 1;
+    	int i = db.update(DbHelper.REWARD_TABLE, //table
+    		values, // column/value
+    		"_id = "+habitNumber, // selections
+    		null); //selection args
+    	db.close();
 	}
 	private void unselectEverything(){
 		int N = rewardList.size();
@@ -420,6 +430,12 @@ public class RewardActivity extends ActionBarActivity {
     			db.close();
 				}	
 		}
+	}
+	private void setUserPicture(){
+		SHAREDPREFS = getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
+		ImageView iv = (ImageView) findViewById(R.id.ImageViewDashMain);
+		Drawable draw =getResources().getDrawable(SHAREDPREFS.getInt(RewardActivity.USER_PICTURE, 0)); 
+		iv.setBackground(draw);
 	}
 	
 	private void updateUserPoints(){
