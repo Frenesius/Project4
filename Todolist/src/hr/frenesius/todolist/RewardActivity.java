@@ -162,14 +162,6 @@ public class RewardActivity extends ActionBarActivity {
 				if(rw.isRewardBought()){
 					d = getResources().getDrawable(rw.getPictureUnlock());
 					rb.setButtonDrawable(d);
-					
-						if(rw.isSelected()){
-							d = getResources().getDrawable(rw.getPictureSelect());
-							rb.setButtonDrawable(d);
-						}
-				}if(rw.isSelected()){
-					d = getResources().getDrawable(rw.getPictureSelect());
-					rb.setButtonDrawable(d);
 						if(rw.isSelected()){
 							d = getResources().getDrawable(rw.getPictureSelect());
 							rb.setButtonDrawable(d);
@@ -177,10 +169,7 @@ public class RewardActivity extends ActionBarActivity {
 				}if(!rw.isRewardBought() && !rw.isSelected()){
 					d = getResources().getDrawable(rw.getPictureLock());	
 					rb.setButtonDrawable(d);
-						if(rw.isSelected()){
-							d = getResources().getDrawable(rw.getPictureSelect());
-							rb.setButtonDrawable(d);
-						}
+
 				}
 				rbl.width = 100;
 				rbl.height = 140 ;
@@ -196,25 +185,12 @@ public class RewardActivity extends ActionBarActivity {
 				rwCount++;
 				//Afmaken van TL
 				rg.addView(rb);
-				
-				
 				} 
-			
 			tr2.addView(rg);
 			tl.addView(tr2);
-			
 	}
 	
-	
-	
-	
-	//WIJZIGEN
-	
-	
-	
-	
-
-	private void selectDatabaseReward(){
+private void selectDatabaseReward(){
 		rewardList.clear();
 	
 		entry = new DbDatabaseCreate(RewardActivity.this);
@@ -432,12 +408,10 @@ public class RewardActivity extends ActionBarActivity {
 			int intBool = 0;
 				if(rw.isSelected()){
 					intBool = 0;
-			
 
 				SQLiteDatabase db = helper.getWritableDatabase();
 				ContentValues values = new ContentValues();
 				values.put(DbHelper.KEY_SELECTREWARD, intBool); // get title
-    
     		
     			int Z = db.update(DbHelper.REWARD_TABLE, //table
     				values, // column/value
@@ -478,9 +452,4 @@ public class RewardActivity extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
-
-	
-	
-
 }
