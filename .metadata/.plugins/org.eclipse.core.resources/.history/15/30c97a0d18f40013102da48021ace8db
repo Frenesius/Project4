@@ -1,0 +1,53 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="hr.
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:yourapp="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="hr.frenesius.todolist.MainActivity"
+     >
+
+    <item android:id="@+id/create"
+          android:icon="@drawable/ic_action_new"
+          yourapp:showAsAction="always" 
+          
+         >
+     <!-- "create" submenu -->
+        <menu>
+            <item android:id="@+id/GoodHabitAction"
+                  android:title="Good Habits" />
+            <item android:id="@+id/badHabitAction"
+                  android:title="Bad Habits" />
+        </menu>
+        </item>
+        
+    
+    
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        yourapp:showAsAction="never" 
+        android:menuCategory="container"/>
+    <item android:id="@+id/ResetAction"
+        android:orderInCategory="100"
+        android:title="Reset"
+        yourapp:showAsAction="never" 
+        android:menuCategory="container"
+        ></item>
+
+</menu>frenesius.todolist.MainActivity" >
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="never" android:menuCategory="container"/>
+    <item android:id="@+id/item1"
+        android:orderInCategory="100"
+        android:title="hai"
+        app:showAsAction="never" android:menuCategory="container"
+        ></item>
+
+</menu>

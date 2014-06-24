@@ -1,0 +1,23 @@
+package hr.frenesius.list;
+
+import hr.frenesius.todolist.MainActivity;
+import hr.frenesius.list.User;
+public class Reward {
+	private String title;
+	private String description;
+	private int point;
+	
+	public void buyReward(){
+		User u = MainActivity.user;
+		int userPoints = u.getRewardpoint();
+		int remainingPoints = userPoints - point;
+		u.setRewardpoint(remainingPoints);
+		
+	}
+	Reward(){
+		
+	}
+	
+	
+}
+

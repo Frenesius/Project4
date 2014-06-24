@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+ 
+    
+    
+  <!--  BEGIN 1E REWARD SET -->  
+    <TableLayout
+        android:id="@+id/tableLayoutReward1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/borderlayout" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:weightSum="8" >
+<!-- REWARD1 -->
+            <ImageView
+                android:id="@+id/imageViewchar1"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_weight="4"
+                android:src="@drawable/char1_fist" />
+<!-- REWARD 2 -->
+            <ImageView
+                android:id="@+id/imageViewchar2"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_weight="4"
+                android:src="@drawable/char2_skelet" />
+<!-- REWARD 3 -->
+            <ImageView
+                android:id="@+id/imageViewchar4"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_weight="4"
+                android:src="@drawable/char3_addictr" />
+
+        </TableRow>
+<!-- TABEL VOOR BUTTONS SELECT EN KOPEN -->
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:weightSum="8" >
+
+<!-- SELECT BUTTON -->
+            <Button
+                android:id="@+id/sellButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="6"
+                android:background="@drawable/button_click"
+                android:text="Select" />
+<!-- KOOP BUTTON -->
+            <Button
+                android:id="@+id/buyButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="6"
+                android:background="@drawable/button_click"
+                android:text="Buy" />
+        </TableRow>
+<!-- RADIO TABEL -->
+        <TableRow
+            android:id="@+id/tableRowRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:weightSum="8" >
+
+            <RadioButton
+                android:id="@+id/radioButton1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_weight="4" />
+
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_weight="4" />
+
+            <RadioButton
+                android:id="@+id/radioButton3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_weight="4" />
+
+        </TableRow>
+
+    </TableLayout>
+<!--  EINDE 1E SET REWARDS -->
+    
+    
+    <!-- BEGIN 2E SET REWARDS -->
+    
+    <TableLayout
+        android:id="@+id/tableLayoutReward2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tableLayoutReward1"
+        android:layout_alignRight="@+id/tableLayoutReward1"
+        android:layout_below="@+id/tableLayoutReward1"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/borderlayout" 
+ 		 >
+		<TableRow
+		    
+		    android:id="@+id/TableRow2eReward"
+		    android:weightSum="8"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    >
+            <ImageView
+                android:id="@+id/imageViewchar4"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_weight="4"
+                android:src="@drawable/char4_necro" />
+
+            <ImageView
+                android:id="@+id/imageViewchar5"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_weight="4"
+                android:src="@drawable/char5_pimp" />
+
+            <ImageView
+                android:id="@+id/imageViewchar6"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_weight="4"
+                android:src="@drawable/char3_addictr" />
+</TableRow>
+
+        <TableRow
+            android:id="@+id/tableRowButtonSelection"
+           
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:weightSum="8" >
+
+            <Button
+                android:id="@+id/sellButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="6"
+                android:background="@drawable/button_click"
+                android:text="Select" />
+
+            <Button
+                android:id="@+id/buyButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="6"
+                android:background="@drawable/button_click"
+                android:text="Buy" />
+        </TableRow>
+    </TableLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="31dp" >
+
+
+    </ScrollView>
+
+</RelativeLayout>
