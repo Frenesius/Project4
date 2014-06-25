@@ -1,13 +1,19 @@
 package snippet;
 
 import hr.frenesius.list.Habit;
+import hr.frenesius.list.Reward;
 import hr.frenesius.todolist.R;
 
 import java.util.Calendar;
 
+import android.graphics.drawable.Drawable;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.TableRow.LayoutParams;
@@ -156,6 +162,121 @@ public class Snippet {
 	
 	
 	
+	private void addReward(){
+		//Variabelen
+		int length = rewardList.size();	//
+		int row = 0;
+		TableLayout tl = (TableLayout) findViewById(R.id.tableLayoutReward1);
+		TableRow tr = new TableRow(this);
+		Button buyB1 = new Button(this);
+		Button selectB1 = new Button(this);
+		LayoutParams bParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		bParams.weight = 4;
+		
+		buyB1.setOnClickListener(buyButtonListener);
+		selectB1.setOnClickListener(selectButtonListener);
+		
+		buyB1.setText("Buy");
+		selectB1.setText("Select");
+		
+		buyB1.setBackground(getResources().getDrawable(R.drawable.button_click));
+		selectB1.setBackground(getResources().getDrawable(R.drawable.button_click));
+		
+		buyB1.setLayoutParams(bParams);
+		selectB1.setLayoutParams(bParams);
+		
+		tr.addView(buyB1);
+		tr.addView(selectB1);
+	
+		tl.addView(tr); 
+		
+		RadioGroup rGroup = new RadioGroup(this); //create the RadioGroup	
+		rGroup.setOrientation(RadioGroup.HORIZONTAL);//or RadioGroup.VERTICAL
+		rGroup.setId(RADIOGROUP_ID + row );
+		
+			
+		
+		//Workaround voor probleem
+		final int N = length; // total number of textviews to add
+		int rwCount = 0;
+		int rwCount2 = 0;
+			for (int i = 0; i < N; i++) {
+				
+				//TODO IF i>3 NIEUWE RIJ -> set padding(?)
+				
+				Reward rw = rewardList.get(i); //Pakt reward
+				//Maakt vars aan
+				
+		//
+		//RADIOBUTTON
+		//
+				LayoutParams rbl = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+				RadioButton rb = new RadioButton(this);
+				
+				Drawable d;
+				//Assigned drawable
+					if(rw.isRewardBought()){
+						d = getResources().getDrawable(rw.getPictureUnlockThumb());
+						rb.setButtonDrawable(d);
+							if(rw.isSelected()){
+								d = getResources().getDrawable(rw.getPictureSelectThumb());
+								rb.setButtonDrawable(d);
+							}
+					}if(!rw.isRewardBought() && !rw.isSelected()){
+						d = getResources().getDrawable(rw.getPictureLockThumb());	
+						rb.setButtonDrawable(d);
+					}
+				rb.setLayoutParams(rbl);
+				int startValue = 1121;
+				int id = startValue + rwCount;
+				rb.setId(id);	
+		//
+		//EINDE RADIOBUTTON
+		//
+				
+		//
+		//RADIOGROUP
+		//
+				
+			rGroup.addView(rb);
+			
+		//
+		//EINDE RADIOGROUP
+		//
+				
+			//
+			//TABLE ROW
+			// 
+				//
+			//EINDE TABLE ROW
+			//
+						
+			if(rwCount2 == 3){
+				
+				TableRow tr2 = new TableRow(this);
+				tr2.addView(rGroup);
+				tl.addView(tr2, row);				
+				row++;
+				rwCount2 = 0;
+				
+			}		
+			//
+			//TABLE LAYOUT
+			//
+			//
+			//EINDE TABLE LAYOUT
+			//
+
+						rwCount++;
+						rwCount2++;
+				}
+				
+				
+			
+			
+			
+			
+	}
 	
 	
 	

@@ -49,13 +49,17 @@ public class RewardActivity extends ActionBarActivity {
 	public static String USER_POINTS = "UserPoints";
 	final static String PREFS_NAME = "Happits";
 	public static String USER_PICTURE = "UserPicture";
-	
+	static int RADIOBUTTON_ID = 123111;
 	SharedPreferences SHAREDPREFS;
 	
 	RadioGroup rg;
-	static int RADIOGROUP_ID = 21313;
+	static int RADIOGROUP_ID = 213131;
 
+	ArrayList<RadioGroup> radiogroupList = 
+			new ArrayList<RadioGroup>();
 	
+	ArrayList<RadioButton> radiobuttonList = 
+			new ArrayList<RadioButton>();
 	
 	static List<Reward> rewardList 
 	= new ArrayList<Reward>();							//List met alle Habit objecten
@@ -81,9 +85,10 @@ public class RewardActivity extends ActionBarActivity {
 		setUserPoints();
 		//Reward related
 		selectDatabaseReward();	//TODO NIEUWE THREAD
-		addReward();
-		
-
+		addButton();
+		addRewardToRewardList();
+		parseRadiobuttonToRadioGroup();
+		addRadioGroupToView();
 	}
 	protected void onResume(){
 		super.onResume();
@@ -110,135 +115,116 @@ public class RewardActivity extends ActionBarActivity {
 			tv.setText("Your score is: " + score);
 	}
 
-
+private void addButton(){
 	
-
-	private void addReward(){
-		//Variabelen
-		int length = rewardList.size();	//
-		int row = 0;
-		TableLayout tl = (TableLayout) findViewById(R.id.tableLayoutReward1);
-		TableRow tr = new TableRow(this);
-		Button buyB1 = new Button(this);
-		Button selectB1 = new Button(this);
-		LayoutParams bParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		bParams.weight = 4;
-		
-		buyB1.setOnClickListener(buyButtonListener);
-		selectB1.setOnClickListener(selectButtonListener);
-		
-		buyB1.setText("Buy");
-		selectB1.setText("Select");
-		
-		buyB1.setBackground(getResources().getDrawable(R.drawable.button_click));
-		selectB1.setBackground(getResources().getDrawable(R.drawable.button_click));
-		
-		buyB1.setLayoutParams(bParams);
-		selectB1.setLayoutParams(bParams);
-		
-		tr.addView(buyB1);
-		tr.addView(selectB1);
 	
-		tl.addView(tr); 
-		
-		RadioGroup rGroup = new RadioGroup(this); //create the RadioGroup	
-		rGroup.setOrientation(RadioGroup.HORIZONTAL);//or RadioGroup.VERTICAL
-		rGroup.setId(RADIOGROUP_ID + row );
-		
-			
-		
-		//Workaround voor probleem
-		final int N = length; // total number of textviews to add
-		int rwCount = 0;
-		int rwCount2 = 0;
-			for (int i = 0; i < N; i++) {
-				
-				//TODO IF i>3 NIEUWE RIJ -> set padding(?)
-				
-				Reward rw = rewardList.get(i); //Pakt reward
-				//Maakt vars aan
-				
-		//
-		//RADIOBUTTON
-		//
-				LayoutParams rbl = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-				RadioButton rb = new RadioButton(this);
-				
-				Drawable d;
-				//Assigned drawable
-					if(rw.isRewardBought()){
-						d = getResources().getDrawable(rw.getPictureUnlockThumb());
-						rb.setButtonDrawable(d);
-							if(rw.isSelected()){
-								d = getResources().getDrawable(rw.getPictureSelectThumb());
-								rb.setButtonDrawable(d);
-							}
-					}if(!rw.isRewardBought() && !rw.isSelected()){
-						d = getResources().getDrawable(rw.getPictureLockThumb());	
-						rb.setButtonDrawable(d);
-					}
-				rb.setLayoutParams(rbl);
-				int startValue = 1121;
-				int id = startValue + rwCount;
-				rb.setId(id);	
-		//
-		//EINDE RADIOBUTTON
-		//
-				
-		//
-		//RADIOGROUP
-		//
-				
-			rGroup.addView(rb);
-			
-		//
-		//EINDE RADIOGROUP
-		//
-				
-			//
-			//TABLE ROW
-			// 
-				//
-			//EINDE TABLE ROW
-			//
-						
-			if(rwCount2 == 3){
-				
-				TableRow tr2 = new TableRow(this);
-				tr2.addView(rGroup);
-				tl.addView(tr2, row);				
-				row++;
-				rwCount2 = 0;
-				rGroup.clearCheck();
-				rGroup.removeAllViews();
-				
-			}		
-			//
-			//TABLE LAYOUT
-			//
-			//
-			//EINDE TABLE LAYOUT
-			//
+	TableLayout tl = (TableLayout) findViewById(R.id.tableLayoutReward1);
+	TableRow tr = new TableRow(this);
+	Button buyB1 = new Button(this);
+	Button selectB1 = new Button(this);
+	LayoutParams bParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+	bParams.weight = 4;
+	
+	buyB1.setOnClickListener(buyButtonListener);
+	selectB1.setOnClickListener(selectButtonListener);
+	
+	buyB1.setText("Buy");
+	selectB1.setText("Select");
+	
+	buyB1.setBackground(getResources().getDrawable(R.drawable.button_click));
+	selectB1.setBackground(getResources().getDrawable(R.drawable.button_click));
+	
+	buyB1.setLayoutParams(bParams);
+	selectB1.setLayoutParams(bParams);
+	
+	tr.addView(buyB1);
+	tr.addView(selectB1);
 
-						rwCount++;
-						rwCount2++;
+	tl.addView(tr); 
+	
+}
+	private void addRewardToRewardList(){	//TODO
+		int rewardId = 0;
+		for(int i = 0; i<rewardList.size();i++){
+			
+			Reward r = rewardList.get(i);
+			RadioButton rb = new RadioButton(this);
+			
+			LayoutParams rbl = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+			
+			Drawable d;
+			//Assigned drawable
+				if(r.isRewardBought()){
+					d = getResources().getDrawable(r.getPictureUnlockThumb());
+					rb.setButtonDrawable(d);
+						if(r.isSelected()){
+							d = getResources().getDrawable(r.getPictureSelectThumb());
+							rb.setButtonDrawable(d);
+						}
+				}if(!r.isRewardBought() && !r.isSelected()){
+					d = getResources().getDrawable(r.getPictureLockThumb());	
+					rb.setButtonDrawable(d);
 				}
+			rb.setLayoutParams(rbl);
+			int startValue = 1121;
+			int id = startValue + rewardId;
+			rb.setId(id);	
+			
+			radiobuttonList.add(rewardId, rb);
+			rewardId++;
+		}
+		
+	}
+	private void parseRadiobuttonToRadioGroup(){	
+		int rwCounter2 = 0;
+		int rwCounter3 = 0;
+		RadioGroup rg = new RadioGroup(this);
+		
+		for(int i = 0; i < radiobuttonList.size(); i++){
+			RadioButton rb = radiobuttonList.get(i);
+			rg.setOrientation(TableLayout.HORIZONTAL);
+			
+			//LayoutParams rgPm = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+			
+			rg.addView(rb);
+			rwCounter2++;
+			
+			if(rwCounter2%3 == 0){
+				rg.setId(RADIOBUTTON_ID + rwCounter3);
+				radiogroupList.add(rwCounter3, rg);
+				rwCounter2 = 0;
+				rwCounter3++;
+				rg = new RadioGroup(this);
 				
-				
+			}	
+		}
+	}
+	private void addRadioGroupToView(){
+		TableLayout tl = (TableLayout) findViewById(R.id.tableLayoutReward1);
+		for(int i=0; i< radiogroupList.size(); i++){
+			TableRow tr = new TableRow(this);
+			tr.setOrientation(TableRow.HORIZONTAL);
 			
+			RadioGroup rGroup = radiogroupList.get(i);
 			
-			
-			
+			tr.addView(rGroup);
+			tl.addView(tr);
+		}
+		
 	}
 	
-private void selectDatabaseReward(){
+	private void selectDatabaseReward(){
 		rewardList.clear();
 	
 		entry = new DbDatabaseCreate(RewardActivity.this);
 		entry.open();
 		SQLiteDatabase db = helper.getWritableDatabase();
 		
-
+		//Boek
+		//Code Complete
+		//Beautifull code
+		//11
+		
 		try {
 			cursor = db.rawQuery(DbHelper.SELECT_REWARDTABLEQUERY, null);//
 		
@@ -314,10 +300,8 @@ private void selectDatabaseReward(){
 	
 	
 	View.OnClickListener buyButtonListener = new View.OnClickListener() {
-		public void onClick(View v) {
-	
+		public void onClick(View v) {	
 			boolean defaultCheck = false;
-			
 			rg = (RadioGroup) findViewById(RADIOGROUP_ID);
 
 			if(MainActivity.user.getRewardpoint()>0){
