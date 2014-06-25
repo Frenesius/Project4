@@ -51,12 +51,25 @@ SQLiteDatabase ourDatabase;
 	    return ourDatabase.insert(DbHelper.BADHABIT_TABLE, null, cv);
 	    
 	}
-	public long createEntryReward(int picture_unlock,int picture_lock,int picture_select, String title1, String description1, int point1) {
+	public long createEntryReward(
+			int picture_lock, int picture_lock_thumb, int picture_lock_thumb_onclick,
+			int picture_unlock, int picture_unlock_thumb, int picture_unlock_thumb_onclick,
+			int picture_select, int picture_select_thumb, int picture_select_thumb_onclick,
+			String title1, String description1, int point1) {
 		
 		ContentValues cv = new ContentValues();
-		cv.put(DbHelper.KEY_PICTUREUNLOCK, picture_unlock);
 		cv.put(DbHelper.KEY_PICTURELOCK, picture_lock);
+		cv.put(DbHelper.KEY_PICTURELOCK_THUMB, picture_lock_thumb);
+		cv.put(DbHelper.KEY_PICTURELOCK_THUMB_ONCLICK, picture_lock_thumb_onclick);
+		
+		cv.put(DbHelper.KEY_PICTUREUNLOCK, picture_unlock);
+		cv.put(DbHelper.KEY_PICTUREUNLOCK_THUMB, picture_unlock_thumb);
+		cv.put(DbHelper.KEY_PICTUREUNLOCK_THUMB_ONCLICK, picture_unlock_thumb_onclick);
+		
 		cv.put(DbHelper.KEY_PICTURESELECT, picture_select);
+		cv.put(DbHelper.KEY_PICTURESELECT_THUMB, picture_select_thumb);
+		cv.put(DbHelper.KEY_PICTURESELECT_THUMB_ONCLICK, picture_select_thumb_onclick);
+		
 		cv.put(DbHelper.KEY_TITLE, title1);
 	    cv.put(DbHelper.KEY_DESCRIPTION, description1);
 	    cv.put(DbHelper.KEY_BOUGHT, 0);

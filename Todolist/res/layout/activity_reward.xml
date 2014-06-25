@@ -93,17 +93,17 @@ android:fillViewport="true"
     <!-- EINDE 1E SET REWARDS -->
 
 
-    <!-- BEGIN 2E SET REWARDS -->
-
     <TableLayout
         android:id="@+id/tableLayoutReward1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/DashboardMain"
+        android:layout_column="0"
+        android:layout_gravity="left|center_vertical"
+        android:layout_row="0"
         android:background="@drawable/borderlayout" >
-         
     </TableLayout>
+
+    <!-- BEGIN 2E SET REWARDS -->
 
 </RelativeLayout>
 

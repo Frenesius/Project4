@@ -90,11 +90,9 @@ public class MainActivity extends ActionBarActivity {
 		SQLiteDatabase db = helper.getWritableDatabase();
 		
 		DatabaseSelectGoodHabit();
-		DatabaseSelectBadHabit();
-		
+		DatabaseSelectBadHabit();		
 		
 		addHabitsToDashboard();
-		
 	}
 	
 	
@@ -116,13 +114,9 @@ public class MainActivity extends ActionBarActivity {
 			}
 	}
 private void setUserPicture(){
-	
 	SHAREDPREFS = getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
-	
 	ImageView iv = (ImageView) findViewById(R.id.ImageViewDashMain);
-	
 	Drawable draw =getResources().getDrawable(SHAREDPREFS.getInt(RewardActivity.USER_PICTURE, 0)); 
-
 	iv.setBackground(draw);
 }	
 	
@@ -133,15 +127,72 @@ private void setUserPicture(){
 		Editor a  = SHAREDPREFS.edit();
 		int i = SHAREDPREFS.getInt("Reward", 0);
 		if(i == 0){
-		entry.open();
-		//picture_unlock, picture_lock, picture_select, title1, description1, point1) 
-		entry.createEntryReward(R.drawable.char1_unlock, R.drawable.char1_lock, R.drawable.char1_select, "Fist", "Fist Character", 100);
-		entry.createEntryReward(R.drawable.char2_unlock, R.drawable.char2_lock, R.drawable.char2_select, "Skeletor", "Skeletor Character", 200);
-		entry.createEntryReward(R.drawable.char3_unlock, R.drawable.char3_lock, R.drawable.char3_select, "Caffeine Addict", "Caffeine Character", 450);
-		entry.close();
+			entry.open();
+			//USAGE FOR CREATEENTRYREWARD
+			//int picture_lock, int picture_lock_thumb, int picture_lock_thumb_onclick,
+			//int picture_unlock, int picture_unlock_thumb, int picture_unlock_thumb_onclick,
+			//int picture_select, int picture_select_thumb, int picture_select_thumb_onclick,
+			//String title1, String description1, int point1
+		
+		entry.createEntryReward( //Char1 Fist
+				R.drawable.char1_lock, R.drawable.char1_lock_thumb, R.drawable.char1_lock_thumb_onclick,
+				R.drawable.char1_unlock, R.drawable.char1_unlock_thumb, R.drawable.char1_unlock_thumb_onclick,
+				R.drawable.char1_select, R.drawable.char1_select_thumb, R.drawable.char1_select_thumb_onclick,
+				"Fist", "NULL", 100
+				);
+		entry.createEntryReward( //Char2 Fist
+				R.drawable.char2_lock, R.drawable.char2_lock_thumb, R.drawable.char2_lock_thumb_onclick,
+				R.drawable.char2_unlock, R.drawable.char2_unlock_thumb, R.drawable.char2_unlock_thumb_onclick,
+				R.drawable.char2_select, R.drawable.char2_select_thumb, R.drawable.char2_select_thumb_onclick,
+				"Fist", "NULL", 200
+				);
+		entry.createEntryReward( //Char3 Fist
+				R.drawable.char3_lock, R.drawable.char3_lock_thumb, R.drawable.char3_lock_thumb_onclick,
+				R.drawable.char3_unlock, R.drawable.char3_unlock_thumb, R.drawable.char3_unlock_thumb_onclick,
+				R.drawable.char3_select, R.drawable.char3_select_thumb, R.drawable.char3_select_thumb_onclick,
+				"Fist", "NULL", 300
+				);
+		entry.createEntryReward( //Char4 Fist
+				R.drawable.char4_lock, R.drawable.char4_lock_thumb, R.drawable.char4_lock_thumb_onclick,
+				R.drawable.char4_unlock, R.drawable.char4_unlock_thumb, R.drawable.char4_unlock_thumb_onclick,
+				R.drawable.char4_select, R.drawable.char4_select_thumb, R.drawable.char4_select_thumb_onclick,
+				"Fist", "NULL", 400
+				);
+		entry.createEntryReward( //Char5 Fist
+				R.drawable.char5_lock, R.drawable.char5_lock_thumb, R.drawable.char5_lock_thumb_onclick,
+				R.drawable.char5_unlock, R.drawable.char5_unlock_thumb, R.drawable.char5_unlock_thumb_onclick,
+				R.drawable.char5_select, R.drawable.char5_select_thumb, R.drawable.char5_select_thumb_onclick,
+				"Fist", "NULL", 500
+				);
+		entry.createEntryReward( //Char6 Fist
+				R.drawable.char6_lock, R.drawable.char6_lock_thumb, R.drawable.char6_lock_thumb_onclick,
+				R.drawable.char6_unlock, R.drawable.char6_unlock_thumb, R.drawable.char6_unlock_thumb_onclick,
+				R.drawable.char6_select, R.drawable.char6_select_thumb, R.drawable.char6_select_thumb_onclick,
+				"Fist", "NULL", 600
+				);
+		entry.createEntryReward( //Char7 Fist
+				R.drawable.char7_lock, R.drawable.char7_lock_thumb, R.drawable.char7_lock_thumb_onclick,
+				R.drawable.char7_unlock, R.drawable.char7_unlock_thumb, R.drawable.char7_unlock_thumb_onclick,
+				R.drawable.char7_select, R.drawable.char7_select_thumb, R.drawable.char7_select_thumb_onclick,
+				"Fist", "NULL", 700
+				);
+		entry.createEntryReward( //Char8 Fist
+				R.drawable.char8_lock, R.drawable.char8_lock_thumb, R.drawable.char8_lock_thumb_onclick,
+				R.drawable.char8_unlock, R.drawable.char8_unlock_thumb, R.drawable.char8_unlock_thumb_onclick,
+				R.drawable.char8_select, R.drawable.char8_select_thumb, R.drawable.char8_select_thumb_onclick,
+				"Fist", "NULL", 800
+				);
+		entry.createEntryReward( //Char9 Fist
+				R.drawable.char9_lock, R.drawable.char9_lock_thumb, R.drawable.char9_lock_thumb_onclick,
+				R.drawable.char9_unlock, R.drawable.char9_unlock_thumb, R.drawable.char9_unlock_thumb_onclick,
+				R.drawable.char9_select, R.drawable.char9_select_thumb, R.drawable.char9_select_thumb_onclick,
+				"Fist", "NULL", 900
+				);
+		
+			entry.close();
 		}
-		a.putInt("Reward", 1);
-		a.commit();
+		a.putInt("Reward", 1).commit();
+		
 		
 	}
 

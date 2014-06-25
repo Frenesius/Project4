@@ -80,7 +80,7 @@ public class RewardActivity extends ActionBarActivity {
 		setUserName();
 		setUserPoints();
 		//Reward related
-		selectDatabaseReward();
+		selectDatabaseReward();	//TODO NIEUWE THREAD
 		addReward();
 		
 
@@ -116,7 +116,7 @@ public class RewardActivity extends ActionBarActivity {
 	private void addReward(){
 		//Variabelen
 		int length = rewardList.size();	//
-		
+		int row = 0;
 		TableLayout tl = (TableLayout) findViewById(R.id.tableLayoutReward1);
 		TableRow tr = new TableRow(this);
 		Button buyB1 = new Button(this);
@@ -140,54 +140,95 @@ public class RewardActivity extends ActionBarActivity {
 		tr.addView(selectB1);
 	
 		tl.addView(tr); 
-		TableRow tr2 = new TableRow(this);
 		
-		RadioGroup rg = new RadioGroup(this); //create the RadioGroup
+		RadioGroup rGroup = new RadioGroup(this); //create the RadioGroup	
+		rGroup.setOrientation(RadioGroup.HORIZONTAL);//or RadioGroup.VERTICAL
+		rGroup.setId(RADIOGROUP_ID + row );
+		
+			
+		
 		//Workaround voor probleem
 		final int N = length; // total number of textviews to add
 		int rwCount = 0;
+		int rwCount2 = 0;
 			for (int i = 0; i < N; i++) {
 				
 				//TODO IF i>3 NIEUWE RIJ -> set padding(?)
 				
+				Reward rw = rewardList.get(i); //Pakt reward
+				//Maakt vars aan
 				
-			    rg.setOrientation(RadioGroup.HORIZONTAL);//or RadioGroup.VERTICAL
-				rg.setId(RADIOGROUP_ID);
+		//
+		//RADIOBUTTON
+		//
 				LayoutParams rbl = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 				RadioButton rb = new RadioButton(this);
 				
 				Drawable d;
-				Reward rw = rewardList.get(i); //
-				
-				if(rw.isRewardBought()){
-					d = getResources().getDrawable(rw.getPictureUnlock());
-					rb.setButtonDrawable(d);
-						if(rw.isSelected()){
-							d = getResources().getDrawable(rw.getPictureSelect());
-							rb.setButtonDrawable(d);
-						}
-				}if(!rw.isRewardBought() && !rw.isSelected()){
-					d = getResources().getDrawable(rw.getPictureLock());	
-					rb.setButtonDrawable(d);
-
-				}
-				rbl.width = 100;
-				rbl.height = 140 ;
-				
-				//ID
+				//Assigned drawable
+					if(rw.isRewardBought()){
+						d = getResources().getDrawable(rw.getPictureUnlockThumb());
+						rb.setButtonDrawable(d);
+							if(rw.isSelected()){
+								d = getResources().getDrawable(rw.getPictureSelectThumb());
+								rb.setButtonDrawable(d);
+							}
+					}if(!rw.isRewardBought() && !rw.isSelected()){
+						d = getResources().getDrawable(rw.getPictureLockThumb());	
+						rb.setButtonDrawable(d);
+					}
 				rb.setLayoutParams(rbl);
 				int startValue = 1121;
 				int id = startValue + rwCount;
+				rb.setId(id);	
+		//
+		//EINDE RADIOBUTTON
+		//
 				
-				rb.setId(id);
-				rb.setText(String.valueOf(id));
+		//
+		//RADIOGROUP
+		//
 				
-				rwCount++;
-				//Afmaken van TL
-				rg.addView(rb);
-				} 
-			tr2.addView(rg);
-			tl.addView(tr2);
+			rGroup.addView(rb);
+			
+		//
+		//EINDE RADIOGROUP
+		//
+				
+			//
+			//TABLE ROW
+			// 
+				//
+			//EINDE TABLE ROW
+			//
+						
+			if(rwCount2 == 3){
+				
+				TableRow tr2 = new TableRow(this);
+				tr2.addView(rGroup);
+				tl.addView(tr2, row);				
+				row++;
+				rwCount2 = 0;
+				rGroup.clearCheck();
+				rGroup.removeAllViews();
+				
+			}		
+			//
+			//TABLE LAYOUT
+			//
+			//
+			//EINDE TABLE LAYOUT
+			//
+
+						rwCount++;
+						rwCount2++;
+				}
+				
+				
+			
+			
+			
+			
 	}
 	
 private void selectDatabaseReward(){
@@ -197,52 +238,63 @@ private void selectDatabaseReward(){
 		entry.open();
 		SQLiteDatabase db = helper.getWritableDatabase();
 		
-		String selectQuery = "SELECT "+DbHelper.KEY_ID+
-				", "+DbHelper.KEY_PICTURELOCK+
-				", "+DbHelper.KEY_PICTUREUNLOCK+
-				", "+DbHelper.KEY_PICTURESELECT+
-				", "+DbHelper.KEY_TITLE+
-				", "+DbHelper.KEY_DESCRIPTION+
-				", "+DbHelper.KEY_SELECTREWARD+
-				", "+DbHelper.KEY_BOUGHT+
-				", "+DbHelper.KEY_POINT+
-				" FROM "+DbHelper.REWARD_TABLE+";";
+
 		try {
-			cursor = db.rawQuery(selectQuery, null);//
+			cursor = db.rawQuery(DbHelper.SELECT_REWARDTABLEQUERY, null);//
 		
 			cursor.move(0);
 			while (cursor.moveToNext()) {
 					int dbId = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_ID)) -1;
 					int dbPicture_lock = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_PICTURELOCK));
+					int dbPicture_lock_thumb = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_PICTURELOCK_THUMB));
+					int dbPicture_lock_thumb_onclick = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_PICTURELOCK_THUMB_ONCLICK));
+					
 					int dbPicture_unlock = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_PICTUREUNLOCK));
+					int dbPicture_unlock_thumb = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_PICTUREUNLOCK_THUMB)); 
+					int dbPicture_unlock_thumb_onclick = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_PICTUREUNLOCK_THUMB_ONCLICK));
+					
 					int dbPicture_select = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_PICTURESELECT));
+					int dbPicture_select_thumb = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_PICTURESELECT_THUMB));	
+					int dbPicture_select_thumb_onclick = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_PICTURESELECT_THUMB_ONCLICK));
+					
+					
 					String dbTitle = cursor.getString(cursor.getColumnIndex(DbHelper.KEY_TITLE));
 					String dbDescription = cursor.getString(cursor.getColumnIndex(DbHelper.KEY_DESCRIPTION));
 					int dbBought = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_BOUGHT));
 					int dbSelect = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_SELECTREWARD));
 					int dbPoint = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_POINT));
+					
 					boolean rewardBought = false;
 					boolean rewardSelect = false;
 					
-						if(dbBought == 0){
-							rewardBought = false;
-						}else if(dbBought == 1){
-							rewardBought = true;
-						}
-						if(dbSelect == 0){
-							rewardSelect = false;
-						}else if(dbSelect == 1){
-							rewardSelect = true;
-						}
+					if(dbBought == 0){
+						rewardBought = false;
+					}else if(dbBought == 1){
+						rewardBought = true;
+					}if(dbSelect == 0){
+						rewardSelect = false;
+					}else if(dbSelect == 1){
+						rewardSelect = true;
+					}
 				
 				
 				Reward rw  = new Reward();
+				
 					rw.setPictureUnlock(dbPicture_unlock);
+					rw.setPictureUnlockThumb(dbPicture_unlock_thumb);
+					rw.setPictureUnlockThumbOnclick(dbPicture_unlock_thumb_onclick);
+					
 					rw.setPictureLock(dbPicture_lock);
+					rw.setPictureLockThumb(dbPicture_lock_thumb);
+					rw.setPictureLockThumbOnclick(dbPicture_lock_thumb_onclick);
+					
 					rw.setPictureSelect(dbPicture_select);
+					rw.setPictureSelectThumb(dbPicture_select_thumb);
+					rw.setPictureSelectThumbOnclick(dbPicture_select_thumb_onclick);
+					
 					rw.setTitle(dbTitle);
 					rw.setDescription(dbDescription);
-					rw.setRewardBought(rewardBought); // VERANDEREN IN INT
+					rw.setRewardBought(rewardBought); 
 					rw.setPoint(dbPoint);
 					rw.setSelected(rewardSelect);
 				rewardList.add(dbId, rw);
@@ -251,13 +303,9 @@ private void selectDatabaseReward(){
 			
 			
 		} catch (Exception e1) {
-			
 			e1.printStackTrace();
-			
-			Toast.makeText(getApplicationContext(), e1.toString(), 1).show();
-			
+			Toast.makeText(getApplicationContext(), e1.toString(), Toast.LENGTH_SHORT).show();
 		}
-		
 		cursor.close();
 		entry.close();
 	}
@@ -268,8 +316,6 @@ private void selectDatabaseReward(){
 	View.OnClickListener buyButtonListener = new View.OnClickListener() {
 		public void onClick(View v) {
 	
-			
-			
 			boolean defaultCheck = false;
 			
 			rg = (RadioGroup) findViewById(RADIOGROUP_ID);
@@ -341,10 +387,10 @@ private void selectDatabaseReward(){
 		TextView tv = (TextView) findViewById(R.id.YourScore);
 		tv.setText("Your score is: " + user.getRewardpoint());
 	} 
-	//TODO 
+	 
 	View.OnClickListener selectButtonListener = new View.OnClickListener() {
 		public void onClick(View v) {
-	
+			try{
 			boolean defaultCheck = false;
 			
 			rg = (RadioGroup) findViewById(RADIOGROUP_ID);
@@ -367,7 +413,10 @@ private void selectDatabaseReward(){
 				}else{
 					Toast.makeText(getApplicationContext(), "You do not have enough points.", Toast.LENGTH_SHORT).show();
 				}
-}
+			}catch(Exception e){
+				Toast.makeText(getApplicationContext(), "You do not unlocked this reward.", Toast.LENGTH_LONG).show();
+			}
+			}
 	};
 				
 
@@ -399,6 +448,7 @@ private void selectDatabaseReward(){
     		null); //selection args
     	db.close();
 	}
+	
 	private void unselectEverything(){
 		int N = rewardList.size();
 		for(int C=0; C<N; C++){
@@ -409,15 +459,15 @@ private void selectDatabaseReward(){
 				if(rw.isSelected()){
 					intBool = 0;
 
-				SQLiteDatabase db = helper.getWritableDatabase();
-				ContentValues values = new ContentValues();
-				values.put(DbHelper.KEY_SELECTREWARD, intBool); // get title
+					SQLiteDatabase db = helper.getWritableDatabase();
+					ContentValues values = new ContentValues();
+					values.put(DbHelper.KEY_SELECTREWARD, intBool); // get title
     		
-    			int Z = db.update(DbHelper.REWARD_TABLE, //table
-    				values, // column/value
-    				"_id = "+C, // selections
-    				null); //selection args
-    			db.close();
+					int Z = db.update(DbHelper.REWARD_TABLE, //table
+							values, // column/value
+							"_id = "+C, // selections
+							null); //selection args
+					db.close();
 				}	
 		}
 	}

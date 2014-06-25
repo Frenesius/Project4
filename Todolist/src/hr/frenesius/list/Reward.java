@@ -13,17 +13,24 @@ import hr.frenesius.data.DbDatabaseCreate;
 import hr.frenesius.data.DbHelper;
 import hr.frenesius.list.User;
 public class Reward {
-
-	private int pictureLock;
-	private int pictureUnlock;
-	private int pictureSelect;
-
 	private String title;
 	private String description;
 	private int point;
 	private boolean rewardBought = false;
 	private boolean selected = false;
 	
+	private int pictureLock;
+	private int pictureLockThumb;
+	private int pictureLockThumbOnclick;
+	
+	private int pictureUnlock;
+
+	private int pictureUnlockThumb;
+	private int pictureUnlockThumbOnclick;
+	
+	private int pictureSelect;
+	private int pictureSelectThumb;
+	private int pictureSelectThumbOnclick;
 	
 	DbHelper helper;
 	SQLiteDatabase db;
@@ -41,24 +48,68 @@ public class Reward {
 		int remainingPoints = userPoints - point;
 		MainActivity.user.setRewardpoint(remainingPoints);
 		rewardBought = true;
-
-		
 	}
 	
 	public void sellReward(){
 
 		
 	}
+	
 	public void selectReward(){
-		selected = true;
-		
+		selected = true;	
 	}	
 	public void deselectReward(){
-		selected=false;
-		
+		selected = false;
 	}
 	
 	//Getters setters
+	public int getPictureLockThumb() {
+		return pictureLockThumb;
+	}
+
+	public void setPictureLockThumb(int pictureLockThumb) {
+		this.pictureLockThumb = pictureLockThumb;
+	}
+
+	public int getPictureLockThumbOnclick() {
+		return pictureLockThumbOnclick;
+	}
+
+	public void setPictureLockThumbOnclick(int pictureLockThumbOnclick) {
+		this.pictureLockThumbOnclick = pictureLockThumbOnclick;
+	}
+
+	public int getPictureUnlockThumb() {
+		return pictureUnlockThumb;
+	}
+
+	public void setPictureUnlockThumb(int pictureUnlockThumb) {
+		this.pictureUnlockThumb = pictureUnlockThumb;
+	}
+
+	public int getPictureUnlockThumbOnclick() {
+		return pictureUnlockThumbOnclick;
+	}
+
+	public void setPictureUnlockThumbOnclick(int pictureUnlockThumbOnclick) {
+		this.pictureUnlockThumbOnclick = pictureUnlockThumbOnclick;
+	}
+
+	public int getPictureSelectThumb() {
+		return pictureSelectThumb;
+	}
+
+	public void setPictureSelectThumb(int pictureSelectThumb) {
+		this.pictureSelectThumb = pictureSelectThumb;
+	}
+
+	public int getPictureSelectThumbOnclick() {
+		return pictureSelectThumbOnclick;
+	}
+
+	public void setPictureSelectThumbOnclick(int pictureSelectThumbOnclick) {
+		this.pictureSelectThumbOnclick = pictureSelectThumbOnclick;
+	}
 	public String getTitle() {
 		return title;
 	}
