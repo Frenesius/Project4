@@ -15,8 +15,9 @@
         android:layout_centerVertical="true"
         android:alpha="0.15"
         android:src="@drawable/applogo" />
-    <!-- Main  -->
-    <!-- Scroll view voor de Main -->
+    
+
+<!-- Scroll view voor de Main -->
      <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
@@ -38,18 +39,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/borderlayout">
+            android:background="@drawable/borderlayout" >
+
 <!--  Geeft de text Dashboard weer in Bold -->
             <TextView
                     android:id="@+id/TextViewDash"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="75"
-                    android:text="Dashboard"
-                    android:textSize="16dp"
+                    android:text="@string/dashboard"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 <!--  zorgt voor een horizontale streep onder tekst DASHBOARD(horizontaal view) -->
             <View
@@ -62,7 +64,7 @@
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_marginTop="10dp" >
-           	 
+<!--  hier komt de char avatar -->           	 
            	 <ImageView
            	     android:id="@+id/ImageViewDashMain"
            	     android:layout_width="100dp"
@@ -85,7 +87,7 @@
                    android:id="@+id/YourName"
                    	android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                   	android:text="YourName"
+                   	android:text="@string/yourname"
 					android:textStyle="italic" /> 
 
            	         </TableRow>
@@ -99,7 +101,7 @@
                    android:id="@+id/YourScore"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:text="Your score is: 0"
+                   android:text="@string/yourscore"
                    android:textStyle="italic" />
 
            	         </TableRow>
@@ -134,29 +136,36 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp" >
 
-                <TextView      
-                   	android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
                     android:shadowColor="#000000"
-                    android:text="Good Habits"
+                    android:text="@string/goodhabbits"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="#2BAD00"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
             </TableRow>
 <!--  Einde van Textiew van text Good Habits -->
+
+
+<!--  Horizontale Streep  -->
+
             <TableRow
                 android:id="@+id/tableRowRadio"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-<!--  Horizontale Streep  -->
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp" >
+
                 <View
                     android:layout_width="wrap_content"
                     android:layout_height="1dp"
                     android:background="@android:color/darker_gray" />
 
             </TableRow>
+<!--  Horizontale Streep einde -->
 <TableRow
         android:id="@+id/tableRow75"
         android:layout_width="wrap_content"
@@ -168,7 +177,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="6"
-            android:text="Add hier je Habits!" />
+            android:textColor="#474747"
+            android:textStyle="italic"
+            android:text="@string/habithere" />
     </TableRow>
             
         </TableLayout>
@@ -179,14 +190,14 @@
 
        <TableLayout
            android:id="@+id/BadhabitsMain"
-            android:layout_width="fill_parent"
-            android:layout_height="100dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/borderlayout">
+           android:layout_width="fill_parent"
+           android:layout_height="100dp"
+           android:layout_gravity="center_vertical"
+           android:layout_marginBottom="20dp"
+           android:layout_marginLeft="10dp"
+           android:layout_marginRight="10dp"
+           android:layout_marginTop="10dp"
+           android:background="@drawable/borderlayout" >
 
 <!--  Begin Text Bad habits  -->
             <TableRow
@@ -198,21 +209,45 @@
                     android:id="@+id/badHabbits"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
                     android:shadowColor="#000000"
-                    android:text="Bad Habits"
+                    android:text="@string/badhabits"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="#CF383F"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
+
 <!--  Einde Text Bad habits  -->
             </TableRow>
-            
+            <!--  Horizontale Streep  -->
+
+            <TableRow
+                android:id="@+id/tableRowView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp" >
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray" />
+
+            </TableRow>
+<!--  Horizontale Streep einde -->
 <!--  BEGIN TABEL BAD HABITS -->
             <TableRow
                 android:id="@+id/tableRow11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
-
+<TextView
+            android:id="@+id/textViewBadHabitsHere"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:text="@string/habithere" 
+            android:textColor="#474747"
+            android:textStyle="italic"
+            />
             </TableRow>
 
 

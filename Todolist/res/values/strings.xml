@@ -9,8 +9,36 @@
     <string name="create_input">Create Habit</string>
     <string name="title_activity_input_bad_habit">InputBadHabitActivity</string>
     <string name="title_activity_reward">RewardActivity</string>
-    <string name="welkom_start">Welcome</string>
-    <string name="enter_list">Fill in to add your habit.</string>
-    <string name="title_activity_settings">Happit - Settings</string>
+   
 
+    
+<!-- activity_startup --> 
+	<string name="welkom_start">Welcome to Happits, please enter your name</string>
+	<string name="createprofile">CREATE PROFILE</string>   
+    <string name="name">Name</string>
+    
+<!-- activity_list -->
+   <string name="enter_list">Add your habit</string>
+   <string name="create">CREATE</string>
+   <string name="title">Title</string>
+   <string name="description">Description</string>
+    
+<!-- activity_settings -->    
+    <string name="title_activity_settings">Happit - Settings</string>
+    <string name="settings_toptext">Settings</string>
+	<string name="change_name_top">Change your Profile Name</string>
+	<string name="reset_top">Reset the application</string>
+	<string name="confirm">CONFIRM</string>
+	<string name="reset">RESET</string>
+	
+<!-- activity_main  -->	
+	<string name="dashboard">Dashboard</string>
+	<string name="yourname">Your Name</string>
+	<string name="yourscore">Your score is: 0</string>
+	<string name="goodhabbits">Good Habbits</string>
+	<string name="habithere">Habits will be added here</string>
+	<string name="badhabits">Bad Habits</string>
+	
+	
+	
 </resources>

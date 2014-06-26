@@ -20,6 +20,10 @@ import android.widget.Toast;
 import android.os.Build;
 
 public class SettingsActivity extends ActionBarActivity {
+	/*
+	 * Settings Activity is where u can change your name
+	 * You can also reset the game.
+	 */
 	SharedPreferences SHAREDPREFS;
 	Button b1;
 	Button b2;
@@ -50,55 +54,49 @@ public class SettingsActivity extends ActionBarActivity {
 	}
 
 
-	View.OnClickListener b1Listener = new View.OnClickListener() {
+	View.OnClickListener b1Listener = new View.OnClickListener() {	//Changes User name
 		public void onClick(View v) {
 		EditText e1 = (EditText) findViewById(R.id.settingsEditText1);
-		SHAREDPREFS = getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
 		
-		SHAREDPREFS.edit().putString("Name", e1.getText().toString()).commit();
+		SHAREDPREFS = getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
+			SHAREDPREFS.edit().putString("Name", e1.getText().toString()).commit();
+		
 		MainActivity.user.setName(e1.getText().toString());
 			Toast.makeText(getApplicationContext(), "Name changed to: "+ MainActivity.user.getName(), Toast.LENGTH_SHORT).show();
 		intentMainActivity();
-		
 		}
 	};
 	View.OnClickListener b2Listener = new View.OnClickListener() {
 		public void onClick(View v) {
-			//TODO ARE U SURE?
 			resetGame();
-			
 		}
 	};
 	
-	private void resetGame(){
+	private void resetGame(){	//Resets the game
 		clearSharedPrefs();
-		clearDatabase();
 		clearHabits();
-		//intentMainActivity();
+
 		restartGame();
 	}
 	
-	private void clearSharedPrefs(){
+	private void clearSharedPrefs(){	//Clears Shared preferences
 		SHAREDPREFS = getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
 		SHAREDPREFS.edit().clear().commit();
 	}
-	private void clearDatabase(){
-		DbHelper dbHelper = new DbHelper(this);
-		dbHelper.addDatabaseVersion();
-	}
-	private void clearHabits(){
+
+	private void clearHabits(){	//Clears all the Habit lists
 		MainActivity.goodHabitlist.clear();
 		MainActivity.badHabitlist.clear();
 	}
-	private void restartGame(){
+	private void restartGame(){	//Restarts the whole app
 		Intent i = getBaseContext().getPackageManager()
 					.getLaunchIntentForPackage( getBaseContext().getPackageName() );
 			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(i);
 	}
-	private void intentMainActivity(){
+	private void intentMainActivity(){	//Starts Main Activity
 		Intent i = new Intent();
-		i.setClass(this, MainActivity.class);
+			i.setClass(this, MainActivity.class);
 		startActivity(i);
 		finish();
 	}

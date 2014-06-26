@@ -12,7 +12,7 @@
         android:layout_centerVertical="true"
         android:alpha="0.15"
         android:src="@drawable/applogo" />
-
+<!-- vul naam in edittext -->
     <EditText
         android:id="@+id/SAeditText1"
         android:layout_width="wrap_content"
@@ -21,7 +21,9 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="107dp"
         android:ems="10"
-        android:hint="Name" />
+        android:hint="@string/name" />
+    
+<!--  welkomst tekst -->    
 
     <TextView
         android:id="@+id/textList"
@@ -33,7 +35,9 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="18dp"
         android:text="@string/welkom_start" />
-
+    
+    
+<!-- knop create profile -->
     <Button
         android:id="@+id/SAbutton1"
         android:layout_width="wrap_content"
@@ -41,6 +45,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@drawable/button_click"
-        android:text="Create Profile" />
+        android:textStyle="bold"
+        android:text="@string/createprofile" />
 
 </RelativeLayout>

@@ -22,7 +22,9 @@ import android.os.Build;
 
 public class InputBadHabitActivity extends ActionBarActivity {
 
-
+	/*
+	 * In this class u can create Bad Habits
+	 */
 	Button button1; // Button
 	private String title1;
 	private String description1;
@@ -38,25 +40,21 @@ public class InputBadHabitActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list);
 
-		if (savedInstanceState == null) {
-			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
-		}
+			if (savedInstanceState == null) {
+				getSupportFragmentManager().beginTransaction()
+						.add(R.id.container, new PlaceholderFragment()).commit();
+			}
+		
 		button1 = (Button) findViewById(R.id.inputbutton1);
 		button1.setOnClickListener(button1listener);
-	
 	}
 
-	private void getTexttitleText1(){
+	private void getTexttitleText1(){	//Gets Text
 		EditText i = (EditText) findViewById(R.id.titleText1);
 		Editable a = i.getText();
 		title1 = a.toString();
-		
-		
-		
 	}
-	private void getTextdescriptionText1(){
-		
+	private void getTextdescriptionText1(){	//Gets Description
 		EditText i = (EditText) findViewById(R.id.descriptionText1);
 		Editable a = i.getText();
 		description1 = a.toString();
@@ -64,20 +62,14 @@ public class InputBadHabitActivity extends ActionBarActivity {
 //EINDE GETS
 	
 //Nieuwe object creatie
-	private void makeObject(){
-		
+	private void makeObject(){	//Makes Object
 		Habit h = new Habit(title1, description1);
-		h.setReward(10);
+			h.setReward(10);
 		reward1 = h.getReward();
 		MainActivity.badHabitTRIGGER = true;
-		
 		Intent i = new Intent();
-		i.setClass(this, MainActivity.class);
-		
-		//End Main activity wanneer iets ingevuld
-		
+			i.setClass(this, MainActivity.class);
 		placeInDatabase();
-		
 		MainActivity.MainActivityACTIVITY.finish();
 		finish();
 		startActivityForResult(i,1);
@@ -85,39 +77,17 @@ public class InputBadHabitActivity extends ActionBarActivity {
 	}
 	
 	
-	private void placeInDatabase(){
+	private void placeInDatabase(){	//Places the Object into the database
 		String title = title1;				//title is de string voor title die je in databse moet zetten
 		String description = description1;	//description is een string die je in databse moet zetten
 		int reward = reward1;	
-		//Ook in database maar let op integer!
 		
 		entry = new DbDatabaseCreate(InputBadHabitActivity.this);
-		helper = new DbHelper(this);
+			helper = new DbHelper(this);
 		entry.open();
-		
-        entry.createEntryBadHabit(title, description, reward);
-			
+			entry.createEntryBadHabit(title, description, reward);
 		entry.close();
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	View.OnClickListener button1listener = new View.OnClickListener() {
 		public void onClick(View v) {
 			//GETS
@@ -128,6 +98,7 @@ public class InputBadHabitActivity extends ActionBarActivity {
 			makeObject();
 		}
 	};
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 

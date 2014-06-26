@@ -38,7 +38,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
-//PositiveHabitList.clear() als een reset knop
+/*
+ * Main Activity
+ * This is where the app starts
+ * Main Activity has all the Good and Bad Habits
+ * 
+ */
 	 
 	LinearLayout ln;									//Lineare Layout
 	public static boolean SATRIGGER = false;
@@ -47,29 +52,32 @@ public class MainActivity extends ActionBarActivity {
 	public static User user = new User();				//Een user met zijn eigen attributen
 	public static Activity MainActivityACTIVITY;		//Gebruikt in InputHabitActivity.class om MainActivity te finish()
 	public final static String PREFS_NAME = "Happits";
+	public static String USER_POINTS = "UserPoints";
+	
 	
 	//Habit lists
 	public static List<Habit> goodHabitlist 
-	= new ArrayList<Habit>();							//List met alle Habit objecten
+		= new ArrayList<Habit>();							//List met alle Habit objecten
 	public static List<Habit> badHabitlist 
-	= new ArrayList<Habit>();							//List met alle Habit objecten
+		= new ArrayList<Habit>();							//List met alle Habit objecten
 	
-	int habitcounter = 1;
+	
 	//Shared preferences settings 
 	SharedPreferences SHAREDPREFS;
-	String name1;
 	DbHelper helper;
 	SQLiteDatabase db;
 	DbDatabaseCreate entry;
 	Cursor cursor;
 	
-	public static String USER_POINTS = "UserPoints";
-
+	String name1;
+	int habitcounter = 1;
+	
+	
+	//Params
 	LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT); //
 	LayoutParams lptr = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 	LayoutParams lpb1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 	LayoutParams lptv = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-	//Params
 
 	
 	@Override
@@ -112,11 +120,11 @@ public class MainActivity extends ActionBarActivity {
 				e.getStackTrace();
 			}
 	}
-	private void updateUserPoints(){
+	private void updateUserPoints(){	//Sets the Users into a TextView
 		TextView tv = (TextView) findViewById(R.id.YourScore);
 		tv.setText(user.getRewardpoint());
 	}
-	private void addHabitsToDashboard(){
+	private void addHabitsToDashboard(){	//Adds Habits to its Table
 		try{
 			addGoodHabitToDashboard();			
 			addBadHabitToDashboard();
@@ -127,86 +135,83 @@ public class MainActivity extends ActionBarActivity {
 		SHAREDPREFS = getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
 		ImageView iv = (ImageView) findViewById(R.id.ImageViewDashMain);
 		Drawable draw =getResources().getDrawable(SHAREDPREFS.getInt(RewardActivity.USER_PICTURE, 0)); 
-		iv.setBackground(draw);
+			iv.setBackground(draw);
 	}	
 	 
-	private void addRewardsToDatabase(){	//Adds habits to database if not added
+	private void addRewardsToDatabase(){	//Adds Rewards to database if not added
 		
 		SHAREDPREFS = getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
 		Editor a  = SHAREDPREFS.edit();
 		int i = SHAREDPREFS.getInt("Reward", 0);
-		if(i == 0){
-			entry.open();
+			if(i == 0){
+				entry.open();
 			//USAGE FOR CREATEENTRYREWARD
 			//int picture_lock, int picture_lock_thumb, int picture_lock_thumb_onclick,
 			//int picture_unlock, int picture_unlock_thumb, int picture_unlock_thumb_onclick,
 			//int picture_select, int picture_select_thumb, int picture_select_thumb_onclick,
 			//String title1, String description1, int point1
 		
-		entry.createEntryReward( //Char1 Fist
-				R.drawable.char1_lock, R.drawable.char1_lock_thumb, R.drawable.char1_lock_thumb_onclick,
-				R.drawable.char1_unlock, R.drawable.char1_unlock_thumb, R.drawable.char1_unlock_thumb_onclick,
-				R.drawable.char1_select, R.drawable.char1_select_thumb, R.drawable.char1_select_thumb_onclick,
-				"Fist", "NULL", 100
-				);
-		entry.createEntryReward( //Char2 Fist
-				R.drawable.char2_lock, R.drawable.char2_lock_thumb, R.drawable.char2_lock_thumb_onclick,
-				R.drawable.char2_unlock, R.drawable.char2_unlock_thumb, R.drawable.char2_unlock_thumb_onclick,
-				R.drawable.char2_select, R.drawable.char2_select_thumb, R.drawable.char2_select_thumb_onclick,
-				"Fist", "NULL", 200
-				);
-		entry.createEntryReward( //Char3 Fist
-				R.drawable.char3_lock, R.drawable.char3_lock_thumb, R.drawable.char3_lock_thumb_onclick,
-				R.drawable.char3_unlock, R.drawable.char3_unlock_thumb, R.drawable.char3_unlock_thumb_onclick,
-				R.drawable.char3_select, R.drawable.char3_select_thumb, R.drawable.char3_select_thumb_onclick,
-				"Fist", "NULL", 300
-				);
-		entry.createEntryReward( //Char4 Fist
-				R.drawable.char4_lock, R.drawable.char4_lock_thumb, R.drawable.char4_lock_thumb_onclick,
-				R.drawable.char4_unlock, R.drawable.char4_unlock_thumb, R.drawable.char4_unlock_thumb_onclick,
-				R.drawable.char4_select, R.drawable.char4_select_thumb, R.drawable.char4_select_thumb_onclick,
-				"Fist", "NULL", 400
-				);
-		entry.createEntryReward( //Char5 Fist
-				R.drawable.char5_lock, R.drawable.char5_lock_thumb, R.drawable.char5_lock_thumb_onclick,
-				R.drawable.char5_unlock, R.drawable.char5_unlock_thumb, R.drawable.char5_unlock_thumb_onclick,
-				R.drawable.char5_select, R.drawable.char5_select_thumb, R.drawable.char5_select_thumb_onclick,
-				"Fist", "NULL", 500
-				);
-		entry.createEntryReward( //Char6 Fist
-				R.drawable.char6_lock, R.drawable.char6_lock_thumb, R.drawable.char6_lock_thumb_onclick,
-				R.drawable.char6_unlock, R.drawable.char6_unlock_thumb, R.drawable.char6_unlock_thumb_onclick,
-				R.drawable.char6_select, R.drawable.char6_select_thumb, R.drawable.char6_select_thumb_onclick,
-				"Fist", "NULL", 600
-				);
-		entry.createEntryReward( //Char7 Fist
-				R.drawable.char7_lock, R.drawable.char7_lock_thumb, R.drawable.char7_lock_thumb_onclick,
-				R.drawable.char7_unlock, R.drawable.char7_unlock_thumb, R.drawable.char7_unlock_thumb_onclick,
-				R.drawable.char7_select, R.drawable.char7_select_thumb, R.drawable.char7_select_thumb_onclick,
-				"Fist", "NULL", 700
-				);
-		entry.createEntryReward( //Char8 Fist
-				R.drawable.char8_lock, R.drawable.char8_lock_thumb, R.drawable.char8_lock_thumb_onclick,
-				R.drawable.char8_unlock, R.drawable.char8_unlock_thumb, R.drawable.char8_unlock_thumb_onclick,
-				R.drawable.char8_select, R.drawable.char8_select_thumb, R.drawable.char8_select_thumb_onclick,
-				"Fist", "NULL", 800
-				);
-		entry.createEntryReward( //Char9 Fist
-				R.drawable.char9_lock, R.drawable.char9_lock_thumb, R.drawable.char9_lock_thumb_onclick,
-				R.drawable.char9_unlock, R.drawable.char9_unlock_thumb, R.drawable.char9_unlock_thumb_onclick,
-				R.drawable.char9_select, R.drawable.char9_select_thumb, R.drawable.char9_select_thumb_onclick,
-				"Fist", "NULL", 900
-				);
-		
-			entry.close();
-		}
+			entry.createEntryReward( //Char1 Fist
+					R.drawable.char1_lock, R.drawable.char1_lock_thumb, R.drawable.char1_lock_thumb_onclick,
+					R.drawable.char1_unlock, R.drawable.char1_unlock_thumb, R.drawable.char1_unlock_thumb_onclick,
+					R.drawable.char1_select, R.drawable.char1_select_thumb, R.drawable.char1_select_thumb_onclick,
+					"Fist", "NULL", 100
+					);
+			entry.createEntryReward( //Char2 Fist
+					R.drawable.char2_lock, R.drawable.char2_lock_thumb, R.drawable.char2_lock_thumb_onclick,
+					R.drawable.char2_unlock, R.drawable.char2_unlock_thumb, R.drawable.char2_unlock_thumb_onclick,
+					R.drawable.char2_select, R.drawable.char2_select_thumb, R.drawable.char2_select_thumb_onclick,
+					"Fist", "NULL", 200
+					);
+			entry.createEntryReward( //Char3 Fist
+					R.drawable.char3_lock, R.drawable.char3_lock_thumb, R.drawable.char3_lock_thumb_onclick,
+					R.drawable.char3_unlock, R.drawable.char3_unlock_thumb, R.drawable.char3_unlock_thumb_onclick,
+					R.drawable.char3_select, R.drawable.char3_select_thumb, R.drawable.char3_select_thumb_onclick,
+					"Fist", "NULL", 300
+					);
+			entry.createEntryReward( //Char4 Fist
+					R.drawable.char4_lock, R.drawable.char4_lock_thumb, R.drawable.char4_lock_thumb_onclick,
+					R.drawable.char4_unlock, R.drawable.char4_unlock_thumb, R.drawable.char4_unlock_thumb_onclick,
+					R.drawable.char4_select, R.drawable.char4_select_thumb, R.drawable.char4_select_thumb_onclick,
+					"Fist", "NULL", 400
+					);
+			entry.createEntryReward( //Char5 Fist
+					R.drawable.char5_lock, R.drawable.char5_lock_thumb, R.drawable.char5_lock_thumb_onclick,
+					R.drawable.char5_unlock, R.drawable.char5_unlock_thumb, R.drawable.char5_unlock_thumb_onclick,
+					R.drawable.char5_select, R.drawable.char5_select_thumb, R.drawable.char5_select_thumb_onclick,
+					"Fist", "NULL", 500
+					);
+			entry.createEntryReward( //Char6 Fist
+					R.drawable.char6_lock, R.drawable.char6_lock_thumb, R.drawable.char6_lock_thumb_onclick,
+					R.drawable.char6_unlock, R.drawable.char6_unlock_thumb, R.drawable.char6_unlock_thumb_onclick,
+					R.drawable.char6_select, R.drawable.char6_select_thumb, R.drawable.char6_select_thumb_onclick,
+					"Fist", "NULL", 600
+					);
+			entry.createEntryReward( //Char7 Fist
+					R.drawable.char7_lock, R.drawable.char7_lock_thumb, R.drawable.char7_lock_thumb_onclick,
+					R.drawable.char7_unlock, R.drawable.char7_unlock_thumb, R.drawable.char7_unlock_thumb_onclick,
+					R.drawable.char7_select, R.drawable.char7_select_thumb, R.drawable.char7_select_thumb_onclick,
+					"Fist", "NULL", 700
+					);
+			entry.createEntryReward( //Char8 Fist
+					R.drawable.char8_lock, R.drawable.char8_lock_thumb, R.drawable.char8_lock_thumb_onclick,
+					R.drawable.char8_unlock, R.drawable.char8_unlock_thumb, R.drawable.char8_unlock_thumb_onclick,
+					R.drawable.char8_select, R.drawable.char8_select_thumb, R.drawable.char8_select_thumb_onclick,
+					"Fist", "NULL", 800
+					);
+			entry.createEntryReward( //Char9 Fist
+					R.drawable.char9_lock, R.drawable.char9_lock_thumb, R.drawable.char9_lock_thumb_onclick,
+					R.drawable.char9_unlock, R.drawable.char9_unlock_thumb, R.drawable.char9_unlock_thumb_onclick,
+					R.drawable.char9_select, R.drawable.char9_select_thumb, R.drawable.char9_select_thumb_onclick,
+					"Fist", "NULL", 900
+					);
+				entry.close();
+			}
 		a.putInt("Reward", 1).commit();
-		
-		
 	}
 
 	
-	private void DatabaseSelectBadHabit(){
+	private void DatabaseSelectBadHabit(){	//Selects the Bad Habits from database and writes them into a List
 		badHabitlist.clear();
 		entry = new DbDatabaseCreate(MainActivity.this);
 		entry.open();
@@ -239,16 +244,16 @@ public class MainActivity extends ActionBarActivity {
 	 
 	
 	
-	private void DatabaseSelectGoodHabit(){
+	private void DatabaseSelectGoodHabit(){	//Selects Good Habits from database and adds them into List
 		goodHabitlist.clear();
 		entry = new DbDatabaseCreate(MainActivity.this);
 		entry.open();
 		SQLiteDatabase db = helper.getWritableDatabase();
 		
-		String selectQuery = "SELECT "+DbHelper.KEY_ID+", "+DbHelper.KEY_TITLE+", "+DbHelper.KEY_DESCRIPTION+", "+DbHelper.KEY_REWARD+" FROM "+DbHelper.GOODHABIT_TABLE+";";
 			try {
-			cursor = db.rawQuery(selectQuery, null);
-			cursor.move(0);
+				String selectQuery = "SELECT "+DbHelper.KEY_ID+", "+DbHelper.KEY_TITLE+", "+DbHelper.KEY_DESCRIPTION+", "+DbHelper.KEY_REWARD+" FROM "+DbHelper.GOODHABIT_TABLE+";";
+				cursor = db.rawQuery(selectQuery, null);
+				cursor.move(0);
 			
 			while (cursor.moveToNext()) {
 				int dbId = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_ID)) -1;
@@ -262,12 +267,10 @@ public class MainActivity extends ActionBarActivity {
 				goodHabitlist.add(dbId, h);
 			}
 		
-			
-			
-		} catch (Exception e1) {
-			e1.printStackTrace();
-			Toast.makeText(getApplicationContext(), "Oops, something went wrong.", Toast.LENGTH_SHORT).show();	
-		}
+			} catch (Exception e1) {
+				e1.printStackTrace();
+				Toast.makeText(getApplicationContext(), "Oops, something went wrong.", Toast.LENGTH_SHORT).show();	
+			}
 		cursor.close();
 		entry.close();
 	}
@@ -284,37 +287,37 @@ public class MainActivity extends ActionBarActivity {
 		    SHAREDPREFS.edit().putBoolean("first_run", false).commit(); 
 		}
 	}
-	private void intentStartupActiviy(){
+	private void intentStartupActiviy(){	//Starts StartupActivity
 		Intent i = new Intent();
 		i.setClass(this, StartupActivity.class);
 		startActivity(i);	
 	}
-	private void nextIntentBadHabit(){
+	private void nextIntentBadHabit(){	//Starts BadHabits input Activity
 		Intent i = new Intent();
 		i.setClass(this, InputBadHabitActivity.class);
 		startActivity(i);	
 	}
-	private void nextIntent(){
+	private void nextIntent(){	//Starts GoodHabits Activity
 		Intent i = new Intent();
 		i.setClass(this, InputHabitActivity.class);
 		startActivity(i);
 	}
-	private void intentRewardActivity(){
+	private void intentRewardActivity(){	//Starts Reward Activity
 		Intent i = new Intent();
 		i.setClass(this, RewardActivity.class);
 		startActivity(i);
 	}
-	private void settingsActivity(){
+	private void settingsActivity(){	//Starts Settings Activity
 		Intent i = new Intent();
 		i.setClass(this, SettingsActivity.class);
 		startActivity(i);
 	}
-	private void updateScore(){
+	private void updateScore(){	//Updates the score and writes it into the SharedPreferences
 		SHAREDPREFS = getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
 		Editor a  = SHAREDPREFS.edit();
-		a.putInt(USER_POINTS, user.getRewardpoint()).commit();
+			a.putInt(USER_POINTS, user.getRewardpoint()).commit();
 		TextView tv = (TextView) findViewById(R.id.YourScore);
-		tv.setText("Your score is: " + user.getRewardpoint());
+			tv.setText("Your score is: " + user.getRewardpoint());
 	} 
 	private void setScore(){
 		SHAREDPREFS = getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
@@ -330,12 +333,12 @@ public class MainActivity extends ActionBarActivity {
 //START	
 //DASHBOARD RELATED
 //	
-	private void getUserName(){
+	private void getUserName(){	//Gets the username from the Shared Preferences
 		SHAREDPREFS = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-		TextView i = (TextView) findViewById(R.id.YourName);
 		name1 = SHAREDPREFS.getString("Name", "Hai");
 		user.setName(name1);
-		i.setText("Welkom " + user.getName());
+		TextView i = (TextView) findViewById(R.id.YourName);
+			i.setText("Welkom " + user.getName());
 		}
 	
 
@@ -349,7 +352,7 @@ public class MainActivity extends ActionBarActivity {
 //HABIT RELATED
 //
 	
-	private void addGoodHabitToDashboard(){
+	private void addGoodHabitToDashboard(){	//Adds Good Habits from the list to the Dashboard
 		//Variabelen
 		int length = goodHabitlist.size();
 		ln = (LinearLayout) this.findViewById(R.id.DashboardLinearLayout);
@@ -372,19 +375,19 @@ public class MainActivity extends ActionBarActivity {
 				
 				//layouts
 				TableLayout ll = (TableLayout) findViewById(R.id.GoodHabitsMain); //
-				lptr.weight = 8;				
-				lptv.weight = 7;
-				lpb1.weight = 1;
-				lp.leftMargin = 20; 
-				lp.rightMargin = 20; 
-				lp.bottomMargin = 10; 
+					lptr.weight = 8;				
+					lptv.weight = 7;
+					lpb1.weight = 1;
+					lp.leftMargin = 20; 
+					lp.rightMargin = 20; 
+					lp.bottomMargin = 10; 
 				
 				//Delete row
 				TableRow r = (TableRow) findViewById(R.id.tableRow75);
-				ll.removeView(r);
+					ll.removeView(r);
 				//Buttons
 				Button b1 = new Button(this);
-				b1.setBackgroundResource(R.drawable.button_good);
+					b1.setBackgroundResource(R.drawable.button_good);
 				
 				b1.setLayoutParams(lpb1);
 				tv.setLayoutParams(lptv);
@@ -397,7 +400,7 @@ public class MainActivity extends ActionBarActivity {
 				ll.addView(tr);	 
 				habitcounter++; 
 				
-				b1.setOnClickListener( new View.OnClickListener() {
+				b1.setOnClickListener( new View.OnClickListener() {	//Sets Score
 					public void onClick(View v) {
 						int length = goodHabitlist.size();
 						final int N = length; // total number of textviews to add
@@ -413,44 +416,37 @@ public class MainActivity extends ActionBarActivity {
 			} 
 	}
 
-	private void addBadHabitToDashboard(){
+	private void addBadHabitToDashboard(){	//Adds Bad Habits from the List to the View
 		//Variabelen
 				int length = badHabitlist.size();
 				ln = (LinearLayout) this.findViewById(R.id.DashboardLinearLayout);
 				ln.setOrientation(LinearLayout.VERTICAL); 
-				
-				//Workaround voor probleem
 				final int N = length; // total number of textviews to add
-				
 					for (int i = 0; i < N; i++) {
-						TableRow tr = new TableRow(this);
-						TextView tv = new TextView(this); //
-						Habit habit = badHabitlist.get(i); //
-						
+						Habit habit = badHabitlist.get(i); 
 						//Get strings
 						String Title = habit.getTitle(); 
 						String description = habit.getDescription(); 
 						
 						//Set text for the row
-						tv.setText(Title + "\n" + description); 
-						
-						//layouts
 						TableLayout ll = (TableLayout) findViewById(R.id.BadhabitsMain); 
-
+						TableRow tr = new TableRow(this);
+						TextView tv = new TextView(this); 
+							tv.setText(Title + "\n" + description); 
+						
+					
 						//Params
-						lptr.weight = 8;				
-						lptv.weight = 7;
-						lpb1.weight = 0;
-						lp.leftMargin = 20; 
-						lp.rightMargin = 20; 
-						lp.bottomMargin = 10; 
+							lptr.weight = 8;				
+							lptv.weight = 7;
+							lpb1.weight = 0;
+							lp.leftMargin = 20; 
+							lp.rightMargin = 20; 
+							lp.bottomMargin = 10; 
 						
 						//Buttons
 						final Button b2 = new Button(this);
-						
-						b2.setBackgroundResource(R.drawable.button_bad);
-						
-						b2.setLayoutParams(lpb1);
+							b2.setBackgroundResource(R.drawable.button_bad);
+							b2.setLayoutParams(lpb1);
 						tv.setLayoutParams(lptv);
 						tr.setLayoutParams(lptr);
 						ll.setLayoutParams(lp); 
@@ -462,7 +458,7 @@ public class MainActivity extends ActionBarActivity {
 						ll.addView(tr);	 
 						habitcounter++; 
 						
-						b2.setOnClickListener(new View.OnClickListener() {
+						b2.setOnClickListener(new View.OnClickListener() {	//Sets Score
 							public void onClick(View v) {
 								int length = goodHabitlist.size();
 								final int N = length; // total number of textviews to add		
@@ -481,32 +477,8 @@ public class MainActivity extends ActionBarActivity {
 //HABIT RELATED
 //	
 	
-//START	
-//ONCLICK LISTENERS
-//
 
-		
-
-	
-
-//EINDE
-//ONCLICK LISTENERS
-//
-
-	private void waitAfterClick(Button button, int duration) throws InterruptedException{
-		int miliseconds = duration *100;
-		
-		button.setClickable(false);
-		button.wait(miliseconds);
-		button.setClickable(true);
-	}
-	
-
-
-
-
-
-	@Override
+@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);

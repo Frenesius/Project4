@@ -13,6 +13,11 @@ import hr.frenesius.data.DbDatabaseCreate;
 import hr.frenesius.data.DbHelper;
 import hr.frenesius.list.User;
 public class Reward {
+	/**
+	 * This class contains Reward object
+	 * You can buy rewards with the Points in the User Object
+	 * 
+	 */
 	private String title;
 	private String description;
 	private int point;
@@ -32,12 +37,6 @@ public class Reward {
 	private int pictureSelectThumb;
 	private int pictureSelectThumbOnclick;
 	
-	DbHelper helper;
-	SQLiteDatabase db;
-	DbDatabaseCreate entry;
-	Cursor cursor;
-	
-
 	public Reward(){
 		
 	}
@@ -50,10 +49,6 @@ public class Reward {
 		rewardBought = true;
 	}
 	
-	public void sellReward(){
-
-		
-	}
 	
 	public void selectReward(){
 		selected = true;	

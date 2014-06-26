@@ -1189,22 +1189,26 @@ containing a value of this type.
         public static final int thegood_onclick=0x7f0200be;
     }
     public static final class id {
-        public static final int BadhabitsMain=0x7f060054;
+        public static final int BadhabitsMain=0x7f060055;
+        public static final int ChangeNameText=0x7f060060;
         public static final int DashboardLinearLayout=0x7f060046;
         public static final int DashboardMain=0x7f060047;
-        public static final int GoodHabitAction=0x7f060067;
+        public static final int GoodHabitAction=0x7f06006c;
         public static final int GoodHabitsMain=0x7f060050;
         public static final int ImageViewDashMain=0x7f06004a;
-        public static final int ResetAction=0x7f06006a;
-        public static final int SAbutton1=0x7f060064;
-        public static final int SAeditText1=0x7f060063;
-        public static final int ScrollView01=0x7f060058;
-        public static final int TableChangeName=0x7f06005b;
+        public static final int ResetAction=0x7f06006f;
+        public static final int ResetTable=0x7f060065;
+        public static final int SAbutton1=0x7f060069;
+        public static final int SAeditText1=0x7f060068;
+        public static final int ScrollView01=0x7f06005b;
+        public static final int TableChangeName=0x7f06005e;
         public static final int TableImageview=0x7f060049;
         public static final int TableRYourScore=0x7f06004e;
         public static final int TableRowYourName=0x7f06004c;
         public static final int TableStats1=0x7f06004b;
         public static final int TextViewDash=0x7f060048;
+        public static final int TextViewResetTop=0x7f060066;
+        public static final int TextViewSettings=0x7f06005d;
         public static final int YourName=0x7f06004d;
         public static final int YourScore=0x7f06004f;
         public static final int action_bar=0x7f06001c;
@@ -1218,16 +1222,16 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f060016;
         public static final int action_menu_presenter=0x7f060017;
         public static final int action_mode_close_button=0x7f060024;
-        public static final int action_settings=0x7f060065;
+        public static final int action_settings=0x7f06006a;
         public static final int activity_chooser_view_content=0x7f060025;
         public static final int always=0x7f06000b;
-        public static final int badHabbits=0x7f060056;
-        public static final int badHabitAction=0x7f060068;
+        public static final int badHabbits=0x7f060057;
+        public static final int badHabitAction=0x7f06006d;
         public static final int beginning=0x7f060011;
         public static final int checkbox=0x7f06002d;
         public static final int collapseActionView=0x7f06000d;
         public static final int container=0x7f06003c;
-        public static final int create=0x7f060066;
+        public static final int create=0x7f06006b;
         public static final int default_activity_button=0x7f060028;
         public static final int descriptionText1=0x7f060042;
         public static final int dialog=0x7f06000e;
@@ -1253,7 +1257,7 @@ containing a value of this type.
         public static final int progress_circular=0x7f060018;
         public static final int progress_horizontal=0x7f060019;
         public static final int radio=0x7f06002f;
-        public static final int reward_activity=0x7f060069;
+        public static final int reward_activity=0x7f06006e;
         public static final int scrollView1=0x7f060045;
         public static final int scrollView2=0x7f06003e;
         public static final int search_badge=0x7f060032;
@@ -1266,9 +1270,9 @@ containing a value of this type.
         public static final int search_plate=0x7f060036;
         public static final int search_src_text=0x7f060037;
         public static final int search_voice_btn=0x7f06003b;
-        public static final int settingsButton1=0x7f060060;
-        public static final int settingsEditText1=0x7f06005f;
-        public static final int settingsResetButton1=0x7f060062;
+        public static final int settingsButton1=0x7f060064;
+        public static final int settingsEditText1=0x7f060063;
+        public static final int settingsResetButton1=0x7f060067;
         public static final int shortcut=0x7f06002e;
         public static final int showCustom=0x7f060007;
         public static final int showHome=0x7f060004;
@@ -1276,20 +1280,21 @@ containing a value of this type.
         public static final int split_action_bar=0x7f06001e;
         public static final int submit_area=0x7f060039;
         public static final int tabMode=0x7f060002;
-        public static final int tableLayoutReward1=0x7f060059;
-        public static final int tableRow1=0x7f060040;
-        public static final int tableRow10=0x7f060055;
-        public static final int tableRow11=0x7f060057;
+        public static final int tableLayoutReward1=0x7f06005c;
+        public static final int tableRow1=0x7f060051;
+        public static final int tableRow10=0x7f060056;
+        public static final int tableRow11=0x7f060059;
         public static final int tableRow3=0x7f060043;
-        public static final int tableRow75=0x7f060052;
-        public static final int tableRowChangeName1=0x7f06005e;
-        public static final int tableRowChangeNameTop=0x7f06005c;
-        public static final int tableRowRadio=0x7f060051;
-        public static final int tableRowView=0x7f06005d;
-        public static final int tableRowView2=0x7f060061;
+        public static final int tableRow75=0x7f060053;
+        public static final int tableRowChangeName1=0x7f060062;
+        public static final int tableRowChangeNameTop=0x7f06005f;
+        public static final int tableRowHabitAdd=0x7f060040;
+        public static final int tableRowRadio=0x7f060052;
+        public static final int tableRowView=0x7f060061;
+        public static final int tableRowView2=0x7f060058;
         public static final int textList=0x7f06003f;
-        public static final int textView1=0x7f06005a;
-        public static final int textView75=0x7f060053;
+        public static final int textView75=0x7f060054;
+        public static final int textViewBadHabitsHere=0x7f06005a;
         public static final int title=0x7f06002b;
         public static final int titleText1=0x7f060041;
         public static final int top_action_bar=0x7f060020;
@@ -1407,36 +1412,60 @@ containing a value of this type.
         public static final int abc_shareactionprovider_share_with_application=0x7f0b000b;
         public static final int action_settings=0x7f0b000f;
         public static final int app_name=0x7f0b000d;
+        public static final int badhabits=0x7f0b0027;
+        public static final int change_name_top=0x7f0b001e;
+        public static final int confirm=0x7f0b0020;
+        public static final int create=0x7f0b0019;
         public static final int create_input=0x7f0b0012;
-        public static final int enter_list=0x7f0b0016;
+        public static final int createprofile=0x7f0b0016;
+        /**  activity_main  
+         */
+        public static final int dashboard=0x7f0b0022;
+        public static final int description=0x7f0b001b;
+        /**  activity_list 
+         */
+        public static final int enter_list=0x7f0b0018;
+        public static final int goodhabbits=0x7f0b0025;
+        public static final int habithere=0x7f0b0026;
         public static final int hello_world=0x7f0b000e;
-        public static final int pref_default_display_name=0x7f0b001c;
-        public static final int pref_description_social_recommendations=0x7f0b001a;
+        public static final int name=0x7f0b0017;
+        public static final int pref_default_display_name=0x7f0b002c;
+        public static final int pref_description_social_recommendations=0x7f0b002a;
         /**  Example settings for Data & Sync 
          */
-        public static final int pref_header_data_sync=0x7f0b001e;
+        public static final int pref_header_data_sync=0x7f0b002e;
         /**  Strings related to Settings 
  Example General settings 
          */
-        public static final int pref_header_general=0x7f0b0018;
+        public static final int pref_header_general=0x7f0b0028;
         /**  Example settings for Notifications 
          */
-        public static final int pref_header_notifications=0x7f0b0021;
-        public static final int pref_ringtone_silent=0x7f0b0024;
-        public static final int pref_title_add_friends_to_messages=0x7f0b001d;
-        public static final int pref_title_display_name=0x7f0b001b;
-        public static final int pref_title_new_message_notifications=0x7f0b0022;
-        public static final int pref_title_ringtone=0x7f0b0023;
-        public static final int pref_title_social_recommendations=0x7f0b0019;
-        public static final int pref_title_sync_frequency=0x7f0b001f;
-        public static final int pref_title_system_sync_settings=0x7f0b0020;
-        public static final int pref_title_vibrate=0x7f0b0025;
+        public static final int pref_header_notifications=0x7f0b0031;
+        public static final int pref_ringtone_silent=0x7f0b0034;
+        public static final int pref_title_add_friends_to_messages=0x7f0b002d;
+        public static final int pref_title_display_name=0x7f0b002b;
+        public static final int pref_title_new_message_notifications=0x7f0b0032;
+        public static final int pref_title_ringtone=0x7f0b0033;
+        public static final int pref_title_social_recommendations=0x7f0b0029;
+        public static final int pref_title_sync_frequency=0x7f0b002f;
+        public static final int pref_title_system_sync_settings=0x7f0b0030;
+        public static final int pref_title_vibrate=0x7f0b0035;
+        public static final int reset=0x7f0b0021;
+        public static final int reset_top=0x7f0b001f;
+        public static final int settings_toptext=0x7f0b001d;
+        public static final int title=0x7f0b001a;
         public static final int title_activity_input_bad_habit=0x7f0b0013;
         public static final int title_activity_list=0x7f0b0010;
         public static final int title_activity_reward=0x7f0b0014;
-        public static final int title_activity_settings=0x7f0b0017;
+        /**  activity_settings 
+         */
+        public static final int title_activity_settings=0x7f0b001c;
         public static final int title_activity_startup=0x7f0b0011;
+        /**  activity_startup 
+         */
         public static final int welkom_start=0x7f0b0015;
+        public static final int yourname=0x7f0b0023;
+        public static final int yourscore=0x7f0b0024;
     }
     public static final class style {
         /** 

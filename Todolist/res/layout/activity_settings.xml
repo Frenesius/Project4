@@ -3,62 +3,68 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-   tools:context="hr.frenesius.todolist.SettingsActivity"
+  	tools:context="hr.frenesius.todolist.SettingsActivity"
     tools:ignore="MergeRootFrame" >
+<!-- BG -->
 <ImageView
         android:id="@+id/imageView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:alpha="0.15"
+       	android:alpha="0.15"
         android:src="@drawable/applogo" />
+
+<!--  einde bg -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp" >
 
-       <!--  Begin Bad Habits Tabel -->
-
+      
+<!-- Text Settings word hier weergegeven -->
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/TextViewSettings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="44dp"
-            android:text="Settings"
+            android:text="@string/settings_toptext" 
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textStyle="bold" />
+<!-- Einde Text Settings -->
 
+<!-- CHANGE NAME TABEL LAYOUT -->
         <TableLayout
             android:id="@+id/TableChangeName"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/textView1"
+            android:layout_below="@+id/TextViewSettings"
             android:layout_marginTop="24dp"
             android:background="@drawable/borderlayout" >
-
+<!--  row voor Change Name TextView -->
             <TableRow
                 android:id="@+id/tableRowChangeNameTop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp" >
-
+<!-- Change Name tekst -->
                 <TextView
+                    android:id="@+id/ChangeNameText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
                     android:shadowColor="#000000"
-                    android:text="Change your Profile Name"
+                    android:text="@string/change_name_top"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="#474747"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
             </TableRow>
-
+            
+            
+<!-- horizontale streep begin -->
             <TableRow
                 android:id="@+id/tableRowView"
                 android:layout_width="wrap_content"
@@ -69,14 +75,19 @@
                     android:layout_height="1dp"
                     android:background="@android:color/darker_gray" />
             </TableRow>
-
+<!-- horizontale streep einde -->     
+            
+            
+<!--  row voor button en textview naam change -->
             <TableRow
                 android:id="@+id/tableRowChangeName1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:weightSum="8" >
-
+                
+                
+<!-- Text field waarin je naam moet invullen -->
                 <EditText
                     android:id="@+id/settingsEditText1"
                     android:layout_width="wrap_content"
@@ -84,20 +95,23 @@
                     android:layout_weight="4"
                     android:ems="10"
                     android:hint="New Name" />
-
+                
+                
+<!-- CONFIRM BUTTON -->
                 <Button
                     android:id="@+id/settingsButton1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
                     android:background="@drawable/button_click"
-                    android:text="CONFIRM"
+                    android:text="@string/confirm"
                     android:textStyle="bold" />
+      
             </TableRow>
         </TableLayout>
-
+<!--  Begin tabel Reset  -->
         <TableLayout
-            android:id="@+id/BadhabitsMain"
+            android:id="@+id/ResetTable"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_alignParentLeft="true"
@@ -111,34 +125,41 @@
                 android:layout_height="wrap_content" >
 
                 <TextView
-                    android:id="@+id/badHabbits"
+                    android:id="@+id/TextViewResetTop"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
                     android:shadowColor="#000000"
-                    android:text="Reset the application"
+                    android:text="@string/reset_top"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="#474747"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
             </TableRow>
-
+            
+            
+<!--  Horizontale streep begin -->
             <TableRow
                 android:id="@+id/tableRowView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
-                <View
+               	<View
                     android:layout_width="wrap_content"
                     android:layout_height="1dp"
                     android:background="@android:color/darker_gray" />
             </TableRow>
+<!--  Horizontale streep einde -->
 
+
+<!-- RESET TABELROW -->
             <TableRow
                 android:id="@+id/tableRow11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
-
+               	
+                
+<!-- KNOP RESET -->
                 <Button
                     android:id="@+id/settingsResetButton1"
                     android:layout_width="wrap_content"
@@ -148,10 +169,11 @@
                     android:layout_marginTop="8dp"
                     android:layout_weight="4"
                     android:background="@drawable/button_click"
-                    android:text="RESET"
+                    android:text="@string/reset"
                     android:textStyle="bold" />
             </TableRow>
         </TableLayout>
+<!--  einde tabel reset -->
 
     </RelativeLayout>
 

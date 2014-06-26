@@ -11,7 +11,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
 public class DbHelper extends SQLiteOpenHelper{
-
+/*
+ * Database Helper class
+ * Contains all the queries used in the application
+ */
 	DbDatabaseCreate db;
 	
 	//DATABASE
@@ -113,15 +116,13 @@ public class DbHelper extends SQLiteOpenHelper{
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		try {
-		db.execSQL(CREATEGOODHABITTABLE);
-		db.execSQL(CREATEBADHABITTABLE);
-		db.execSQL(CREATEREWARDTABLE);
-		
-		}catch(SQLException e){
-			Message.message(context1, "onCreate" + e);
-		}
+			db.execSQL(CREATEGOODHABITTABLE);
+			db.execSQL(CREATEBADHABITTABLE);
+			db.execSQL(CREATEREWARDTABLE);
 			
-			 
+		}catch(SQLException e){
+			Message.message(context1, "Error, something went wrong.");
+		}	 
 	}
 
 	@Override
@@ -138,15 +139,9 @@ public class DbHelper extends SQLiteOpenHelper{
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			Message.message(context1, "U" + e);
+			Message.message(context1, "Well.. That didn't work well." + e);
 		}
 	}
-	public void addDatabaseVersion(){
-		DATABASE_VERSION =+ 1;
-	}
-
-
-	
 }
 
 

@@ -24,21 +24,25 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class StartupActivity extends Activity {
+	/*
+	 * Startup Activity is a Activity where u can input general info about yourself and reuse that later in the app
+	 * 
+	 */
 	Button b1;
 	String name;
 	SharedPreferences SHAREDPREFS;
-	Calendar SAdate = Calendar.getInstance();
+
 
 	
 	@Override 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_startup);
+		
 		MainActivity.MainActivityACTIVITY.finish();	
 		b1 = (Button) findViewById(R.id.SAbutton1);
 		b1.setOnClickListener(b1listener);
-		MainActivity.MainActivityACTIVITY.finish();
-	} 
+		} 
 	
 	View.OnClickListener b1listener = new View.OnClickListener() {
 		public void onClick(View v) {
@@ -54,7 +58,7 @@ public class StartupActivity extends Activity {
 		    return super.dispatchKeyEvent(e);
 		};
 	
-	private void saActivityTrigger(){
+	private void saActivityTrigger(){	//Gets text and uses it as the Name
 		getTextSAeditText1();
 		processInput();
 		Toast.makeText(getApplicationContext(), "Welkom " + name,
@@ -62,11 +66,9 @@ public class StartupActivity extends Activity {
 		finishActivity();
 		
 	}
-	private void finishActivity(){
+	private void finishActivity(){	//Finishes the Activity
 		Intent i = new Intent();
-		i.setClass(this, MainActivity.class);
-	
-		//End Main activity wanneer iets ingevuld
+			i.setClass(this, MainActivity.class);
 		startActivity(i);
 		finish();
 	}
@@ -79,11 +81,9 @@ public class StartupActivity extends Activity {
 		//Places everything in 
 		SHAREDPREFS = getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
 		Editor a  = SHAREDPREFS.edit();
-		a.putString("Name", name);
-		a.commit();
+		a.putString("Name", name).commit();
 		
-		Calendar cal = Calendar.getInstance();
-		MainActivity.user.setfirstLogin(cal);	
+		
 	}	
 
 }

@@ -44,7 +44,11 @@ import android.os.Build;
 
 
 public class RewardActivity extends ActionBarActivity {
-
+	/*
+	 * Reward Activity is the activity where u can buy your rewards from
+	 * It selects the rewards from the Database and adds in to the View
+	 * 
+	 */
 	
 	int userPoints;
 	User user = MainActivity.user;
@@ -53,7 +57,7 @@ public class RewardActivity extends ActionBarActivity {
 	final static String PREFS_NAME = "Happits";
 	public static String USER_PICTURE = "UserPicture";
 	
-	SharedPreferences SHAREDPREFS;
+	
 	
 	RadioGroup rg;
 	static int RADIOGROUP_ID = 213131;
@@ -66,29 +70,29 @@ public class RewardActivity extends ActionBarActivity {
 			new ArrayList<RadioButton>();
 	
 	static List<Reward> rewardList 
-	= new ArrayList<Reward>();							//List met alle Habit objecten
+		= new ArrayList<Reward>();							//List with all Habit Objects
 	
+	SharedPreferences SHAREDPREFS;
 	DbHelper helper;
 	SQLiteDatabase db;
 	DbDatabaseCreate entry;
 	Cursor cursor;
 
 
-	//Rewards toevoegen, wijzig mainactivity ContentValues en add in RewardActivity de cases aan beide switches
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_reward);
-	
+	//Opens database
 		helper = new DbHelper(this);
 		SQLiteDatabase db = helper.getWritableDatabase();
 		
-		//User related
+	//User related
 		updateUserPoints(); 
 		setUserName();
 		setUserPoints();
-		//Reward related
-		selectDatabaseReward();	//TODO NIEUWE THREAD
+	//Reward related
+		selectDatabaseReward();	
 		addButton();
 		addRewardToRewardList();
 		parseRadiobuttonToRadioGroup();
@@ -96,19 +100,21 @@ public class RewardActivity extends ActionBarActivity {
 	}
 	protected void onResume(){
 		super.onResume();
-		try{
-			setUserPicture();	//Mogelijk kans dat er geen picture in sharedprefs staat
-		}catch(Exception e){
-			e.getStackTrace();
-		}
+			try{
+				setUserPicture();	//Possibilty that there is no picture selected in SharedPreferences
+			}catch(Exception e){
+				e.getStackTrace();
+			}
 
 	}
-	private void setUserName(){
+	
+	private void setUserName(){	//Sets the username in the Dashboard TextView
 		userName = user.getName();
 		TextView tv = (TextView) findViewById(R.id.YourName);
 		tv.setText("Hallo " + userName);
 	}
-	private void setUserPoints(){
+	
+	private void setUserPoints(){	//Sets the points of the user in the User Object and textView
 		int score = user.getRewardpoint();
 		SHAREDPREFS = getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
 		
@@ -119,15 +125,14 @@ public class RewardActivity extends ActionBarActivity {
 			tv.setText("Your score is: " + score);
 	}
 
-private void addButton(){
-	
+private void addButton(){	//Adds buttons to the Reward table
 	
 	TableLayout tl = (TableLayout) findViewById(R.id.tableLayoutReward1);
 	TableRow tr = new TableRow(this);
 	Button buyB1 = new Button(this);
 	Button selectB1 = new Button(this);
 	LayoutParams bParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-	bParams.weight = 4;
+		bParams.weight = 4;
 	
 	buyB1.setOnClickListener(buyButtonListener);
 	selectB1.setOnClickListener(selectButtonListener);
@@ -141,21 +146,19 @@ private void addButton(){
 	buyB1.setLayoutParams(bParams);
 	selectB1.setLayoutParams(bParams);
 	
+	//Add Views
 	tr.addView(buyB1);
 	tr.addView(selectB1);
-
 	tl.addView(tr); 
 	
 }
-	private void addRewardToRewardList(){	
+	private void addRewardToRewardList(){		//Adds rewards to the Rewardlist
 		int rewardId = 0;
 		for(int i = 0; i<rewardList.size();i++){
-			
 			Reward r = rewardList.get(i);
 			RadioButton rb = new RadioButton(this);
-			
 			LayoutParams rbl = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-			
+
 			Drawable d;
 			//Assigned drawable
 				if(r.isRewardBought()){
@@ -179,31 +182,28 @@ private void addButton(){
 		}
 		
 	}
-	private void parseRadiobuttonToRadioGroup(){	
+	private void parseRadiobuttonToRadioGroup(){	//Gets radioButtons and sets them with every 3 radiobutton to a radio group
 		int rwCounter2 = 0;
 		int rwCounter3 = 0;
 		RadioGroup rg = new RadioGroup(this);
 		
 		for(int i = 0; i < radiobuttonList.size(); i++){
 			RadioButton rb = radiobuttonList.get(i);
-			rg.setOrientation(TableLayout.HORIZONTAL);
-			
-			//LayoutParams rgPm = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-			
-			rg.addView(rb);
+				rg.setOrientation(TableLayout.HORIZONTAL);
+				rg.addView(rb);
 			rwCounter2++;
-			
+
 			if(rwCounter2%3 == 0){
 				rg.setId(RADIOGROUP_ID + rwCounter3);
 				radiogroupList.add(rwCounter3, rg);
+				rg = new RadioGroup(this);
 				rwCounter2 = 0;
 				rwCounter3++;
-				rg = new RadioGroup(this);
 				
 			}	
 		}
 	}
-	private void addRadioGroupToView(){
+	private void addRadioGroupToView(){	//Adds the radioGroup to the View
 		TableLayout tl = (TableLayout) findViewById(R.id.tableLayoutReward1);
 		for(int i=0; i< radiogroupList.size(); i++){
 			TableRow tr = new TableRow(this);
@@ -217,21 +217,14 @@ private void addButton(){
 		
 	}
 	
-	private void selectDatabaseReward(){
+	private void selectDatabaseReward(){	//Gets the rewards from the database and adds it to reward List
 		rewardList.clear();
-	
 		entry = new DbDatabaseCreate(RewardActivity.this);
-		entry.open();
+			entry.open();
 		SQLiteDatabase db = helper.getWritableDatabase();
-		
-		//Boek
-		//Code Complete
-		//Beautifull code
-		//11
 		
 		try {
 			cursor = db.rawQuery(DbHelper.SELECT_REWARDTABLEQUERY, null);//
-		
 			cursor.move(0);
 			while (cursor.moveToNext()) {
 					int dbId = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_ID)) -1;
@@ -257,15 +250,16 @@ private void addButton(){
 					boolean rewardBought = false;
 					boolean rewardSelect = false;
 					
-					if(dbBought == 0){
-						rewardBought = false;
-					}else if(dbBought == 1){
-						rewardBought = true;
-					}if(dbSelect == 0){
-						rewardSelect = false;
-					}else if(dbSelect == 1){
-						rewardSelect = true;
-					}
+						if(dbBought == 0){
+							rewardBought = false;
+						}else if(dbBought == 1){
+							rewardBought = true;
+						}	
+						if(dbSelect == 0){
+							rewardSelect = false;
+						}else if(dbSelect == 1){
+							rewardSelect = true;
+						}
 				
 				
 				Reward rw  = new Reward();
@@ -289,9 +283,6 @@ private void addButton(){
 					rw.setSelected(rewardSelect);
 				rewardList.add(dbId, rw);
 			}
-		
-			
-			
 		} catch (Exception e1) {
 			e1.printStackTrace();
 			Toast.makeText(getApplicationContext(), e1.toString(), Toast.LENGTH_SHORT).show();
@@ -300,9 +291,7 @@ private void addButton(){
 		entry.close();
 	}
 	
-	//TODO IF CHECKED CHANGE PLAATJE NAAR BLAUW
-	
-	View.OnClickListener buyButtonListener = new View.OnClickListener() {
+	View.OnClickListener buyButtonListener = new View.OnClickListener() {	//onCLick buys the reward and sets it in database
 		public void onClick(View v) {	
 			
 			RadioGroup rg1 = (RadioGroup) findViewById(RADIOGROUP_ID);
@@ -310,18 +299,15 @@ private void addButton(){
 			RadioGroup rg3 = (RadioGroup) findViewById(RADIOGROUP_ID+2);
 			RadioGroup selectedGroup = null;
 			String checkGroup = checkGroupSelected(rg1,rg2,rg3);
-			if(checkGroup == "rg1"){	
-				selectedGroup = rg1;
-			}if(checkGroup == "rg2"){
-				selectedGroup = rg2;
-			}if(checkGroup =="rg3"){	
-				selectedGroup = rg3;
-			}
-			RadioButton rb = (RadioButton) findViewById(selectedGroup.getCheckedRadioButtonId());
-			rb.setBackgroundColor(Color.BLUE);
+				if(checkGroup == "rg1"){	
+					selectedGroup = rg1;
+				}if(checkGroup == "rg2"){
+					selectedGroup = rg2;
+				}if(checkGroup =="rg3"){	
+					selectedGroup = rg3;
+				}
 			
 			boolean defaultCheck = false;
-			
 			if(MainActivity.user.getRewardpoint()>0){
 				switch(selectedGroup.getCheckedRadioButtonId()){
 				case 113131:
@@ -357,18 +343,18 @@ private void addButton(){
 				default:
 					Toast.makeText(getApplicationContext(), "Please select a reward.", Toast.LENGTH_SHORT).show();
 					defaultCheck = true;
-			}
-			
-				if(!defaultCheck){
-					updateScore();
-					restartActivity();
+				}
+					if(!defaultCheck){
+						updateScore();
+						restartActivity();
 				}
 			}else{
 				Toast.makeText(getApplicationContext(), "You do not have enough money.", Toast.LENGTH_SHORT).show();
 			}
 		}
 	};
-	private String checkGroupSelected(RadioGroup a, RadioGroup b, RadioGroup c){
+	
+	private String checkGroupSelected(RadioGroup a, RadioGroup b, RadioGroup c){	//Helper to determine which radio group is selected
 		String checkGroup = "0";
 		if(a.getCheckedRadioButtonId() != -1){
 			checkGroup = "rg1";
@@ -379,8 +365,7 @@ private void addButton(){
 		}
 		return checkGroup;
 	}
-	//TODO
-	View.OnClickListener selectButtonListener = new View.OnClickListener() {
+	View.OnClickListener selectButtonListener = new View.OnClickListener() {	//onClick selects an object thats bought
 		public void onClick(View v) {
 			unselectEverything();
 			
@@ -390,16 +375,14 @@ private void addButton(){
 			RadioGroup selectedGroup = null;
 			String checkGroup = checkGroupSelected(rg1,rg2,rg3);
 			
-			if(checkGroup == "rg1"){	
-				selectedGroup = rg1;
-			}if(checkGroup == "rg2"){
-				selectedGroup = rg2;
-			}if(checkGroup =="rg3"){	
-				selectedGroup = rg3;
-			}
-			
+				if(checkGroup == "rg1"){	
+					selectedGroup = rg1;
+				}if(checkGroup == "rg2"){
+					selectedGroup = rg2;
+				}if(checkGroup =="rg3"){	
+					selectedGroup = rg3;
+				}
 			boolean defaultCheck = false;
-			
 			try{
 				switch(selectedGroup.getCheckedRadioButtonId()){
 				case 113131:
@@ -435,12 +418,11 @@ private void addButton(){
 				default:
 					Toast.makeText(getApplicationContext(), "Please select a reward.", Toast.LENGTH_SHORT).show();
 					defaultCheck = true;
-			}
-			
-				if(!defaultCheck){
-					updateScore();
-					restartActivity();
 				}
+					if(!defaultCheck){
+						updateScore();
+						restartActivity();
+					}
 			}catch(Exception e){
 				Toast.makeText(getApplicationContext(), 
 						"You do not have this reward bought yet.", Toast.LENGTH_SHORT).show();
@@ -451,7 +433,7 @@ private void addButton(){
 
 	
 	
-	private void updateBuyTable(int habitNumber){
+	private void updateBuyTable(int habitNumber){ //Buys an reward and updates the buy status
 		Reward rw = rewardList.get(habitNumber);
 		rw.buyReward();
 		
@@ -459,45 +441,38 @@ private void addButton(){
 			if(rw.isRewardBought()){
 				intBool = 1;
 			}
-
 		SQLiteDatabase db = helper.getWritableDatabase();
 		ContentValues values = new ContentValues();
-    	values.put(DbHelper.KEY_BOUGHT, intBool); // get title
+    		values.put(DbHelper.KEY_BOUGHT, intBool); // get title
     
     	habitNumber = habitNumber + 1;
-    	int i = db.update(DbHelper.REWARD_TABLE, //table
+    	
+    	db.update(DbHelper.REWARD_TABLE, //table
     			values, // column/value
     			"_id = "+habitNumber, // selections
     			null); //selection args
     	db.close();
 	}
 	
-	private void restartActivity(){
+	private void restartActivity(){	//Restarts the activity
 		Intent i = new Intent();
-		i.setClass(this, RewardActivity.class);
+			i.setClass(this, RewardActivity.class);
 		startActivity(i);
 		finish();
 	
 	}
 	
-	private void updateScore(){
+	private void updateScore(){	//Updates the users score
 		SHAREDPREFS = getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
-		
 		Editor a  = SHAREDPREFS.edit();
-		a.putInt(USER_POINTS, user.getRewardpoint());
-		a.commit();
-		
+			a.putInt(USER_POINTS, user.getRewardpoint()).commit();	
 		TextView tv = (TextView) findViewById(R.id.YourScore);
-		tv.setText("Your score is: " + user.getRewardpoint());
+			tv.setText("Your score is: " + user.getRewardpoint());
 	} 
-	 
-				
-
-	//TODO SELECT
-	private void updateSelectTable(int habitNumber){
+	
+	private void updateSelectTable(int habitNumber){	//Updates the selection
 		Reward rw = rewardList.get(habitNumber);
 		rw.selectReward();
-		
 		int intBool = 0;
 			if(rw.isSelected()){
 				intBool = 1;
@@ -506,37 +481,35 @@ private void addButton(){
 		//Write image to SharedPrefs
 		SHAREDPREFS = getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
 		Editor a  = SHAREDPREFS.edit();
-		a.putInt(USER_PICTURE, rw.getPictureUnlock());
-		a.commit();
+			a.putInt(USER_PICTURE, rw.getPictureUnlock()).commit();	
 		
 		//Write to Database
 		SQLiteDatabase db = helper.getWritableDatabase();
 		ContentValues values = new ContentValues();
-		values.put(DbHelper.KEY_SELECTREWARD, intBool); // get title
+			values.put(DbHelper.KEY_SELECTREWARD, intBool); // get title
     
     	habitNumber = habitNumber + 1;
-    	int i = db.update(DbHelper.REWARD_TABLE, //table
+    	db.update(DbHelper.REWARD_TABLE, //table
     		values, // column/value
     		"_id = "+habitNumber, // selections
     		null); //selection args
     	db.close();
 	}
 	
-	private void unselectEverything(){
+	private void unselectEverything(){	//Unselects every reward
 		int N = rewardList.size();
 		for(int C=0; C<N; C++){
 			Reward rw = rewardList.get(C);
 			rw.selectReward();
-		
 			int intBool = 0;
 				if(rw.isSelected()){
 					intBool = 0;
 
 					SQLiteDatabase db = helper.getWritableDatabase();
 					ContentValues values = new ContentValues();
-					values.put(DbHelper.KEY_SELECTREWARD, intBool); // get title
+						values.put(DbHelper.KEY_SELECTREWARD, intBool); // get title
     		
-					int Z = db.update(DbHelper.REWARD_TABLE, //table
+					db.update(DbHelper.REWARD_TABLE, //table
 							values, // column/value
 							"_id = "+C, // selections
 							null); //selection args
@@ -544,14 +517,14 @@ private void addButton(){
 				}	
 		}
 	}
-	private void setUserPicture(){
+	private void setUserPicture(){	//Sets users picture in ImageView
 		SHAREDPREFS = getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
 		ImageView iv = (ImageView) findViewById(R.id.ImageViewDashMain);
 		Drawable draw =getResources().getDrawable(SHAREDPREFS.getInt(RewardActivity.USER_PICTURE, 0)); 
-		iv.setBackground(draw);
+			iv.setBackground(draw);
 	}
 	
-	private void updateUserPoints(){
+	private void updateUserPoints(){	//Gets the Users points
 		userPoints = MainActivity.user.getRewardpoint();
 	}
 	

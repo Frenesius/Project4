@@ -27,7 +27,9 @@ import android.widget.Toast;
 import android.os.Build;
 
 public class InputHabitActivity extends ActionBarActivity {
-	
+/*
+ * In this class u can create Good Habits
+ */
 	Button button1; // Button
 	private String title1;
 	private String description1;
@@ -47,14 +49,12 @@ public class InputHabitActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list);
 
-		if (savedInstanceState == null) {
-			getSupportFragmentManager().beginTransaction()
+			if (savedInstanceState == null) {
+				getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
-		}
-		// Buttons voor on click
-				button1 = (Button) findViewById(R.id.inputbutton1);
-				button1.setOnClickListener(button1listener);
-	
+			}
+		button1 = (Button) findViewById(R.id.inputbutton1);
+		button1.setOnClickListener(button1listener);
 	}
 
 	// Onclick listener
@@ -66,21 +66,17 @@ public class InputHabitActivity extends ActionBarActivity {
 				
 				//Maak object en vul het in
 				makeObject();
-				
 			}
 		};
 		
 //GETS
 
-		private void getTexttitleText1(){
+		private void getTexttitleText1(){	//Gets Text
 			EditText i = (EditText) findViewById(R.id.titleText1);
 			Editable a = i.getText();
 			title1 = a.toString();
-			
-			
-			
 		}
-		private void getTextdescriptionText1(){
+		private void getTextdescriptionText1(){	//Gets Description
 			
 			EditText i = (EditText) findViewById(R.id.descriptionText1);
 			Editable a = i.getText();
@@ -89,36 +85,28 @@ public class InputHabitActivity extends ActionBarActivity {
 //EINDE GETS
 		
 //Nieuwe object creatie
-		private void makeObject(){
-			
+		private void makeObject(){	//Makes the Object Good Habit
 			Habit h = new Habit(title1, description1);
-			h.setReward(10);
+				h.setReward(10);
 			reward1 = h.getReward();
 			MainActivity.goodHabitTRIGGER = true;
-			
 			Intent i = new Intent();
-			i.setClass(this, MainActivity.class);
-			
-			//End Main activity wanneer iets ingevuld
+				i.setClass(this, MainActivity.class);
 			
 			placeInDatabase();
-			
 			MainActivity.MainActivityACTIVITY.finish();
 			finish();
 			startActivityForResult(i,1);
 		}
-		private void placeInDatabase(){
+		private void placeInDatabase(){	//Adds the Object Good Habit into the database
 			String title = title1;				//title is de string voor title die je in databse moet zetten
 			String description = description1;	//description is een string die je in databse moet zetten
 			int reward = reward1;	
-			//Ook in database maar let op integer!
 			
 			entry = new DbDatabaseCreate(InputHabitActivity.this);
-			helper = new DbHelper(this);
+				helper = new DbHelper(this);
 			entry.open();
-			
-	        entry.createEntryGoodHabit(title, description, reward);
-				Toast.makeText(getApplicationContext(), "CreateEntry", Toast.LENGTH_LONG).show();
+				entry.createEntryGoodHabit(title, description, reward);
 			entry.close();
 		}
 
