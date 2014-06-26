@@ -129,7 +129,7 @@ private void setUserPicture(){
 	Drawable draw =getResources().getDrawable(SHAREDPREFS.getInt(RewardActivity.USER_PICTURE, 0)); 
 	iv.setBackground(draw);
 }	
-	
+	 
 //TODO wijzigen
 	private void addRewardsToDatabase(){
 		
@@ -237,7 +237,7 @@ private void setUserPicture(){
 		cursor.close();
 		entry.close();
 	}
-	
+	 
 	
 	
 	private void DatabaseSelectGoodHabit(){
