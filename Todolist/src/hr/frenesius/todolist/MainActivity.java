@@ -101,10 +101,20 @@ public class MainActivity extends ActionBarActivity {
 		setScore();
 		addRewardsToDatabase();
 		try{
+			updateUserPoints();
+		}catch(Exception e){
+			e.getStackTrace();
+		}
+		try{
 			setUserPicture();
 		}catch(Exception e){
 			e.getStackTrace();
 		}
+	}
+	private void updateUserPoints(){
+		TextView tv = (TextView) findViewById(R.id.YourScore);
+		
+		tv.setText(user.getRewardpoint());
 	}
 	private void addHabitsToDashboard(){
 		try{

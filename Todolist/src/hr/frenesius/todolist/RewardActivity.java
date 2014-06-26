@@ -49,11 +49,12 @@ public class RewardActivity extends ActionBarActivity {
 	public static String USER_POINTS = "UserPoints";
 	final static String PREFS_NAME = "Happits";
 	public static String USER_PICTURE = "UserPicture";
-	static int RADIOBUTTON_ID = 123111;
+	
 	SharedPreferences SHAREDPREFS;
 	
 	RadioGroup rg;
 	static int RADIOGROUP_ID = 213131;
+	static int RADIOBUTTON_ID = 113131;
 
 	ArrayList<RadioGroup> radiogroupList = 
 			new ArrayList<RadioGroup>();
@@ -143,7 +144,7 @@ private void addButton(){
 	tl.addView(tr); 
 	
 }
-	private void addRewardToRewardList(){	//TODO
+	private void addRewardToRewardList(){	
 		int rewardId = 0;
 		for(int i = 0; i<rewardList.size();i++){
 			
@@ -166,8 +167,8 @@ private void addButton(){
 					rb.setButtonDrawable(d);
 				}
 			rb.setLayoutParams(rbl);
-			int startValue = 1121;
-			int id = startValue + rewardId;
+			
+			int id = RADIOBUTTON_ID + rewardId;
 			rb.setId(id);	
 			
 			radiobuttonList.add(rewardId, rb);
@@ -190,7 +191,7 @@ private void addButton(){
 			rwCounter2++;
 			
 			if(rwCounter2%3 == 0){
-				rg.setId(RADIOBUTTON_ID + rwCounter3);
+				rg.setId(RADIOGROUP_ID + rwCounter3);
 				radiogroupList.add(rwCounter3, rg);
 				rwCounter2 = 0;
 				rwCounter3++;
@@ -298,37 +299,82 @@ private void addButton(){
 	
 	//TODO IF CHECKED CHANGE PLAATJE NAAR BLAUW
 	
-	
+	//TODO CODE NETJES ZETTEN
 	View.OnClickListener buyButtonListener = new View.OnClickListener() {
 		public void onClick(View v) {	
+			
+			RadioGroup rg1 = (RadioGroup) findViewById(RADIOGROUP_ID);
+			RadioGroup rg2 = (RadioGroup) findViewById(RADIOGROUP_ID+1);
+			RadioGroup rg3 = (RadioGroup) findViewById(RADIOGROUP_ID+2);
+			RadioGroup selectedGroup = null;
+			String checkGroup = checkGroupSelected(rg1,rg2,rg3);
+			if(checkGroup == "rg1"){	
+				selectedGroup = rg1;
+			}if(checkGroup == "rg2"){
+				selectedGroup = rg2;
+			}if(checkGroup =="rg3"){	
+				selectedGroup = rg3;
+			}
+			
 			boolean defaultCheck = false;
-			rg = (RadioGroup) findViewById(RADIOGROUP_ID);
-
+			//TODO netjes zetten
 			if(MainActivity.user.getRewardpoint()>0){
-				switch(rg.getCheckedRadioButtonId()){
-					case 1121:
-						updateBuyTable(0);
-						break;
-					case 1122:
-						updateBuyTable(1);
-						break;
-					case 1123:
-						updateBuyTable(2);
-						break;
-					default:
-						Toast.makeText(getApplicationContext(), "Please select a reward.", Toast.LENGTH_SHORT).show();
-						defaultCheck = true;
-				}if(!defaultCheck){
-						updateScore();
-						restartActivity();
-					}
-				}else{
-					Toast.makeText(getApplicationContext(), "You do not have enough points.", Toast.LENGTH_SHORT).show();
+				switch(selectedGroup.getCheckedRadioButtonId()){
+				case 113131:
+					updateBuyTable(0);
+					break;
+				case 113132:
+					updateBuyTable(1);
+					break;
+				case 113133:
+					updateBuyTable(2);
+					break;
+				case 113134:
+					updateBuyTable(3);
+					break;
+				case 113135:
+					updateBuyTable(4);
+					break;
+				case 113136:
+					updateBuyTable(5);
+					break;
+				case 113137:
+					updateBuyTable(6);
+					break;
+				case 113138:
+					updateBuyTable(7);
+					break;
+				case 113139:
+					updateBuyTable(8);
+					break;
+				case 113140:
+					updateBuyTable(9);
+					break;
+				default:
+					Toast.makeText(getApplicationContext(), "Please select a reward.", Toast.LENGTH_SHORT).show();
+					defaultCheck = true;
+			}
+			
+				if(!defaultCheck){
+					updateScore();
+					restartActivity();
 				}
+			}else{
+				Toast.makeText(getApplicationContext(), "You do not have enough money.", Toast.LENGTH_SHORT);
+			}
 		}
-		
 	};
-	
+	private String checkGroupSelected(RadioGroup a, RadioGroup b, RadioGroup c){
+		String checkGroup = "0";
+		if(a.getCheckedRadioButtonId() != -1){
+			checkGroup = "rg1";
+		}if(b.getCheckedRadioButtonId() != -1){
+			checkGroup = "rg2";
+		}if(c.getCheckedRadioButtonId() != -1){
+			checkGroup = "rg3";
+		}
+		return checkGroup;
+	}
 
 	
 	
