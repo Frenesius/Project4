@@ -9,6 +9,8 @@
     <string name="create_input">Create Habit</string>
     <string name="title_activity_input_bad_habit">InputBadHabitActivity</string>
     <string name="title_activity_reward">RewardActivity</string>
-	<string name="welkom_start">Welcome</string>
-	<string name="enter_list">Fill in to add your habit.</string>
-</resources> 
+    <string name="welkom_start">Welcome</string>
+    <string name="enter_list">Fill in to add your habit.</string>
+    <string name="title_activity_settings">Happit - Settings</string>
+
+</resources>

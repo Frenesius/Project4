@@ -16,7 +16,7 @@ public class DbHelper extends SQLiteOpenHelper{
 	
 	//DATABASE
 	public static final String DATABASE_NAME = "Happit.db";
-	public static final int DATABASE_VERSION = 53;
+	public static int DATABASE_VERSION = 53;
 	
 	//TABLES
 	public static final String GOODHABIT_TABLE = "goodhabit";
@@ -141,7 +141,9 @@ public class DbHelper extends SQLiteOpenHelper{
 			Message.message(context1, "U" + e);
 		}
 	}
-		
+	public void addDatabaseVersion(){
+		DATABASE_VERSION =+ 1;
+	}
 
 
 	

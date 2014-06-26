@@ -49,9 +49,9 @@ public class MainActivity extends ActionBarActivity {
 	public final static String PREFS_NAME = "Happits";
 	
 	//Habit lists
-	static List<Habit> goodHabitlist 
+	public static List<Habit> goodHabitlist 
 	= new ArrayList<Habit>();							//List met alle Habit objecten
-	static List<Habit> badHabitlist 
+	public static List<Habit> badHabitlist 
 	= new ArrayList<Habit>();							//List met alle Habit objecten
 	
 	int habitcounter = 1;
@@ -309,6 +309,11 @@ private void setUserPicture(){
 		i.setClass(this, RewardActivity.class);
 		startActivity(i);
 	}
+	private void settingsActivity(){
+		Intent i = new Intent();
+		i.setClass(this, SettingsActivity.class);
+		startActivity(i);
+	}
 	private void updateScore(){
 		SHAREDPREFS = getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
 		
@@ -528,27 +533,22 @@ private void setUserPicture(){
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
+			settingsActivity();
 			return true;
 		}
-		
 		if (id == R.id.GoodHabitAction) {
 			Message.message(getApplicationContext(), "Loading...");
 			nextIntent();
 			return true;
 		}
-		
 		if (id == R.id.badHabitAction) {
 			Message.message(getApplicationContext(), "Loading...");
 			nextIntentBadHabit();
-			return true;
-			
+			return true;	
 		}
 		if (id == R.id.reward_activity) {
-			
 			intentRewardActivity();
-			
 			return true;
-			
 		}
 		return super.onOptionsItemSelected(item);
 	}
