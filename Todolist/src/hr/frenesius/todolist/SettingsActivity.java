@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import android.os.Build;
 
 public class SettingsActivity extends ActionBarActivity {
@@ -56,6 +57,8 @@ public class SettingsActivity extends ActionBarActivity {
 		
 		SHAREDPREFS.edit().putString("Name", e1.getText().toString()).commit();
 		MainActivity.user.setName(e1.getText().toString());
+			Toast.makeText(getApplicationContext(), "Name changed to: "+ MainActivity.user.getName(), Toast.LENGTH_SHORT).show();
+		intentMainActivity();
 		
 		}
 	};
@@ -71,7 +74,8 @@ public class SettingsActivity extends ActionBarActivity {
 		clearSharedPrefs();
 		clearDatabase();
 		clearHabits();
-		intentMainActivity();
+		//intentMainActivity();
+		restartGame();
 	}
 	
 	private void clearSharedPrefs(){
@@ -85,6 +89,12 @@ public class SettingsActivity extends ActionBarActivity {
 	private void clearHabits(){
 		MainActivity.goodHabitlist.clear();
 		MainActivity.badHabitlist.clear();
+	}
+	private void restartGame(){
+		Intent i = getBaseContext().getPackageManager()
+					.getLaunchIntentForPackage( getBaseContext().getPackageName() );
+			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(i);
 	}
 	private void intentMainActivity(){
 		Intent i = new Intent();

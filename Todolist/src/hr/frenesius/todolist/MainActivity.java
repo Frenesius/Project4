@@ -79,18 +79,18 @@ public class MainActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		if (savedInstanceState == null) {
-			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
-		}
-		getUserName();
+			if (savedInstanceState == null) {
+				getSupportFragmentManager().beginTransaction()
+						.add(R.id.container, new PlaceholderFragment()).commit();
+			}	
+		getUserName();	//Gets the name of the user and fils in the User class
 		MainActivityACTIVITY = this;
 		
 		helper = new DbHelper(this);
 		SQLiteDatabase db = helper.getWritableDatabase();
 		
-		DatabaseSelectGoodHabit();
-		DatabaseSelectBadHabit();		
+		DatabaseSelectGoodHabit();	//Gets GoodHabits from database
+		DatabaseSelectBadHabit();	//Gets BadHabits from database	
 		
 		addHabitsToDashboard();
 	}
@@ -98,40 +98,39 @@ public class MainActivity extends ActionBarActivity {
 	
 	protected void onResume(){
 		super.onResume();
-		setScore();
-		addRewardsToDatabase();
-		try{
-			updateUserPoints();
-		}catch(Exception e){
-			e.getStackTrace();
-		}
-		try{
-			setUserPicture();
-		}catch(Exception e){
-			e.getStackTrace();
-		}
+		setScore();		//Zet de score weer netjes van User
+		addRewardsToDatabase();	//Voegt rewards toe aan database als het nog niet gedaan is
+			try{
+				updateUserPoints();	//Als users punten hebben update het
+			}catch(Exception e){
+				e.getStackTrace();
+			}
+			
+			try{
+				setUserPicture();	//Als user een userpicture heeft in shared prefs dan update die het
+			}catch(Exception e){
+				e.getStackTrace();
+			}
 	}
 	private void updateUserPoints(){
 		TextView tv = (TextView) findViewById(R.id.YourScore);
-		
 		tv.setText(user.getRewardpoint());
 	}
 	private void addHabitsToDashboard(){
 		try{
-			addGoodHabitToDashboard();			//VOEG HIER OOK DE BAD HABIT PROCESS AN TOE
+			addGoodHabitToDashboard();			
 			addBadHabitToDashboard();
 		}catch(Exception e){
 			}
 	}
-private void setUserPicture(){
-	SHAREDPREFS = getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
-	ImageView iv = (ImageView) findViewById(R.id.ImageViewDashMain);
-	Drawable draw =getResources().getDrawable(SHAREDPREFS.getInt(RewardActivity.USER_PICTURE, 0)); 
-	iv.setBackground(draw);
-}	
+	private void setUserPicture(){
+		SHAREDPREFS = getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
+		ImageView iv = (ImageView) findViewById(R.id.ImageViewDashMain);
+		Drawable draw =getResources().getDrawable(SHAREDPREFS.getInt(RewardActivity.USER_PICTURE, 0)); 
+		iv.setBackground(draw);
+	}	
 	 
-//TODO wijzigen
-	private void addRewardsToDatabase(){
+	private void addRewardsToDatabase(){	//Adds habits to database if not added
 		
 		SHAREDPREFS = getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
 		Editor a  = SHAREDPREFS.edit();
@@ -217,6 +216,7 @@ private void setUserPicture(){
 			String selectQuery = "SELECT "+DbHelper.KEY_ID+", "+DbHelper.KEY_TITLE+", "+DbHelper.KEY_DESCRIPTION+", "+DbHelper.KEY_REWARD+" FROM "+DbHelper.BADHABIT_TABLE+";";
 			cursor = db.rawQuery(selectQuery, null);
 			cursor.move(0);
+			
 			while (cursor.moveToNext()) {
 				int dbId = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_ID)) -1;
 				String dbTitle = cursor.getString(cursor.getColumnIndex(DbHelper.KEY_TITLE));
@@ -230,7 +230,6 @@ private void setUserPicture(){
 				badHabitlist.add(dbId, h);
 			}
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 			Toast.makeText(getApplicationContext(), e1.toString(), 1).show();
 		}
@@ -249,8 +248,8 @@ private void setUserPicture(){
 		String selectQuery = "SELECT "+DbHelper.KEY_ID+", "+DbHelper.KEY_TITLE+", "+DbHelper.KEY_DESCRIPTION+", "+DbHelper.KEY_REWARD+" FROM "+DbHelper.GOODHABIT_TABLE+";";
 			try {
 			cursor = db.rawQuery(selectQuery, null);
-		
 			cursor.move(0);
+			
 			while (cursor.moveToNext()) {
 				int dbId = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_ID)) -1;
 				String dbTitle = cursor.getString(cursor.getColumnIndex(DbHelper.KEY_TITLE));
@@ -266,13 +265,9 @@ private void setUserPicture(){
 			
 			
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
-			
-			Toast.makeText(getApplicationContext(), e1.toString(), 1).show();
-			
+			Toast.makeText(getApplicationContext(), "Oops, something went wrong.", Toast.LENGTH_SHORT).show();	
 		}
-		
 		cursor.close();
 		entry.close();
 	}
@@ -316,19 +311,14 @@ private void setUserPicture(){
 	}
 	private void updateScore(){
 		SHAREDPREFS = getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
-		
 		Editor a  = SHAREDPREFS.edit();
-		a.putInt(USER_POINTS, user.getRewardpoint());
-		a.commit();
-		
+		a.putInt(USER_POINTS, user.getRewardpoint()).commit();
 		TextView tv = (TextView) findViewById(R.id.YourScore);
 		tv.setText("Your score is: " + user.getRewardpoint());
 	} 
 	private void setScore(){
 		SHAREDPREFS = getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE);
-		
 		user.setRewardpoint(SHAREDPREFS.getInt(USER_POINTS, 0));
-		
 		
 		TextView tv = (TextView) findViewById(R.id.YourScore);
 		tv.setText("Your score is: " + user.getRewardpoint());
@@ -344,9 +334,7 @@ private void setUserPicture(){
 		SHAREDPREFS = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 		TextView i = (TextView) findViewById(R.id.YourName);
 		name1 = SHAREDPREFS.getString("Name", "Hai");
-		
 		user.setName(name1);
-		
 		i.setText("Welkom " + user.getName());
 		}
 	
@@ -360,8 +348,6 @@ private void setUserPicture(){
 //START
 //HABIT RELATED
 //
-	
-
 	
 	private void addGoodHabitToDashboard(){
 		//Variabelen
@@ -382,15 +368,15 @@ private void setUserPicture(){
 				String description = habit.getDescription(); //
 				
 				//Set text for the row
-				tv.setText(Title + " \n" + description + "\n --------------------"); //
+				tv.setText(Title + "\n" + description); //
 				
 				//layouts
 				TableLayout ll = (TableLayout) findViewById(R.id.GoodHabitsMain); //
 				lptr.weight = 8;				
 				lptv.weight = 7;
 				lpb1.weight = 1;
-				lp.leftMargin = 10; 
-				lp.rightMargin = 15; 
+				lp.leftMargin = 20; 
+				lp.rightMargin = 20; 
 				lp.bottomMargin = 10; 
 				
 				//Delete row
@@ -411,11 +397,22 @@ private void setUserPicture(){
 				ll.addView(tr);	 
 				habitcounter++; 
 				
-				b1.setOnClickListener(habitB1);
-						
-//ADD EEN STREEP VIEW HIERONDER 				
-} 
+				b1.setOnClickListener( new View.OnClickListener() {
+					public void onClick(View v) {
+						int length = goodHabitlist.size();
+						final int N = length; // total number of textviews to add
+						for (int i = 0; i < N; i++) {
+							
+							Habit habit = goodHabitlist.get(i);
+							user.addRewardPoint(habit.getReward());
+							updateScore();
+							
+						}
+					}
+				});
+			} 
 	}
+
 	private void addBadHabitToDashboard(){
 		//Variabelen
 				int length = badHabitlist.size();
@@ -435,7 +432,7 @@ private void setUserPicture(){
 						String description = habit.getDescription(); 
 						
 						//Set text for the row
-						tv.setText(Title + " \n" + description + "\n --------------------"); 
+						tv.setText(Title + "\n" + description); 
 						
 						//layouts
 						TableLayout ll = (TableLayout) findViewById(R.id.BadhabitsMain); 
@@ -444,12 +441,12 @@ private void setUserPicture(){
 						lptr.weight = 8;				
 						lptv.weight = 7;
 						lpb1.weight = 0;
-						lp.leftMargin = 10; 
-						lp.rightMargin = 15; 
+						lp.leftMargin = 20; 
+						lp.rightMargin = 20; 
 						lp.bottomMargin = 10; 
 						
 						//Buttons
-						Button b2 = new Button(this);
+						final Button b2 = new Button(this);
 						
 						b2.setBackgroundResource(R.drawable.button_bad);
 						
@@ -465,9 +462,21 @@ private void setUserPicture(){
 						ll.addView(tr);	 
 						habitcounter++; 
 						
-						b2.setOnClickListener(habitB2);
+						b2.setOnClickListener(new View.OnClickListener() {
+							public void onClick(View v) {
+								int length = goodHabitlist.size();
+								final int N = length; // total number of textviews to add		
+								for (int i = 0; i < N; i++) {
+									Habit habit = goodHabitlist.get(i);
+									int negativeReward = 0 - habit.getReward();
+									user.addRewardPoint(negativeReward);
+									updateScore();
+										
+								}
+							}
+						});
 					}
-	}
+		}
 //EINDE	
 //HABIT RELATED
 //	
@@ -475,43 +484,22 @@ private void setUserPicture(){
 //START	
 //ONCLICK LISTENERS
 //
-	
-	View.OnClickListener habitB1 = new View.OnClickListener() {
-		public void onClick(View v) {
-			int length = goodHabitlist.size();
-			final int N = length; // total number of textviews to add
-			for (int i = 0; i < N; i++) {
-				
-				Habit habit = goodHabitlist.get(i);
-				user.addRewardPoint(habit.getReward());
-				updateScore();
-				
-			}
-		}
-	};
+
 		
-	View.OnClickListener habitB2 = new View.OnClickListener() {
-		public void onClick(View v) {
-			int length = goodHabitlist.size();
-			final int N = length; // total number of textviews to add
-			
-			for (int i = 0; i < N; i++) {
-				
-				Habit habit = goodHabitlist.get(i);
-				int negativeReward = 0 - habit.getReward();
-				user.addRewardPoint(negativeReward);
-				updateScore();
-				
-			}
-		}
-	};	
+
 	
 
 //EINDE
 //ONCLICK LISTENERS
 //
 
-	
+	private void waitAfterClick(Button button, int duration) throws InterruptedException{
+		int miliseconds = duration *100;
+		
+		button.setClickable(false);
+		button.wait(miliseconds);
+		button.setClickable(true);
+	}
 	
 
 

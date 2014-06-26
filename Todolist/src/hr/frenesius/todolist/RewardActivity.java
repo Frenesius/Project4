@@ -1,7 +1,9 @@
 package hr.frenesius.todolist;
 
 import java.util.ArrayList;
+
 import android.widget.RadioGroup.OnCheckedChangeListener;
+
 import java.util.List;
 
 import hr.frenesius.data.DbDatabaseCreate;
@@ -19,6 +21,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -314,6 +317,8 @@ private void addButton(){
 			}if(checkGroup =="rg3"){	
 				selectedGroup = rg3;
 			}
+			RadioButton rb = (RadioButton) findViewById(selectedGroup.getCheckedRadioButtonId());
+			rb.setBackgroundColor(Color.BLUE);
 			
 			boolean defaultCheck = false;
 			
