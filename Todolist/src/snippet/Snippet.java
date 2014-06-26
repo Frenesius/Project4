@@ -7,6 +7,7 @@ import hr.frenesius.todolist.R;
 import java.util.Calendar;
 
 import android.graphics.drawable.Drawable;
+import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
@@ -283,7 +284,37 @@ public class Snippet {
 	
 	
 	
-	
+	View.OnClickListener selectButtonListener = new View.OnClickListener() {
+		public void onClick(View v) {
+			try{
+			boolean defaultCheck = false;
+			
+			rg = (RadioGroup) findViewById(RADIOGROUP_ID);
+			unselectEverything();
+				switch(rg.getCheckedRadioButtonId()){
+					case 1121:
+						updateSelectTable(0);
+						break;
+					case 1122:
+						updateSelectTable(1);
+						break;
+					case 1123:
+						updateSelectTable(2);
+						break;
+					default:
+						Toast.makeText(getApplicationContext(), "Please select a reward.", Toast.LENGTH_SHORT).show();
+						defaultCheck = true;
+				}if(!defaultCheck){
+						restartActivity();
+				}else{
+					Toast.makeText(getApplicationContext(), "You do not have enough points.", Toast.LENGTH_SHORT).show();
+				}
+			}catch(Exception e){
+				Toast.makeText(getApplicationContext(), "You do not unlocked this reward.", Toast.LENGTH_LONG).show();
+			}
+			}
+	};
+
 	
 	
 	

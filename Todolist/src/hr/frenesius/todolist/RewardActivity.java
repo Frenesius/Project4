@@ -299,7 +299,6 @@ private void addButton(){
 	
 	//TODO IF CHECKED CHANGE PLAATJE NAAR BLAUW
 	
-	//TODO CODE NETJES ZETTEN
 	View.OnClickListener buyButtonListener = new View.OnClickListener() {
 		public void onClick(View v) {	
 			
@@ -317,7 +316,7 @@ private void addButton(){
 			}
 			
 			boolean defaultCheck = false;
-			//TODO netjes zetten
+			
 			if(MainActivity.user.getRewardpoint()>0){
 				switch(selectedGroup.getCheckedRadioButtonId()){
 				case 113131:
@@ -360,7 +359,7 @@ private void addButton(){
 					restartActivity();
 				}
 			}else{
-				Toast.makeText(getApplicationContext(), "You do not have enough money.", Toast.LENGTH_SHORT);
+				Toast.makeText(getApplicationContext(), "You do not have enough money.", Toast.LENGTH_SHORT).show();
 			}
 		}
 	};
@@ -375,6 +374,75 @@ private void addButton(){
 		}
 		return checkGroup;
 	}
+	//TODO
+	View.OnClickListener selectButtonListener = new View.OnClickListener() {
+		public void onClick(View v) {
+			unselectEverything();
+			
+			RadioGroup rg1 = (RadioGroup) findViewById(RADIOGROUP_ID);
+			RadioGroup rg2 = (RadioGroup) findViewById(RADIOGROUP_ID+1);
+			RadioGroup rg3 = (RadioGroup) findViewById(RADIOGROUP_ID+2);
+			RadioGroup selectedGroup = null;
+			String checkGroup = checkGroupSelected(rg1,rg2,rg3);
+			
+			if(checkGroup == "rg1"){	
+				selectedGroup = rg1;
+			}if(checkGroup == "rg2"){
+				selectedGroup = rg2;
+			}if(checkGroup =="rg3"){	
+				selectedGroup = rg3;
+			}
+			
+			boolean defaultCheck = false;
+			
+			try{
+				switch(selectedGroup.getCheckedRadioButtonId()){
+				case 113131:
+					updateSelectTable(0);
+					break;
+				case 113132:
+					updateSelectTable(1);
+					break;
+				case 113133:
+					updateSelectTable(2);
+					break;
+				case 113134:
+					updateSelectTable(3);
+					break;
+				case 113135:
+					updateSelectTable(4);
+					break;
+				case 113136:
+					updateSelectTable(5);
+					break;
+				case 113137:
+					updateSelectTable(6);
+					break;
+				case 113138:
+					updateSelectTable(7);
+					break;
+				case 113139:
+					updateSelectTable(8);
+					break;
+				case 113140:
+					updateSelectTable(9);
+					break;
+				default:
+					Toast.makeText(getApplicationContext(), "Please select a reward.", Toast.LENGTH_SHORT).show();
+					defaultCheck = true;
+			}
+			
+				if(!defaultCheck){
+					updateScore();
+					restartActivity();
+				}
+			}catch(Exception e){
+				Toast.makeText(getApplicationContext(), 
+						"You do not have this reward bought yet.", Toast.LENGTH_SHORT).show();
+			}			
+		
+		}
+	};
 
 	
 	
@@ -418,39 +486,9 @@ private void addButton(){
 		tv.setText("Your score is: " + user.getRewardpoint());
 	} 
 	 
-	View.OnClickListener selectButtonListener = new View.OnClickListener() {
-		public void onClick(View v) {
-			try{
-			boolean defaultCheck = false;
-			
-			rg = (RadioGroup) findViewById(RADIOGROUP_ID);
-			unselectEverything();
-				switch(rg.getCheckedRadioButtonId()){
-					case 1121:
-						updateSelectTable(0);
-						break;
-					case 1122:
-						updateSelectTable(1);
-						break;
-					case 1123:
-						updateSelectTable(2);
-						break;
-					default:
-						Toast.makeText(getApplicationContext(), "Please select a reward.", Toast.LENGTH_SHORT).show();
-						defaultCheck = true;
-				}if(!defaultCheck){
-						restartActivity();
-				}else{
-					Toast.makeText(getApplicationContext(), "You do not have enough points.", Toast.LENGTH_SHORT).show();
-				}
-			}catch(Exception e){
-				Toast.makeText(getApplicationContext(), "You do not unlocked this reward.", Toast.LENGTH_LONG).show();
-			}
-			}
-	};
 				
 
-	//TODO
+	//TODO SELECT
 	private void updateSelectTable(int habitNumber){
 		Reward rw = rewardList.get(habitNumber);
 		rw.selectReward();
