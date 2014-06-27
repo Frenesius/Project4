@@ -433,8 +433,10 @@ public class MainActivity extends ActionBarActivity {
 						TableRow tr = new TableRow(this);
 						TextView tv = new TextView(this); 
 							tv.setText(Title + "\n" + description); 
-						
 					
+						//Delete Row
+						TableRow r = (TableRow) findViewById(R.id.tableRow11);
+							ll.removeView(r);
 						//Params
 							lptr.weight = 8;				
 							lptv.weight = 7;

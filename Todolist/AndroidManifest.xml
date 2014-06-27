@@ -12,9 +12,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/applogo"
+        android:icon="@drawable/logo2"
         android:label="@string/app_name"
-        android:logo="@drawable/applogo"
+        android:logo="@drawable/logo2"
         android:theme="@style/AppTheme" >
 
         <!-- Activity info -->

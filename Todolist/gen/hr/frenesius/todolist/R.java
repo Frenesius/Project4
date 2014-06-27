@@ -1183,10 +1183,11 @@ containing a value of this type.
         public static final int ic_action_good_onclick=0x7f0200b8;
         public static final int ic_action_new=0x7f0200b9;
         public static final int ic_launcher=0x7f0200ba;
-        public static final int thebad_idle=0x7f0200bb;
-        public static final int thebad_onclick=0x7f0200bc;
-        public static final int thegood_idle=0x7f0200bd;
-        public static final int thegood_onclick=0x7f0200be;
+        public static final int logo2=0x7f0200bb;
+        public static final int thebad_idle=0x7f0200bc;
+        public static final int thebad_onclick=0x7f0200bd;
+        public static final int thegood_idle=0x7f0200be;
+        public static final int thegood_onclick=0x7f0200bf;
     }
     public static final class id {
         public static final int BadhabitsMain=0x7f060055;

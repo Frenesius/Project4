@@ -1,17 +1,9 @@
 package hr.frenesius.list;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.widget.TextView;
+
 import hr.frenesius.todolist.MainActivity;
 import hr.frenesius.todolist.R;
-import hr.frenesius.data.DbDatabaseCreate;
-import hr.frenesius.data.DbHelper;
-import hr.frenesius.list.User;
+
 public class Reward {
 	/**
 	 * This class contains Reward object
